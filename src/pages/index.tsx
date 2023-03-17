@@ -1,7 +1,7 @@
-import dynamic from "next/dynamic";
-import { useState } from "react";
+import dynamic from "next/dynamic"
+import { useState } from "react"
 
-const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
+const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const heatmapData = [
   { name:"convention",data: [
