@@ -1,15 +1,14 @@
 import { useRouter } from "next/router"
 
-//fixed top-0 w-full
 const Header = () => {
-  const {push} = useRouter()
+  const {push , pathname} = useRouter()
     return(
 <header className="bg-blue-500 flex justify-between p-2 lg:p-5 lg:px-24 font-bold">
-  <h3 className="text-md lg:text-2xl hover:text-white" onClick={()=>push('/')}>DoneList</h3>
+  <h3 className={`text-md lg:text-2xl hover:text-white ${pathname==='/'?"text-white":null}`} onClick={()=>push('/')}>DoneList</h3>
   <div className="flex items-center">
   {["Calender","Chart","Follower","Setting","Log-out"].map((item,index)=>{
     return(
-    <span key={index} className="text-xs lg:text-lg mx-1 lg:mx-3 hover:text-white"
+    <span key={index} className={`${pathname===`/${item.toLowerCase()}`?"text-white" :null} text-xs lg:text-lg mx-1 lg:mx-3 hover:text-white`}
     onClick={e=>{if(e.currentTarget.innerText==="Chart")push('/chart')}}
     >{item}</span>)
   })}
