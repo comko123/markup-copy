@@ -115,7 +115,6 @@ ${item.follow?"border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
 </div>
     </div>)})}
    </div>
-
 </aside>
     </div>)
 }
