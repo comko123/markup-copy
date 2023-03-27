@@ -1,8 +1,11 @@
+import LayOut from "@/components/LayOut"
+import { NextPage } from "next"
 import { useState } from "react"
 
-const Profil = () => {
+const Profil:NextPage = () => {
   const [profilState,setProfilState] = useState(true)
-    return(<div className="flex mx-6 md:mx-10 lg:mx-14 my-10">
+    return(<LayOut login={true}>
+      <div className="flex mx-6 md:mx-10 lg:mx-14 my-10">
        <nav className="border-r-2 border-gray-300 w-60 lg:w-80 h-[75vh]  md:pr-5">
        <div className={`bg-gray-100 w-48 lg:w-72 ${profilState?"h-[18rem] lg:h-80":"h-[21rem] lg:h-96"} rounded-xl pt-2 relative shadow-xl`}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
@@ -72,11 +75,12 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${profi
   <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 </svg>
 </div> 
+
  <div className="font-bold text-center w-44 lg:w-72 mt-7">
   <button className="shadow-lg border-2 border-blue-500 text-blue-500 p-2 rounded-xl hover:bg-blue-500 hover:text-white">회원 탈퇴</button></div>
        </nav>
-<aside className="overflow-x-hidden pt-3">
-    <div className="flex font-bold justify-between px-8 w-[38vh] md:w-[55vw] text-xs md:text-lg ml-2 lg:ml-9 border-b-2 border-gray-300 pb-3">
+<aside className="overflow-x-hidden pt-3 w-[80%]">
+    <div className="flex font-bold justify-between px-8 w-full text-xs md:text-lg ml-2 lg:ml-9 border-b-2 border-gray-300 pb-3">
         <div className="mx-auto ring-4 ring-blue-500 p-2 rounded-lg">Follower</div>
         <div className="mx-auto p-2 rounded-lg relative">Request 
         <div className="absolute bottom-[1.4rem] -right-1 rounded-full bg-red-500 text-white px-[0.3rem] py-[0.1rem] text-xs">3</div></div>
@@ -84,15 +88,16 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${profi
     <form onSubmit={e=>e.preventDefault()} className="relative">
         <input type="text" className="w-[90%] shadow-lg p-2 font-bold bg-gray-100 mt-5 ml-4 md:ml-9 rounded-lg outline-none"/>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} 
-        stroke="currentColor" className="w-6 h-6 absolute top-6 right-3 md:right-7 lg:right-12 mt-1">
+        stroke="currentColor" className="w-6 h-6 absolute top-6 right-[8%] mt-1">
   <path strokeLinecap="round" strokeLinejoin="round" 
   d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
 </svg>
     </form>
+   
    <div className="max-h-[60vh] overflow-auto mt-5 scrollbar-hide">
    {Array(5).fill({avatar:"",name:"Name",
     timeLine:"Hi, i'm Devops engineer",follow:true}).map((item,index)=>{return(
-    <div key={index} className="my-5 ml-4 md:ml-9 bg-gray-100 rounded-xl flex h-20 lg:h-32 w-[90%] md:w-[93%] p-1 lg:p-4 shadow-lg">
+    <div key={index} className="my-5 ml-4 md:ml-9 bg-gray-100 rounded-xl flex h-20 lg:h-32 w-[90%] p-1 lg:p-4 shadow-lg">
         {item.avatar?
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
         className="w-20 aspect-square p-1 bg-white rounded-full my-auto mr-4">
@@ -116,6 +121,7 @@ ${item.follow?"border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
     </div>)})}
    </div>
 </aside>
-    </div>)
+    </div>
+    </LayOut>)
 }
 export default Profil

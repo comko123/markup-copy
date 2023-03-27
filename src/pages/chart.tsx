@@ -1,18 +1,19 @@
+import LayOut from "@/components/LayOut"
 import dynamic from "next/dynamic"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
-const lineData = [{ name: "월별 실패율",data: [14, 16, 4, 12,5,14, 16, 4, 12,5,4,20],},
-{name:"월별 성공률",data:[19, 26, 20, 9,40,19, 26, 20, 9,4,19,17]}]
+const lineData = [{ name: "월별 실패율",data:[10,0,5,15,40,0,0,0,5,35,0,0]},
+{name:"월별 성공률",data:[40,45,20,30,18,45,45,25,35,15,45,50]}]
 
-const dounetChart = { labels:['일상', '공부', '운동', '업무', '기타'], 
-plotOptions:{pie:{donut:{labels:{show:true,total:{show:true}}}}},
-chart:{height: 50,width: 50},legend:{fontWeight: 600} }
+const dounetChart = {labels:['일상','공부','운동','업무','기타'], 
+plotOptions:{pie:{donut:{size:"50%",labels:{show:true,total:{show:true,fontWeight:800}}}}},
+chart:{height:50,width:50},legend:{fontWeight: 600} }
 
-const dounetChart2 = { labels:['게으름', '일정 타이트', '특별한 일정', '우선순위 변화', '기타'], 
-plotOptions:{pie:{donut:{labels:{show:true,total:{show:true}}}}},legend:{fontWeight: 600},
-chart:{height: 50,width: 50} }
+const dounetChart2 = {labels:['게으름','일정 타이트','특별한 일정','우선순위 변화','기타'], 
+plotOptions:{pie:{donut:{size:"50%",labels:{show:true,total:{show:true,fontWeight:800}}}}},
+legend:{fontWeight:600},chart:{height: 50,width: 50} }
 
-const barData = [{name: '일별 실패율',
+const barData = [{name:'일별 실패율',
 data: [47,55,57,56,61,58,63]},
 {name:'월별 성공률',
 data: [76,85,101,98,87,105,91]}]
@@ -20,9 +21,9 @@ data: [76,85,101,98,87,105,91]}]
 const radialBarChart = {labels:['A', 'B', 'C', 'D', 'E'],
 plotOptions:{radialBar:{track:{margin:0},dataLabels:{total:{show:true,label:'total'}}}}}
 
-const lineOption = {chart:{height: 50,width: 50,toolbar:{show:false}},
+const lineOption = {chart:{height: 50,width: 50,toolbar:{show:false},zoom:{enabled:false}},
 legend:{position:"top" as "top", horizontalAlign:"right" as "right", fontWeight: 600,} ,
-stroke: {curve:"straight" as "straight" | "smooth" | "stepline",width: 6},
+stroke: {curve:"straight" as "straight",width:3},
 grid: {show:true,xaxis:{lines:{show:false}},yaxis:{lines:{show:false}}},yaxis:{show:false}}
 
 const rowBarData = [{name: 'A',
@@ -40,7 +41,8 @@ grid:{show:false}}
 
 const Chart = () => {
     const total ={total_sucess:"90%",total_delay:"10%"}
-return(<main className="my-10 pt-2">
+return(<LayOut login>
+    <main className="my-10 pt-2">
 <div className="border-2 text-center mx-auto border-amber-900 w-[80%] p-1 rounded-xl font-bold shadow-xl">
 <select className="outline-none text-sm lg:text-md">
         <option>2023년 10월</option>
@@ -94,13 +96,13 @@ options={radialBarChart}/>
     <div className="flex flex-col lg:flex-row lg:justify-between">
     <div className="mx-auto lg:ml-6 text-xs lg:text-lg">10월 To Do List 생성한 카테고리 비율</div>
     <div className="mt-2 lg:mt-0 mx-auto lg:mx-0">
-    <select  className="text-xs lg:text-lg border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
+    <select  className="text-xs lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
     <option value="1week">1week</option>
     <option value="2week">2week</option>
     <option value="3week">3week</option>
     <option value="4week">4week</option>
     </select>
-    <select  className="text-xs lg:text-lg border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
+    <select  className="text-xs lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
     <option>오름차순</option>
     <option>내림차순</option>
     </select>
@@ -152,6 +154,7 @@ options={barOption}/>
 <ApexChart type='bar' height={300}
 series={barData}
 options={grapeOption} /></div></div>
-</main>)
+</main>
+</LayOut>)
 }
 export default Chart

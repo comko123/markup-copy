@@ -1,9 +1,13 @@
+import LayOut from "@/components/LayOut"
+import { NextPage } from "next"
 import { useRouter } from "next/router"
 
-const ErrorPage = () => {
+const ErrorPage:NextPage = () => {
     const {replace} = useRouter()
-    return(<main className="flex flex-col items-center justify-center h-[85vh]">
-        <div className=" bg-blue-100 border-2 border-blue-500 p-5 rounded-2xl h-[65vh] xl:w-[30vw] lg:w-[50vw] w-[70vw]">
+    return(<LayOut>
+       <main className="grid h-[90vh] grid-cols-1 place-items-center">
+       <div>
+        <div className=" bg-blue-100 mx-auto border-2 border-blue-500 p-5 rounded-2xl h-full w-[60%]">
             <div className="text-[2rem] text-red-600 font-bold text-center">&#8251;ERROR&#8251;</div>
             <div className="grid gap-16">
             <div className="grid grid-cols-1 gap-10">
@@ -18,6 +22,8 @@ const ErrorPage = () => {
             className="bg-blue-500 p-2 rounded-lg text-white font-bold hover:bg-blue-400">home</button>
             </div>
             </div>
-    </main>)
+    </div>
+       </main>
+    </LayOut>)
 }
 export default ErrorPage
