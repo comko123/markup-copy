@@ -158,7 +158,7 @@ const heatmapData = [
 {x:'W4',y:5},{x:'W4',y:0},{x:'W4',y:32}]}]
 
 const Home:NextPage = () => {
-  const [login,setLogin] = useState(false)
+  const [login,_] = useState(true)
   const[state,setState] = useState(
     [{title:"Contribution Activity",contentList:{
       content1:"2022-12-22 : 책읽기",
@@ -198,19 +198,21 @@ const Home:NextPage = () => {
            {title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
            {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"}]},
            {key:"Done" , rest:[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"}]}
-       ].map((item,index)=>{return(<div key={index} 
-   className="scrollbar-hide p-3 shadow-xl border-2 border-gray-300 w-full my-2 lg:my-0  h-[30vh] md:h-[48vh] max-h-[48vh] rounded-lg overflow-auto">
-         <div className="bg-blue-500 text-center py-2 text-white rounded-md">{item.key} ({item.rest.length})</div>
-          {item.rest.map((item,index)=>{
-           return(<div key={index} className="border-2 border-blue-500 my-2 p-2 rounded-md">
+       ].map((item,index)=>{return(
+<div  key={index}
+   className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col ">
+<div className="bg-blue-500 text-center py-2 text-white rounded-md">{item.key} ({item.rest.length})</div>
+         <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
+         {item.rest.map((item,index)=>{
+           return(<div key={index} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer">
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
              <div className=" text-[0.1em] flex font-semibold">
                <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category}</div>
                <div className="m-1 lg:m-2">{item.date}</div>
                <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500":item.level==="Low"?"bg-yellow-400":"bg-green-500"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
-                </div></div>)})} </div>)})}
+                </div></div>)})}</div></div>)})}
        </section>
-   
+
    <section className="border-2 border-gray-300 my-5 rounded-lg shadow-xl w-full" id="graph_part">
    <div className="mx-8 border-b-2 py-3 flex flex-col  md:flex-row justify-between">
    <div className="text-md lg:text-lg flex items-center mx-auto md:mx-0">480 done in the year</div>

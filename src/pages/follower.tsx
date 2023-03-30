@@ -44,7 +44,7 @@ className="ml-2 lg:ml-8 mt-5 lg:mt-3 w-44 lg:w-56 rounded-lg p-1 font-bold borde
 stroke="currentColor" className="w-3 lg:w-5 aspect-square mt-[0.2rem]">
   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
 </svg>
-<div className="ml-1 w-28 lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">Hi, i'm Devops engineer</div>
+<div className="ml-1 w-28 lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">Hi, i&apos;m Devops engineer</div>
 </div>:<input defaultValue="Hi, i'm Devops engineer"
 className="ml-2 lg:ml-8 mt-5 lg:mt-3 w-44 lg:w-56 rounded-lg p-1 font-bold border-2 text-xs lg:text-md border-blue-500 outline-none "/>}
 
