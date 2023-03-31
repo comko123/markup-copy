@@ -159,6 +159,16 @@ const heatmapData = [
 
 const Home:NextPage = () => {
   const [login,_] = useState(true)
+  const [dialog,setDialog] = useState(
+    {"To Do":[
+      {title:"SpringBoot 2강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
+      {title:"헬스장 가기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"},
+      {title:"쓰레기 버리기",category:"Study",date:"2022.12.01~2022.12.31",level:"Low"}],
+      "In Progress":[
+      {title:"React 6강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
+      {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"}],
+      "Done":[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"}]}
+  )
   const[state,setState] = useState(
     [{title:"Contribution Activity",contentList:{
       content1:"2022-12-22 : 책읽기",
@@ -190,20 +200,14 @@ const Home:NextPage = () => {
        </section>
    
        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
-         {[{key:"To Do" , rest:[
-           {title:"SpringBoot 2강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
-           {title:"헬스장 가기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"},
-           {title:"쓰레기 버리기",category:"Study",date:"2022.12.01~2022.12.31",level:"Low"}]},
-           {key:"In Progress" , rest:[
-           {title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
-           {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"}]},
-           {key:"Done" , rest:[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"}]}
-       ].map((item,index)=>{return(
+         {Object.keys(dialog).map((item,index)=>{return(
 <div  key={index}
    className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col ">
-<div className="bg-blue-500 text-center py-2 text-white rounded-md">{item.key} ({item.rest.length})</div>
+    {/* @ts-ignore */}
+<div className="bg-blue-500 text-center py-2 text-white rounded-md">{item} ({dialog[item].length})</div>
          <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
-         {item.rest.map((item,index)=>{
+          {/* @ts-ignore */}
+         {dialog[item].map((item,index)=>{
            return(<div key={index} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer">
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
              <div className=" text-[0.1em] flex font-semibold">

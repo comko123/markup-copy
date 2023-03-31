@@ -1,16 +1,48 @@
 import LayOut from "@/components/LayOut"
 import { useEffect, useState } from "react"
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import { DragDropContext, Droppable, DropResult} from "@hello-pangea/dnd"
+import DragList from "@/components/DragList"
+type  state = {[key:string]:{[key:string]:string}[]} 
 const Calender = () => {
-  const onDragEnd = () => {}
+
   const [enabled, setEnabled] = useState(false)
+  const  [state,setState] = useState<state>({"To Do":[
+    {title:"SpringBoot 2강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
+    {title:"헬스장 가기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"},
+    {title:"쓰레기 버리기",category:"Study",date:"2022.12.01~2022.12.31",level:"Low"}],
+    "In Progress":[
+    {title:"React 6강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
+    {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"}],
+    "Done":[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"}]})
+const onDragEnd = ({ destination, source }: DropResult) => {
+  if (!destination) return;
+  if(destination.droppableId === source.droppableId){
+    setState(state=>{
+      const copy = [...state[source.droppableId]]
+      const copyState = copy[source.index]
+      copy.splice(source.index, 1)
+      copy.splice(destination?.index, 0, copyState)
+      return {...state as state,[source.droppableId]:copy}
+    })
+  }
+  if (destination.droppableId !== source.droppableId) {
+          setState((allBoards) => {
+            const sourceBoard = [...allBoards[source.droppableId]]
+            const destinationBoard = [...allBoards[destination.droppableId]]
+            const copyState = sourceBoard[source.index]
+            sourceBoard.splice(source.index, 1);
+            destinationBoard.splice(destination?.index, 0, copyState);
+            return {...allBoards as state,[source.droppableId]: sourceBoard,
+              [destination.droppableId]: destinationBoard}
+          })
+        }
+  }
 
   useEffect(() => {
     const animation = requestAnimationFrame(() => setEnabled(true))
     return () => {
       cancelAnimationFrame(animation)
-      setEnabled(false)
-    }
+      setEnabled(false)}
   }, [])
 return(<>{enabled?
   <LayOut login>
@@ -34,32 +66,17 @@ return(<>{enabled?
 
         <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
          <DragDropContext onDragEnd={onDragEnd}>         
-          {[{key:"To Do" , rest:[
-           {title:"SpringBoot 2강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
-           {title:"헬스장 가기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"},
-           {title:"쓰레기 버리기",category:"Study",date:"2022.12.01~2022.12.31",level:"Low"}]},
-           {key:"In Progress" , rest:[
-           {title:"React 6강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
-           {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"}]},
-           {key:"Done" , rest:[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"}]}
-       ].map((item,index)=>{return(
+          {Object.keys(state).map((item,index)=>{return(
 <div  key={index}
    className="p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
-<div className="bg-blue-500 text-center py-2 text-white rounded-md">{item.key} ({item.rest.length})</div>
-      <Droppable droppableId={item.key}>
+    {/* @ts-ignore */}
+<div className="bg-blue-500 text-center py-2 text-white rounded-md">{item} ({state[item].length})</div>
+      <Droppable droppableId={item}>
         {(provider)=><div {...provider.droppableProps} ref={provider.innerRef} 
         className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
-         {item.rest.map((item,index)=>{
-           return(<Draggable key={index} draggableId={item.title} index={index}>
-            {(provied)=><div ref={provied.innerRef} {...provied.dragHandleProps} {...provied.draggableProps}
-            className="border-2 border-blue-500 my-2 p-2 rounded-md bg-white">
-             <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
-             <div className=" text-[0.1em] flex font-semibold">
-               <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category}</div>
-               <div className="m-1 lg:m-2">{item.date}</div>
-               <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500":item.level==="Low"?"bg-yellow-400":"bg-green-500"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
-                </div></div>}
-           </Draggable>)})}
+         {/* @ts-ignore */}
+         {state[item].map((item,index)=>{
+           return(<DragList item ={item} index={index} key={Math.random()*100/Math.random()}/>)})}
            {provider.placeholder}
            </div>
            }
