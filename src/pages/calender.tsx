@@ -1,20 +1,9 @@
 import LayOut from "@/components/LayOut"
-import { useEffect, useState } from "react"
+import {  SetStateAction, useEffect, useState } from "react"
 import { DragDropContext, Droppable, DropResult} from "@hello-pangea/dnd"
 import DragList from "@/components/DragList"
-type  state = {[key:string]:{[key:string]:string}[]} 
-const Calender = () => {
 
-  const [enabled, setEnabled] = useState(false)
-  const  [state,setState] = useState<state>({"To Do":[
-    {title:"SpringBoot 2강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
-    {title:"헬스장 가기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"},
-    {title:"쓰레기 버리기",category:"Study",date:"2022.12.01~2022.12.31",level:"Low"}],
-    "In Progress":[
-    {title:"React 6강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
-    {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"}],
-    "Done":[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"}]})
-const onDragEnd = ({ destination, source }: DropResult) => {
+const onDragEnd = ({ destination, source }: DropResult ,setState:(value: SetStateAction<state>) => void) => {
   if (!destination) return;
   if(destination.droppableId === source.droppableId){
     setState(state=>{
@@ -26,17 +15,28 @@ const onDragEnd = ({ destination, source }: DropResult) => {
     })
   }
   if (destination.droppableId !== source.droppableId) {
-          setState((allBoards) => {
-            const sourceBoard = [...allBoards[source.droppableId]]
-            const destinationBoard = [...allBoards[destination.droppableId]]
+          setState((state) => {
+            const sourceBoard = [...state[source.droppableId]]
+            const destinationBoard = [...state[destination.droppableId]]
             const copyState = sourceBoard[source.index]
             sourceBoard.splice(source.index, 1);
             destinationBoard.splice(destination?.index, 0, copyState);
-            return {...allBoards as state,[source.droppableId]: sourceBoard,
+            return {...state as state,[source.droppableId]: sourceBoard,
               [destination.droppableId]: destinationBoard}
           })
         }
   }
+
+const Calender = () => {
+  const [enabled, setEnabled] = useState(false)
+  const  [state,setState] = useState<state>({"To Do":[
+    {title:"SpringBoot 2강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
+    {title:"헬스장 가기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"},
+    {title:"쓰레기 버리기",category:"Study",date:"2022.12.01~2022.12.31",level:"Low"}],
+    "In Progress":[
+    {title:"React 6강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
+    {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"}],
+    "Done":[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"}]})
 
   useEffect(() => {
     const animation = requestAnimationFrame(() => setEnabled(true))
@@ -65,7 +65,7 @@ return(<>{enabled?
         </section>
 
         <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
-         <DragDropContext onDragEnd={onDragEnd}>         
+         <DragDropContext onDragEnd={({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)}>         
           {Object.keys(state).map((item,index)=>{return(
 <div  key={index}
    className="p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
@@ -76,7 +76,7 @@ return(<>{enabled?
         className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
          {/* @ts-ignore */}
          {state[item].map((item,index)=>{
-           return(<DragList item ={item} index={index} key={Math.random()*100/Math.random()}/>)})}
+           return(<DragList item ={item} index={index} key={item.title}/>)})}
            {provider.placeholder}
            </div>
            }
