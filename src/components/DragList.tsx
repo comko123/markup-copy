@@ -2,8 +2,9 @@ import { Draggable } from "@hello-pangea/dnd"
 import { memo } from "react"
 
 const DragList = ({item,index}:dragListProps) => {
+  console.log({index})
 
-return(<Draggable draggableId={item.title} index={index}>
+return(<Draggable draggableId={item.id} index={index}>
 {(provied)=><div ref={provied.innerRef} {...provied.dragHandleProps} {...provied.draggableProps}
 className="border-2 border-blue-500 my-2 p-2 rounded-md bg-white"> 
  <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
