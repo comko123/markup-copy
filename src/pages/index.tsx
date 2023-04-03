@@ -82,9 +82,7 @@ const Home:NextPage = () => {
    {from:3,to:4,color:"rgb(130, 225, 119)"},
    {from:5,to:6,color:"rgb(41, 179, 82)"},
    {from:7,to:8,color:"rgb(33, 132, 62)"},
-   {from:9,to:10,color:"rgb(21, 83, 40)"},
-   {from:11,to:100000,color:"rgb(21, 83, 40)"}
-   
+   {from:9,to:100000000,color:"rgb(21, 83, 40)"}   
    ]
       }}}
    }}/>
