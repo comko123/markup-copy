@@ -1,42 +1,14 @@
 import LayOut from "@/components/LayOut"
-import {  SetStateAction, useEffect, useState } from "react"
+import {  useEffect, useState } from "react"
 import { DragDropContext, Droppable, DropResult} from "@hello-pangea/dnd"
 import DragList from "@/components/DragList"
-import {v1} from "uuid"
-const onDragEnd = ({ destination, source }: DropResult ,setState:(value: SetStateAction<state>) => void) => {
-  if (!destination) return;
-  if(destination.droppableId === source.droppableId){
-    setState(state=>{
-      const copy = [...state[source.droppableId]]
-      const copyState = copy[source.index]
-      copy.splice(source.index, 1)
-      copy.splice(destination?.index, 0, copyState)
-      return {...state as state,[source.droppableId]:copy}
-    })
-  }
-  if (destination.droppableId !== source.droppableId) {
-          setState((state) => {
-            const sourceBoard = [...state[source.droppableId]]
-            const destinationBoard = [...state[destination.droppableId]]
-            const copyState = sourceBoard[source.index]
-            sourceBoard.splice(source.index, 1);
-            destinationBoard.splice(destination?.index, 0, copyState);
-            return {...state as state,[source.droppableId]: sourceBoard,
-              [destination.droppableId]: destinationBoard}
-          })
-        }
-  }
+import { useRecoilState } from "recoil"
+import { listAtom } from "@/atoms/listAtoms"
+import { onDragEnd } from "@/utils/onDragEnd"
 
 const Calender = () => {
   const [enabled, setEnabled] = useState(false)
-  const  [state,setState] = useState<state>({"To Do":[
-    {title:"SpringBoot 2강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High",id:v1()},
-    {title:"헬스장 가기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium",id:v1()},
-    {title:"쓰레기 버리기",category:"Study",date:"2022.12.01~2022.12.31",level:"Low",id:v1()}],
-    "In Progress":[
-    {title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High",id:v1()},
-    {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium",id:v1()}],
-    "Done":[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High",id:v1()}]})
+  const  [state,setState] = useRecoilState(listAtom)
 
   useEffect(() => {
     const animation = requestAnimationFrame(() => setEnabled(true))
@@ -44,6 +16,7 @@ const Calender = () => {
       cancelAnimationFrame(animation)
       setEnabled(false)}
   }, [])
+
 return(<>{enabled?
   <LayOut login>
     <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-md font-bold grid grid-cols-1">
@@ -65,7 +38,9 @@ return(<>{enabled?
         </section>
 
         <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
-         <DragDropContext onDragEnd={({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)}>         
+         <DragDropContext onDragEnd={
+          ({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)
+          }>         
           {Object.keys(state).map(item=>{return(
 <div  key={item}
    className="p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">

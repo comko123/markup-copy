@@ -2,43 +2,6 @@ import LayOut from "@/components/LayOut"
 import dynamic from "next/dynamic"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
-const lineData = [{ name: "월별 실패율",data:[10,0,5,15,40,0,0,0,5,35,0,0]},
-{name:"월별 성공률",data:[40,45,20,30,18,45,45,25,35,15,45,50]}]
-
-const dounetChart = {labels:['일상','공부','운동','업무','기타'], 
-plotOptions:{pie:{donut:{size:"50%",labels:{show:true,total:{show:true,fontWeight:800}}}}},
-chart:{height:50,width:50},legend:{fontWeight: 600} }
-
-const dounetChart2 = {labels:['게으름','일정 타이트','특별한 일정','우선순위 변화','기타'], 
-plotOptions:{pie:{donut:{size:"50%",labels:{show:true,total:{show:true,fontWeight:800}}}}},
-legend:{fontWeight:600},chart:{height: 50,width: 50} }
-
-const barData = [{name:'일별 실패율',
-data: [47,55,57,56,61,58,63]},
-{name:'월별 성공률',
-data: [76,85,101,98,87,105,91]}]
-
-const radialBarChart = {labels:['A', 'B', 'C', 'D', 'E'],
-plotOptions:{radialBar:{track:{margin:0},dataLabels:{total:{show:true,label:'total'}}}}}
-
-const lineOption = {chart:{height: 50,width: 50,toolbar:{show:false},zoom:{enabled:false}},
-legend:{position:"top" as "top", horizontalAlign:"right" as "right", fontWeight: 600,} ,
-stroke: {curve:"straight" as "straight",width:3},
-grid: {show:true,xaxis:{lines:{show:false}},yaxis:{lines:{show:false}}},yaxis:{show:false}}
-
-const rowBarData = [{name: 'A',
-data: [44, 55,30,20,10]}]
-
-const barOption =  {chart:{stacked: true,toolbar:{show:false}}, 
-plotOptions: {bar: {horizontal:true}},grid:{show:false},
-yaxis:{labels:{show:false}},xaxis:{labels:{show:false},axisTicks:{show:false}}}
-
-const grapeOption = {chart:{height: 50,width: 50,toolbar:{show:false}},
-xaxis:{labels:{show:false},axisTicks:{show:false}},
-yaxis:{labels:{show:false}},
-legend:{position:"top" as "top", horizontalAlign:"right" as "right", fontWeight: 600,},
-grid:{show:false}}
-
 const Chart = () => {
     const total ={total_sucess:"90%",total_delay:"10%"}
 return(<LayOut login>
@@ -52,8 +15,14 @@ return(<LayOut login>
 </div>
 <div className='w-[80%] mx-auto border-2 border-gray-400 mt-5 rounded-xl shadow-xl'>
 <ApexChart type="line" height={250}
-series={lineData} 
-options={lineOption}/></div>
+series={[{ name: "월별 실패율",data:[10,0,5,15,40,0,0,0,5,35,0,0]},
+{name:"월별 성공률",data:[40,45,20,30,18,45,45,25,35,15,45,50]}]} 
+options={
+    {chart:{height: 50,width: 50,toolbar:{show:false},zoom:{enabled:false}},
+legend:{position:"top" as "top", horizontalAlign:"right" as "right", fontWeight: 600,} ,
+stroke: {curve:"straight" as "straight",width:3},
+grid: {show:true,xaxis:{lines:{show:false}},yaxis:{lines:{show:false}}},yaxis:{show:false}}
+}/></div>
 
 <div className='w-[80%] md:pr-7 xl:pr-0 mx-auto border-2 justify-between flex flex-col xl:flex-row border-gray-400 mt-5 rounded-xl shadow-xl'>
     <div className="pr-6 lg:pr-0 text-xs lg:text-[1em] my-auto">
@@ -65,8 +34,8 @@ options={lineOption}/></div>
         {[{title:"10월 1주",date:"10.01~10.07",succes:"90%",delay:"10%"},
           {title:"10월 2주",date:"10.08~10.15",succes:"90%",delay:"10%"},
           {title:"10월 3주",date:"10.16~10.22",succes:"90%",delay:"10%"},
-          {title:"10월 4주",date:"10.23~10.30",succes:"90%",delay:"10%"}].map((item,index)=>{return(
-          <div key={index} className="grid grid-cols-2 font-bold ml-6 pb-2">
+          {title:"10월 4주",date:"10.23~10.30",succes:"90%",delay:"10%"}].map(item=>{return(
+          <div key={item.title} className="grid grid-cols-2 font-bold ml-6 pb-2">
             <div className="w-48 mt-2 mb-1 pl-2">{item.title}({item.date})</div>
           <div className="flex justify-between mx-5">
           <div className="w-12 mt-2">{item.succes}</div>
@@ -84,10 +53,12 @@ options={lineOption}/></div>
 <div className="grid grid-cols-2">
 <ApexChart type="radialBar"height={250}
 series= {[100, 80, 90]}
-options={radialBarChart}/>
+options={{labels:['A', 'B', 'C', 'D', 'E'],
+plotOptions:{radialBar:{track:{margin:0},dataLabels:{total:{show:true,label:'total'}}}}}}/>
 <ApexChart type="radialBar"height={250}
 series= {[100, 80, 90]}
-options={radialBarChart}/>
+options={{labels:['A', 'B', 'C', 'D', 'E'],
+plotOptions:{radialBar:{track:{margin:0},dataLabels:{total:{show:true,label:'total'}}}}}}/>
 
 </div>
 </div>
@@ -113,10 +84,17 @@ options={radialBarChart}/>
 <div className="flex flex-col mt-4 lg:grid lg:grid-cols-2">
 <ApexChart type="donut" height={200}
 series={[44, 55, 41, 17, 15]}
-options={dounetChart}/>
+options={{labels:['일상','공부','운동','업무','기타'], 
+plotOptions:{pie:{donut:{size:"50%",labels:{show:true,total:{show:true,fontWeight:800}}}}},
+chart:{height:50,width:50},legend:{fontWeight: 600} }}/>
 <ApexChart type= 'bar' height={200}
-series={rowBarData}
-options={barOption}/>
+series={ [{name: 'A',data: [44, 55,30,20,10]}]}
+options={{
+    chart:{stacked: true,toolbar:{show:false}}, 
+     plotOptions: {bar: {horizontal:true}},grid:{show:false},
+     yaxis:{labels:{show:false}},xaxis:{labels:{show:false},axisTicks:{show:false}}
+
+}}/>
 </div>
 <button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg">전체보기</button>
     </div>  
@@ -142,18 +120,31 @@ options={barOption}/>
 <div className="flex flex-col mt-4 lg:grid lg:grid-cols-2">
 <ApexChart type="donut" height={200}
 series={[44, 55, 41, 17, 15]}
-options={dounetChart2}/>
+options={{labels:['게으름','일정 타이트','특별한 일정','우선순위 변화','기타'], 
+plotOptions:{pie:{donut:{size:"50%",labels:{show:true,total:{show:true,fontWeight:800}}}}},
+legend:{fontWeight:600},chart:{height: 50,width: 50} }}/>
 <ApexChart type= 'bar' height={200}
-series={rowBarData}
-options={barOption}/>
+series={ [{name: 'A',data: [44, 55,30,20,10]}]}
+options={{
+    chart:{stacked: true,toolbar:{show:false}}, 
+    plotOptions: {bar: {horizontal:true}},grid:{show:false},
+    yaxis:{labels:{show:false}},xaxis:{labels:{show:false},axisTicks:{show:false}}
+}}/>
 </div>
 <button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg">전체보기</button>
     </div>    
 <div className="relative">
 <span className="absolute top-2 left-2 lg:left-6 text-xs lg:text-lg">일별 성공율(주간)</span>   
 <ApexChart type='bar' height={300}
-series={barData}
-options={grapeOption} /></div></div>
+series={ [{name:'일별 실패율',
+data: [47,55,57,56,61,58,63]},
+{name:'월별 성공률',
+data: [76,85,101,98,87,105,91]}]}
+options={{chart:{height: 50,width: 50,toolbar:{show:false}},
+xaxis:{labels:{show:false},axisTicks:{show:false}},
+yaxis:{labels:{show:false}},
+legend:{position:"top" as "top", horizontalAlign:"right" as "right", fontWeight: 600},
+grid:{show:false}}} /></div></div>
 </main>
 </LayOut>)
 }

@@ -2,185 +2,17 @@ import LayOut from "@/components/LayOut"
 import dynamic from "next/dynamic"
 import { useState } from "react"
 import { NextPage } from "next"
+import { useRecoilState, useRecoilValue } from "recoil"
+import { listAtom } from "@/atoms/listAtoms"
+import { logAtom } from "@/atoms/logAtoms"
+import { heatmapData } from "@/sample_data_case/heatmapSample"
+import { logSample } from "@/sample_data_case/logSample"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
-
-const heatmapData = [
-  { name:"convention",data: [
-{x:'W1',y:24},{x:'W4',y:5},{x:'W4',y:8},
-{x:'W2',y:2},{x:'W2',y:2},{x:'W2',y:0},
-{x:'W2',y:0},{x:'W4',y:0},{x:'W4',y:1},
-{x:'W3',y:6},{x:'W4',y:5},{x:'W4',y:3},
-{x:'W4',y:5},{x:'W4',y:2},{x:'W4',y:6},
-{x:'W4',y:0},{x:'W4',y:5},{x:'W4',y:8},
-{x:'W4',y:5},{x:'W4',y:0},{x:'W4',y:5},
-{x:'W4',y:1},{x:'W4',y:5},{x:'W4',y:2},
-{x:'W4',y:5},{x:'W4',y:5},{x:'W4',y:5},
-{x:'W4',y:4},{x:'W4',y:0},{x:'W4',y:1},
-{x:'W4',y:0},{x:'W4',y:4},{x:'W4',y:0},
-{x:'W4',y:1},{x:'W4',y:5},{x:'W4',y:2},
-{x:'W4',y:8},{x:'W4',y:1},{x:'W4',y:0},
-{x:'W4',y:5},{x:'W4',y:0},{x:'W4',y:7},
-{x:'W4',y:2},{x:'W4',y:6},{x:'W4',y:4},
-{x:'W4',y:1},{x:'W4',y:2},{x:'W4',y:6},
-{x:'W4',y:0},{x:'W4',y:9},{x:'W4',y:2},
-{x:'W4',y:1},{x:'W4',y:4},{x:'W4',y:8},
-{x:'W4',y:5},{x:'W4',y:0},{x:'W4',y:1}
-]},
-  {
-  name:"convention",data: [
-{x:'W1',y:22},{x:'W4',y:5},{x:'W4',y:5},
-{x:'W2',y:2},{x:'W2',y:2},{x:'W2',y:2},
-{x:'W2',y:2},{x:'W4',y:1},{x:'W4',y:5},
-{x:'W3',y:6},{x:'W4',y:0},{x:'W4',y:4},
-{x:'W4',y:3},{x:'W4',y:7},{x:'W4',y:1},
-{x:'W4',y:12},{x:'W4',y:9},{x:'W4',y:0},
-{x:'W4',y:6},{x:'W4',y:0},{x:'W4',y:3},
-{x:'W4',y:6},{x:'W4',y:5},{x:'W4',y:10},
-{x:'W4',y:8},{x:'W4',y:2},{x:'W4',y:2},
-{x:'W4',y:2},{x:'W4',y:3},{x:'W4',y:6},
-{x:'W4',y:2},{x:'W4',y:8},{x:'W4',y:8},
-{x:'W4',y:4},{x:'W4',y:1},{x:'W4',y:2},
-{x:'W4',y:9},{x:'W4',y:2},{x:'W4',y:9},
-{x:'W4',y:1},{x:'W4',y:6},{x:'W4',y:1},
-{x:'W4',y:1},{x:'W4',y:2},{x:'W4',y:7},
-{x:'W4',y:2},{x:'W4',y:0},{x:'W4',y:6},
-{x:'W4',y:6},{x:'W4',y:2},{x:'W4',y:3},
-{x:'W4',y:7},{x:'W4',y:7},{x:'W4',y:2},
-{x:'W4',y:5},{x:'W4',y:9},{x:'W4',y:1}
-  ]},
-  {
-  name:"convention",data: [
-{x:'W1',y:1},{x:'W4',y:9},{x:'W4',y:5},
-{x:'W2',y:7},{x:'W2',y:2},{x:'W2',y:6},
-{x:'W2',y:6},{x:'W4',y:4},{x:'W4',y:8},
-{x:'W3',y:2},{x:'W4',y:8},{x:'W4',y:1},
-{x:'W4',y:1},{x:'W4',y:3},{x:'W4',y:3},
-{x:'W4',y:0},{x:'W4',y:4},{x:'W4',y:5},
-{x:'W4',y:0},{x:'W4',y:2},{x:'W4',y:8},
-{x:'W4',y:0},{x:'W4',y:5},{x:'W4',y:1},
-{x:'W4',y:2},{x:'W4',y:1},{x:'W4',y:4},
-{x:'W4',y:6},{x:'W4',y:8},{x:'W4',y:3},
-{x:'W4',y:22},{x:'W4',y:1},{x:'W4',y:1},
-{x:'W4',y:4},{x:'W4',y:3},{x:'W4',y:5},
-{x:'W4',y:7},{x:'W4',y:1},{x:'W4',y:10},
-{x:'W4',y:52},{x:'W4',y:0},{x:'W4',y:2},
-{x:'W4',y:0},{x:'W4',y:2},{x:'W4',y:4},
-{x:'W4',y:7},{x:'W4',y:6},{x:'W4',y:9},
-{x:'W4',y:2},{x:'W4',y:2},{x:'W4',y:1},
-{x:'W4',y:4},{x:'W4',y:1},{x:'W4',y:2},
-{x:'W4',y:1},{x:'W4',y:9},{x:'W4',y:5}
-  ]},
-  {
-  name:"convention",data: [
-{x:'W1',y:1},{x:'W4',y:5},{x:'W4',y:3},
-{x:'W2',y:8},{x:'W2',y:2},{x:'W2',y:4},
-{x:'W2',y:1},{x:'W4',y:2},{x:'W4',y:9},
-{x:'W3',y:7},{x:'W4',y:4},{x:'W4',y:2},
-{x:'W4',y:6},{x:'W4',y:7},{x:'W4',y:4},
-{x:'W4',y:2},{x:'W4',y:6},{x:'W4',y:10},
-{x:'W4',y:0},{x:'W4',y:10},{x:'W4',y:2},
-{x:'W4',y:0},{x:'W4',y:2},{x:'W4',y:8},
-{x:'W4',y:3},{x:'W4',y:9},{x:'W4',y:1},
-{x:'W4',y:10},{x:'W4',y:2},{x:'W4',y:1},
-{x:'W4',y:2},{x:'W4',y:1},{x:'W4',y:4},
-{x:'W4',y:5},{x:'W4',y:8},{x:'W4',y:2},
-{x:'W4',y:7},{x:'W4',y:6},{x:'W4',y:7},
-{x:'W4',y:2},{x:'W4',y:2},{x:'W4',y:2},
-{x:'W4',y:10},{x:'W4',y:2},{x:'W4',y:5},
-{x:'W4',y:6},{x:'W4',y:1},{x:'W4',y:3},
-{x:'W4',y:2},{x:'W4',y:3},{x:'W4',y:8},
-{x:'W4',y:8},{x:'W4',y:8},{x:'W4',y:9},
-{x:'W4',y:5},{x:'W4',y:5},{x:'W4',y:5}
- ]},
-  {
-  name:"convention",data: [
-{x:'W1',y:4},{x:'W4',y:5},{x:'W4',y:9},
-{x:'W2',y:2},{x:'W2',y:6},{x:'W2',y:2},
-{x:'W2',y:9},{x:'W4',y:1},{x:'W4',y:1},
-{x:'W3',y:6},{x:'W4',y:2},{x:'W4',y:2},
-{x:'W4',y:0},{x:'W4',y:4},{x:'W4',y:4},
-{x:'W4',y:0},{x:'W4',y:2},{x:'W4',y:3},
-{x:'W4',y:2},{x:'W4',y:1},{x:'W4',y:2},
-{x:'W4',y:6},{x:'W4',y:10},{x:'W4',y:6},
-{x:'W4',y:7},{x:'W4',y:4},{x:'W4',y:7},
-{x:'W4',y:1},{x:'W4',y:0},{x:'W4',y:1},
-{x:'W4',y:1},{x:'W4',y:8},{x:'W4',y:2},
-{x:'W4',y:8},{x:'W4',y:1},{x:'W4',y:0},
-{x:'W4',y:4},{x:'W4',y:7},{x:'W4',y:0},
-{x:'W4',y:2},{x:'W4',y:3},{x:'W4',y:8},
-{x:'W4',y:3},{x:'W4',y:6},{x:'W4',y:2},
-{x:'W4',y:5},{x:'W4',y:8},{x:'W4',y:1},
-{x:'W4',y:7},{x:'W4',y:0},{x:'W4',y:4},
-{x:'W4',y:1},{x:'W4',y:10},{x:'W4',y:3},
-{x:'W4',y:10},{x:'W4',y:2},{x:'W4',y:5}
-  ]},
-  {
-  name:"convention",data: [
-{x:'W1',y:1},{x:'W4',y:3},{x:'W4',y:5},
-{x:'W2',y:6},{x:'W2',y:1},{x:'W2',y:10},
-{x:'W2',y:4},{x:'W4',y:0},{x:'W4',y:5},
-{x:'W3',y:2},{x:'W4',y:6},{x:'W4',y:3},
-{x:'W4',y:0},{x:'W4',y:10},{x:'W4',y:7},
-{x:'W4',y:7},{x:'W4',y:4},{x:'W4',y:0},
-{x:'W4',y:0},{x:'W4',y:9},{x:'W4',y:2},
-{x:'W4',y:0},{x:'W4',y:8},{x:'W4',y:1},
-{x:'W4',y:2},{x:'W4',y:6},{x:'W4',y:0},
-{x:'W4',y:10},{x:'W4',y:7},{x:'W4',y:6},
-{x:'W4',y:4},{x:'W4',y:5},{x:'W4',y:7},
-{x:'W4',y:2},{x:'W4',y:1},{x:'W4',y:2},
-{x:'W4',y:51},{x:'W4',y:0},{x:'W4',y:4},
-{x:'W4',y:3},{x:'W4',y:2},{x:'W4',y:3},
-{x:'W4',y:0},{x:'W4',y:1},{x:'W4',y:1},
-{x:'W4',y:4},{x:'W4',y:0},{x:'W4',y:8},
-{x:'W4',y:6},{x:'W4',y:5},{x:'W4',y:2},
-{x:'W4',y:7},{x:'W4',y:1},{x:'W4',y:9},
-{x:'W4',y:1},{x:'W4',y:7},{x:'W4',y:10}]},
-  {
-  name:"convention",data: [
-{x:'W1',y:4},{x:'W4',y:1},{x:'W4',y:10},
-{x:'W2',y:2},{x:'W2',y:7},{x:'W2',y:5},
-{x:'W2',y:1},{x:'W4',y:4},{x:'W4',y:3},
-{x:'W3',y:6},{x:'W4',y:2},{x:'W4',y:2},
-{x:'W4',y:5},{x:'W4',y:50},{x:'W4',y:0},
-{x:'W4',y:3},{x:'W4',y:2},{x:'W4',y:1},
-{x:'W4',y:0},{x:'W4',y:6},{x:'W4',y:2},
-{x:'W4',y:10},{x:'W4',y:3},{x:'W4',y:7},
-{x:'W4',y:6},{x:'W4',y:9},{x:'W4',y:6},
-{x:'W4',y:2},{x:'W4',y:1},{x:'W4',y:0},
-{x:'W4',y:4},{x:'W4',y:0},{x:'W4',y:2},
-{x:'W4',y:1},{x:'W4',y:2},{x:'W4',y:4},
-{x:'W4',y:3},{x:'W4',y:5},{x:'W4',y:1},
-{x:'W4',y:7},{x:'W4',y:7},{x:'W4',y:3},
-{x:'W4',y:0},{x:'W4',y:5},{x:'W4',y:7},
-{x:'W4',y:1},{x:'W4',y:8},{x:'W4',y:9},
-{x:'W4',y:2},{x:'W4',y:0},{x:'W4',y:2},
-{x:'W4',y:8},{x:'W4',y:2},{x:'W4',y:1},
-{x:'W4',y:5},{x:'W4',y:0},{x:'W4',y:32}]}]
 
 const Home:NextPage = () => {
   const [login,_] = useState(true)
-  const [dialog,setDialog] = useState(
-    {"To Do":[
-      {title:"SpringBoot 2강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
-      {title:"헬스장 가기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"},
-      {title:"쓰레기 버리기",category:"Study",date:"2022.12.01~2022.12.31",level:"Low"}],
-      "In Progress":[
-      {title:"React 6강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"},
-      {title:"다이어리 쓰기",category:"Daily",date:"2022.12.01~2022.12.31",level:"Medium"}],
-      "Done":[{title:"React 5강 듣기",category:"Study",date:"2022.12.01~2022.12.31",level:"High"}]}
-  )
-  const[state,setState] = useState(
-    [{title:"Contribution Activity",contentList:{
-      content1:"2022-12-22 : 책읽기",
-      content2:"2022-12-22 : 3시 프로젝트 회의",
-      content3:"2022-12-22 : 20시 운동가기",
-      content4:"2022-12-22 : 22시 아르바이트"}},
-    {title:"Following",avatar:null,
-    content:{main:"minseok made 2 in proggress public",date:"on Jan 02,2023"},
-    friendContent:{
-      content1:"책읽기",
-      content2:"10시 네트워크 수업",
-      content3:"15시 아르바이트"}}])
+  const dialog = useRecoilValue(listAtom) 
+  const[state,setState] = useRecoilState(logAtom)
   return (
      <LayOut login={login}>
       {login?
@@ -260,11 +92,12 @@ const Home:NextPage = () => {
    </div>
    </section>
    <section id="log and button" className="flex flex-col">
-   {state.map((item:any,index:number)=>{return<div key={index} className=" w-full border-2 border-gray-300 rounded-lg shadow-xl my-3 p-4">
+   {state.map(item=>{return<div key={item.id} className=" w-full border-2 border-gray-300 rounded-lg shadow-xl my-3 p-4">
    <div className="text-lg mb-2">{item.title}</div>
-   {item?.contentList?<div className="border-l-2 border-gray-300 pl-2">{Object.keys(item.contentList).map((cl,index)=>{
+   {item?.contentList?<div className="border-l-2 border-gray-300 pl-2">{
+   Object.keys(item.contentList).map(cl=>{
    //@ts-ignore
-     return<div key={index} className="my-1">{item.contentList[cl]}</div>})}
+     return<div key={cl} className="my-1">{item.contentList[cl]}</div>})}
    </div>:null}
    {item?.content?<div className="flex">
      {item.avatar?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
@@ -278,8 +111,8 @@ const Home:NextPage = () => {
    <span className="ml-3">{item.content.main}</span>
    <span className="text-gray-400">&nbsp;{item.content.date}</span>
    <div className="border-2 border-gray-300 rounded-lg p-1 mt-3 ml-4 w-full">{
-   Object.keys(item.friendContent).map((fcl,index)=>{
-     return(<div key={index} className="my-2">
+   Object.keys(item.friendContent as dragListProps["item"]).map(fcl=>{
+     return(<div key={fcl} className="my-2">
    {/* @ts-ignore */}
    {item.friendContent[fcl]}
    </div>)})}</div>
@@ -288,18 +121,7 @@ const Home:NextPage = () => {
    </div>})}
    <button className="bg-blue-500 rounded-lg p-1 mt-2 text-white hover:bg-blue-400 text-lg"
    onClick ={()=>{
-     setState((state:any)=>[...state,...[{title:"Contribution Activity",contentList:{
-       content1:"2022-12-22 : 책읽기",
-       content2:"2022-12-22 : 3시 프로젝트 회의",
-       content3:"2022-12-22 : 20시 운동가기",
-       content4:"2022-12-22 : 22시 아르바이트"}},
-     {title:"Following",avatar:12,
-     content:{main:"hwirae made 2 in proggress public",date:"on Jan 02,2023"},
-     friendContent:{
-       content1:"책읽기",
-       content2:"10시 네트워크 수업",
-       content3:"15시 아르바이트",
-     }}]])}}>more &#8744;</button>
+     setState(state=>[...state,...logSample])}}>more &#8744;</button>
    </section>
    
          </main>
