@@ -39,24 +39,18 @@ return(<>{enabled?
 
         <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
          <DragDropContext onDragEnd={
-          ({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)
-          }>         
+          ({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)}>         
           {Object.keys(state).map(item=>{return(
-<div  key={item}
-   className="p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
-    {/* @ts-ignore */}
+<div  key={item} className="p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
 <div className="bg-blue-500 text-center py-2 text-white rounded-md">{item} ({state[item].length})</div>
       <Droppable droppableId={item}>
         {(provider)=><div {...provider.droppableProps} ref={provider.innerRef} 
         className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
-         {/* @ts-ignore */}
          {state[item].map((item,index)=>{
            return(<DragList item ={item} index={index} key={item.id}/>)})}
            {provider.placeholder}
-           </div>
-           }
-        </Droppable></div>)})}
-                </DragDropContext>
+           </div>}
+        </Droppable></div>)})}</DragDropContext>
        </section>
 
     </main>

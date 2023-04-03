@@ -35,10 +35,8 @@ const Home:NextPage = () => {
          {Object.keys(dialog).map((item,index)=>{return(
 <div  key={index}
    className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col ">
-    {/* @ts-ignore */}
 <div className="bg-blue-500 text-center py-2 text-white rounded-md">{item} ({dialog[item].length})</div>
          <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
-          {/* @ts-ignore */}
          {dialog[item].map((item,index)=>{
            return(<div key={index} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer">
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
@@ -94,8 +92,7 @@ const Home:NextPage = () => {
    <div className="text-lg mb-2">{item.title}</div>
    {item?.contentList?<div className="border-l-2 border-gray-300 pl-2">{
    Object.keys(item.contentList).map(cl=>{
-   //@ts-ignore
-     return<div key={cl} className="my-1">{item.contentList[cl]}</div>})}
+     return<div key={cl} className="my-1">{item.contentList&&item.contentList[cl]}</div>})}
    </div>:null}
    {item?.content?<div className="flex">
      {item.avatar?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
@@ -111,8 +108,7 @@ const Home:NextPage = () => {
    <div className="border-2 border-gray-300 rounded-lg p-1 mt-3 ml-4 w-full">{
    Object.keys(item.friendContent as dragListProps["item"]).map(fcl=>{
      return(<div key={fcl} className="my-2">
-   {/* @ts-ignore */}
-   {item.friendContent[fcl]}
+   {item.friendContent&&item.friendContent[fcl]}
    </div>)})}</div>
    </div>
    </div>:null}
