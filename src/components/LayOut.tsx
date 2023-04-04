@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 const LayOut = ({login,children}:layout) => {
   const {push , replace , pathname} = useRouter()
     return(<>
-<header className="bg-blue-500 flex justify-between p-2 lg:p-5 lg:px-24 font-bold">
+<header className="bg-blue-500 flex justify-between p-2 lg:p-5 lg:px-24 font-bold fixed top-0 w-full z-10">
   <h3 className={`text-md lg:text-2xl hover:text-white ${pathname==='/'?"text-white":null}`} onClick={()=>push('/')}>DoneList</h3>
   <div className="flex items-center">
  {login?<>
@@ -32,6 +32,6 @@ className="w-4 aspect-square lg:w-6 hover:text-white">
  </>
  }
 </div></header>
-{children}
+<main className="mt-24">{children}</main>
 </>)}
 export default LayOut

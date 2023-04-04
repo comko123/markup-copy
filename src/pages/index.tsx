@@ -7,12 +7,16 @@ import { listAtom } from "@/atoms/listAtoms"
 import { logAtom } from "@/atoms/logAtoms"
 import { heatmapData } from "@/sample_data_case/heatmapSample"
 import { logSample } from "@/sample_data_case/logSample"
+import {AnimatePresence} from "framer-motion"
+import AddToListPopUp from "@/components/AddToListPopUp"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
   const [login,_] = useState(true)
   const dialog = useRecoilValue(listAtom) 
   const[state,setState] = useRecoilState(logAtom)
+  const [puState,setPuState] = useState(false)
+  const [list,setList] = useState({itemList:"",title:""})
   return (
      <LayOut login={login}>
       {login?
@@ -32,20 +36,26 @@ const Home:NextPage = () => {
        </section>
    
        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
-         {Object.keys(dialog).map((item,index)=>{return(
+         {Object.keys(dialog).map((itemList,index)=>{return(
 <div  key={index}
    className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col ">
-<div className="bg-blue-500 text-center py-2 text-white rounded-md">{item} ({dialog[item].length})</div>
+<div className="bg-blue-500 text-center py-2 text-white rounded-md">{itemList} ({dialog[itemList].length})</div>
          <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
-         {dialog[item].map((item,index)=>{
-           return(<div key={index} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer">
+         {dialog[itemList].map((item,index)=>{
+           return(<div key={index} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer"
+           onClick={()=>{setPuState(state=>!state);setList({itemList,title:item.title})}}>
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
              <div className=" text-[0.1em] flex font-semibold">
                <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category}</div>
                <div className="m-1 lg:m-2">{item.date}</div>
                <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500":item.level==="Low"?"bg-yellow-400":"bg-green-500"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
-                </div></div>)})}</div></div>)})}
+                </div>
+                </div>)})}</div></div>)})}
        </section>
+
+       <AnimatePresence>
+            {puState?<AddToListPopUp setState={setPuState} keyValue={list.itemList} title={list.title}/>:null}
+          </AnimatePresence>
 
    <section className="border-2 border-gray-300 my-5 rounded-lg shadow-xl w-full" id="graph_part">
    <div className="mx-8 border-b-2 py-3 flex flex-col  md:flex-row justify-between">
@@ -67,9 +77,9 @@ const Home:NextPage = () => {
      <ApexChart type='heatmap' height={150}
    series={heatmapData} 
    options={{
-      chart:{toolbar:{show:false},type:'heatmap'},legend:{show:false},
-      xaxis:{labels:{show:false},tooltip:{enabled:false},axisTicks:{show:false}},
-      yaxis:{labels:{show:false}},
+      chart:{toolbar:{show:false},type:'heatmap',selection:{enabled:false}},legend:{show:false},
+      xaxis:{labels:{show:false},tooltip:{enabled:false,},axisTicks:{show:false},position:"front"},
+      yaxis:{labels:{show:false},showAlways:false,tooltip:{enabled:false}},
       tooltip:{x:{show:false},y:{title:{formatter:(tr)=>{return `${tr}`}}}},
       dataLabels:{enabled:false},
       plotOptions:{heatmap:{enableShades:false,radius:5,

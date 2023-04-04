@@ -140,7 +140,7 @@ series={ [{name:'일별 실패율',
 data: [47,55,57,56,61,58,63]},
 {name:'월별 성공률',
 data: [76,85,101,98,87,105,91]}]}
-options={{chart:{height: 50,width: 50,toolbar:{show:false}},
+options={{chart:{height: 50,width: 50,toolbar:{show:false},zoom:{enabled:false}},
 xaxis:{labels:{show:false},axisTicks:{show:false}},
 yaxis:{labels:{show:false}},
 legend:{position:"top" as "top", horizontalAlign:"right" as "right", fontWeight: 600},
