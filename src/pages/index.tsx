@@ -7,8 +7,8 @@ import { listAtom } from "@/atoms/listAtoms"
 import { logAtom } from "@/atoms/logAtoms"
 import { heatmapData } from "@/sample_data_case/heatmapSample"
 import { logSample } from "@/sample_data_case/logSample"
-import {AnimatePresence} from "framer-motion"
-import AddToListPopUp from "@/components/AddToListPopUp"
+import {AnimatePresence , motion} from "framer-motion"
+import AddToListPopUp from "@/components/AddToListPopUp" 
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
@@ -35,16 +35,21 @@ const Home:NextPage = () => {
          </select>
        </section>
    
+          <AnimatePresence>
+            {puState?<AddToListPopUp setState={setPuState} keyValue={list.itemList} title={list.title}/>:null}
+          </AnimatePresence>
+
        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
-         {Object.keys(dialog).map((itemList,index)=>{return(
-<div  key={index}
+         {Object.keys(dialog).map(itemList=>{return(
+<div  key={itemList}
    className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col ">
 <div className="bg-blue-500 text-center py-2 text-white rounded-md">{itemList} ({dialog[itemList].length})</div>
          <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
-         {dialog[itemList].map((item,index)=>{
-           return(<div key={index} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer"
+         {dialog[itemList].map(item=>{
+           return(<div key={item.id} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer"
            onClick={()=>{setPuState(state=>!state);setList({itemList,title:item.title})}}>
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
+             <motion.div layoutId={item.id}/>
              <div className=" text-[0.1em] flex font-semibold">
                <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category}</div>
                <div className="m-1 lg:m-2">{item.date}</div>
@@ -53,9 +58,6 @@ const Home:NextPage = () => {
                 </div>)})}</div></div>)})}
        </section>
 
-       <AnimatePresence>
-            {puState?<AddToListPopUp setState={setPuState} keyValue={list.itemList} title={list.title}/>:null}
-          </AnimatePresence>
 
    <section className="border-2 border-gray-300 my-5 rounded-lg shadow-xl w-full" id="graph_part">
    <div className="mx-8 border-b-2 py-3 flex flex-col  md:flex-row justify-between">
@@ -146,7 +148,7 @@ const Home:NextPage = () => {
       </section>
   
       <section className="flex mt-2 md:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
-        {["To Do","In Progress","Done"].map((item,index)=>{return(<div key={index} 
+        {["To Do","In Progress","Done"].map(item=>{return(<div key={item} 
   className="scrollbar-hide p-3 shadow-xl border-2 border-gray-300 w-full my-2 lg:my-0 h-[30vh] md:h-[48vh] max-h-[48vh] rounded-lg overflow-auto">
         <div className="bg-blue-500 text-center py-2 text-white rounded-md">{item}</div>
         {[1,2].map(item=><div key={item} 
