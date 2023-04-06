@@ -1,18 +1,22 @@
+import { ctgAtom } from "@/atoms/ctgAtoms"
 import { popupList } from "@/atoms/listAtoms"
 import { popupProps } from "@/types/addPopUpProps"
 import { motion } from "framer-motion"
 import { NextPage } from "next"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRecoilValue } from "recoil"
 
 const AddToListPopUp:NextPage<popupProps> = ({setState, keyValue , title }) => {
 const searchList = useRecoilValue(popupList({keyValue,title}))
+const ctgList = useRecoilValue(ctgAtom)
 const [startDate,fineDate] = searchList[0].date.split("~")
-const [catg,setSatg] = useState<string[]>([])
+const [mainCtg,setMainCtg] = useState("")
+const [subCtg,setSubCtg] = useState("")
 const [titState,setTitState] = useState(false) 
 const sample:{[key:string]:string[]} = {retry:["반복 안함","반복"],state:["상태"],secert:["공개","비공개"]}
 const sample2:{[key:string]:(string)[]} = {issue:["게으름","일정 빡빡","특별한 일정","우선순위 변화","기타"],
 level:[searchList[0].level,...["High","Medium","Low"].filter(item=>item!==searchList[0].level)]}
+useEffect(()=>setSubCtg(""),[mainCtg])
 return(
 <motion.div  animate={{opacity:1}} exit={{opacity:0}} className="z-20">
 <motion.div onClick={()=>setState(state=>!state)}
@@ -32,21 +36,32 @@ className="fixed top-[5%] left-[15%] md:left-[20%] w-[70%] md:w-[60%] h-[90%] bg
   className="outline-none rounded-lg bg-slate-200 p-3 w-full shadow-md"/>
   </div>
 
- <div className="flex">
- <div className="grid grid-cols-5 gap-y-3 w-full">
-    {["공부","운동","일상","취미","약속","학교","인강","스터디","영어","기타"].map(item=>{return(
-    <input type="button" key={item} onClick={()=>setSatg(state=>{
-      if(!catg.includes(item)){return[item]}
-      else {return state.filter(index=>index!==item)}
-      })} 
-    className={`text-white ${catg.includes(item)?"bg-blue-500":"bg-blue-300"} shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 hover:ring-offset-4 cursor-pointer w-[80%] border-2 border-blue-500 py-1 md:p-2 rounded-xl`} value={item}/>)}
-      )}
+<div className="flex">
+<div className="flex flex-col w-full">
+  <div className="flex">
+  {Object.keys(ctgList).map(mainC=><input type="button" key={mainC} onClick={()=>setMainCtg(state=>{
+      if(state!==mainC){return mainC}
+      else {return ""}})} 
+    className={`text-white ${mainCtg === mainC?"bg-blue-500":"bg-blue-300"} shadow-md text-vxs sm:text-xs 
+    hover:ring hover:ring-blue-500 hover:ring-offset-4 cursor-pointer w-[80%] 
+    border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={mainC}/>)}
   </div>
-  <div className="flex justify-center items-center">
-    <input type="button" value="&#43;"
+
+  <div className="flex">
+  {ctgList[mainCtg]?.map(subC=><input type="button" key={subC} onClick={()=>setSubCtg(state=>{
+      if(state!==subC){return subC}
+      else {return ""}})} 
+    className={`text-white ${subCtg === subC?"bg-blue-500":"bg-blue-300"} shadow-md text-vxs sm:text-xs 
+    hover:ring hover:ring-blue-500 hover:ring-offset-4 cursor-pointer w-[80%] 
+    border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={subC}/>)}
+  </div>
+
+ </div> 
+ <div className="my-auto">
+ <input type="button" value="&#43;"
     className="text-lg md:text-2xl text-center w-7 md:w-14 rounded-xl box-border shadow-md bg-blue-500 pb-1 text-white cursor-pointer hover:opacity-80"/>
-  </div>
  </div>
+</div>
 
 <div className="flex mt-3">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 

@@ -12,14 +12,13 @@ import AddToListPopUp from "@/components/AddToListPopUp"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
-  const [login,_] = useState(true)
   const dialog = useRecoilValue(listAtom) 
   const[state,setState] = useRecoilState(logAtom)
   const [puState,setPuState] = useState(false)
-  const [list,setList] = useState({itemList:"",title:""})
+  const [mainInfo,setMainInfo] = useState<mainPageState>({itemList:"",title:"",login:true})
   return (
-     <LayOut login={login}>
-      {login?
+     <LayOut login={mainInfo.login}>
+      {mainInfo.login?
        <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
 
        <section className="flex mb-2 md:mb-0" id="button_part">
@@ -36,7 +35,7 @@ const Home:NextPage = () => {
        </section>
    
           <AnimatePresence>
-            {puState?<AddToListPopUp setState={setPuState} keyValue={list.itemList} title={list.title}/>:null}
+            {puState?<AddToListPopUp setState={setPuState} keyValue={mainInfo.itemList} title={mainInfo.title}/>:null}
           </AnimatePresence>
 
        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
@@ -47,7 +46,7 @@ const Home:NextPage = () => {
          <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
          {dialog[itemList].map(item=>{
            return(<div key={item.id} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer"
-           onClick={()=>{setPuState(state=>!state);setList({itemList,title:item.title})}}>
+           onClick={()=>{setPuState(state=>!state);setMainInfo(state=>{return{...state,itemList,title:item.title}})}}>
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
              <motion.div layoutId={item.id}/>
              <div className=" text-[0.1em] flex font-semibold">
