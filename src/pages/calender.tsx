@@ -37,7 +37,7 @@ return(<>{enabled?
             2022.12.18 ~ 2022.12.24
         </section>
 
-        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5" id="list_prat">
+        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
          <DragDropContext onDragEnd={
           ({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)}>         
           {Object.keys(state).map(item=>{return(

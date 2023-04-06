@@ -32,6 +32,6 @@ className="w-4 aspect-square lg:w-6 hover:text-white cursor-pointer">
  </>
  }
 </div></header>
-<main className="mt-24">{children}</main>
+<main className="mt-14 md:mt-24">{children}</main>
 </>)}
 export default LayOut

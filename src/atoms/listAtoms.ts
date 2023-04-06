@@ -1,4 +1,4 @@
-import { atom, selectorFamily } from "recoil";
+import { atom, selectorFamily } from "recoil"
 import {v1} from "uuid"
 export const listAtom = atom<state>({
     key:`list_state${v1()}`,
