@@ -11,8 +11,12 @@ export const listAtom = atom<state>({
         {title:"다이어리 쓰기",category:{main:"일상",sub:"기타"},date:"2022.12.01~2022.12.31",level:"Medium",id:v1()}],
         "Done":[{title:"React 5강 듣기",category:{main:"공부",sub:"인강"},date:"2022.12.01~2022.12.31",level:"High",id:v1()}]}
 })
-
 export const popupList = selectorFamily({
     key:`popup_list_state${v1()}`,
-    get:(key:{[key:string]:string})=>({get})=>get(listAtom)[key.keyValue].filter(item=>item.title===key.title)
+    get:(key:{[key:string]:string})=>({get})=>{
+        const getDate = new Date()
+        const defaultDate = `${getDate.getFullYear()}.${getDate.getMonth()+1}.${getDate.getDate()}`
+        if(!key.title&&!key.keyValue) return [{category:{main: '', sub: ''},id:`${v1()}`,
+            date: `${defaultDate}~${defaultDate}`,level: "",title:""}]
+        else return get(listAtom)[key.keyValue].filter(item=>item.title===key.title)}
 })

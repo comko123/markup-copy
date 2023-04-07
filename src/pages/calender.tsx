@@ -5,10 +5,13 @@ import DragList from "@/components/DragList"
 import { useRecoilState } from "recoil"
 import { listAtom } from "@/atoms/listAtoms"
 import { onDragEnd } from "@/utils/onDragEnd"
-
+import { AnimatePresence } from "framer-motion"
+import AddToListPopUp from "@/components/AddToListPopUp"
 const Calender = () => {
   const [enabled, setEnabled] = useState(false)
+  const [puState,setPuState] = useState(false)
   const  [state,setState] = useRecoilState(listAtom)
+  const [calenderInfo,setCalenderInfo] = useState<mainPageState>({itemList:"",title:"",login:true})
 
   useEffect(() => {
     const animation = requestAnimationFrame(() => setEnabled(true))
@@ -18,7 +21,7 @@ const Calender = () => {
   }, [])
 
 return(<>{enabled?
-  <LayOut login>
+  <LayOut login={calenderInfo.login}>
     <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-md font-bold grid grid-cols-1">
     <section className="flex" id="button_part">
        <div className="border-2 p-1 px-4 rounded-lg shadow-md border-gray-300 mx-1">2022.12.19~2022.12.25</div>
@@ -37,6 +40,10 @@ return(<>{enabled?
             2022.12.18 ~ 2022.12.24
         </section>
 
+        <AnimatePresence>
+            {puState?<AddToListPopUp setState={setPuState} keyValue={calenderInfo.itemList} title={calenderInfo.title}/>:null}
+          </AnimatePresence>
+
         <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
          <DragDropContext onDragEnd={
           ({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)}>         
@@ -50,7 +57,15 @@ return(<>{enabled?
            return(<DragList item ={item} index={index} key={item.id}/>)})}
            {provider.placeholder}
            </div>}
-        </Droppable></div>)})}</DragDropContext>
+        </Droppable>
+        <div className="bg-blue-500 cursor-pointer h-8 flex justify-center items-center w-full rounded-lg text-yellow-50 hover:text-yellow-400"
+        onClick={()=>{setPuState(state=>!state);setCalenderInfo(state=>{return{...state,itemList:"",title:""}})}}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
+                className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+                </div>
+        </div>)})}</DragDropContext>
        </section>
 
     </main>

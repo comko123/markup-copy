@@ -2,7 +2,7 @@ import { atom } from "recoil";
 import { v1} from "uuid";
 
 export const logAtom = atom<log[]>({
-    key:"log_state",
+    key:`log_state${v1()}`,
     default:[{
     title:"Contribution Activity",
     id:v1(),

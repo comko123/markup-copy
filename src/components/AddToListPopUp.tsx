@@ -4,30 +4,31 @@ import { popupIssueLog ,popUpSetting} from "@/sample_data_case/popUpLog"
 import { popupProps, popupState } from "@/types/addPopUpProps"
 import { motion } from "framer-motion"
 import { NextPage } from "next"
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import { useRecoilValue } from "recoil"
 
 const AddToListPopUp:NextPage<popupProps> = ({setState, keyValue , title }) => {
-  
-const searchList = useRecoilValue(popupList({keyValue,title}))
+  const searchList = useRecoilValue(popupList({keyValue,title}))
 const ctgList = useRecoilValue(ctgAtom)
 const [startDate,fineDate] = searchList[0].date.split("~")
-const [popupState,setPopupState] = useState<popupState>({mainCtg:"",subCtg:"",titState:false})
-useEffect(()=>setPopupState(state=>{return{...state,subCtg:""}}),[popupState.mainCtg])
+const [popupState,setPopupState] = useState<popupState>(
+  {mainCtg:searchList[0].category.main,
+   subCtg:searchList[0].category.sub,
+   titState:false})
 return(
 <motion.div  animate={{opacity:1}} exit={{opacity:0}} className="z-20">
 <motion.div onClick={()=>setState(state=>!state)}
 className="bg-gray-900 w-full h-full fixed top-0 left-0 opacity-50 font-bold"/>
-<motion.div layoutId={searchList[0].id}
+<motion.div // layoutId={searchList[0].id}
 className="fixed top-[5%] left-[15%] md:left-[20%] w-[70%] md:w-[60%] h-[90%] bg-white rounded-xl pb-11 overflow-auto scrollbar-hide">
-<header className="bg-gray-300  h-[4em] md:h-[5em] rounded-t-xl flex justify-end px-3 pt-3 w-full">
+<header className="bg-gray-300  h-[4em] md:h-[5em] rounded-t-xl flex justify-end px-3 pt-3 w-[60%] fixed top-0">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
  className="w-6 h-6 md:w-10 md:h-10 hover:text-red-500" onClick = {()=>setState(state=>!state)}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
 </svg></header>
 
-<main className="mt-4 ml-[7%]">
-<form className="flex flex-col mr-[7%]">
+<main className="mt-12 ml-[7%]">
+<form className="flex flex-col mr-[7%]" onSubmit={e=>e.preventDefault()}>
   <div className="border-b-2 border-gray-300 pb-4 mb-2 w-full">
   <input type="text" defaultValue={searchList[0].title}
   className="outline-none rounded-lg bg-slate-200 p-3 w-full shadow-md"/>
@@ -35,20 +36,20 @@ className="fixed top-[5%] left-[15%] md:left-[20%] w-[70%] md:w-[60%] h-[90%] bg
 
 <div className="flex">
 <div className="flex flex-col w-full">
-  <div className="flex empty:h-14">
+  <div className="flex empty:h-14 justify-center items-center">
   {Object.keys(ctgList).map(mainC=><input type="button" key={mainC} onClick={()=>setPopupState(state=>{
-      if(state.mainCtg!==mainC){return {...state,mainCtg:mainC}}else {return {...state,mainCtg:""}}})} 
+      if(state.mainCtg!==mainC){return {...state,mainCtg:mainC,subCtg:""}}else {return {...state,mainCtg:""}}})} 
     className={`text-white ${popupState.mainCtg === mainC?"bg-blue-500":"bg-blue-300"} 
     shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 hover:ring-offset-4 
-    cursor-pointer w-[80%] border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={mainC}/>)}
+    cursor-pointer w-[20%] border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={mainC}/>)}
   </div>
 
-  <div className="flex empty:h-14">
+  <div className="flex empty:h-14 justify-center items-center">
   {ctgList[popupState.mainCtg]?.map(subC=><input type="button" key={subC} onClick={()=>setPopupState(state=>{
       if(state.subCtg!==subC){return  {...state,subCtg:subC}}else {return {...state,subCtg:""}}})} 
     className={`text-white ${popupState.subCtg === subC?"bg-blue-500":"bg-blue-300"} 
     shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 
-    hover:ring-offset-4 cursor-pointer w-[80%] 
+    hover:ring-offset-4 cursor-pointer w-[20%] 
     border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={subC}/>)}
   </div>
 
