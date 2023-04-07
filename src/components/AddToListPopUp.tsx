@@ -1,22 +1,19 @@
 import { ctgAtom } from "@/atoms/ctgAtoms"
 import { popupList } from "@/atoms/listAtoms"
-import { popupProps } from "@/types/addPopUpProps"
+import { popupIssueLog ,popUpSetting} from "@/sample_data_case/popUpLog"
+import { popupProps, popupState } from "@/types/addPopUpProps"
 import { motion } from "framer-motion"
 import { NextPage } from "next"
 import { useEffect, useState } from "react"
 import { useRecoilValue } from "recoil"
 
 const AddToListPopUp:NextPage<popupProps> = ({setState, keyValue , title }) => {
+  
 const searchList = useRecoilValue(popupList({keyValue,title}))
 const ctgList = useRecoilValue(ctgAtom)
 const [startDate,fineDate] = searchList[0].date.split("~")
-const [mainCtg,setMainCtg] = useState("")
-const [subCtg,setSubCtg] = useState("")
-const [titState,setTitState] = useState(false) 
-const sample:{[key:string]:string[]} = {retry:["반복 안함","반복"],state:["상태"],secert:["공개","비공개"]}
-const sample2:{[key:string]:(string)[]} = {issue:["게으름","일정 빡빡","특별한 일정","우선순위 변화","기타"],
-level:[searchList[0].level,...["High","Medium","Low"].filter(item=>item!==searchList[0].level)]}
-useEffect(()=>setSubCtg(""),[mainCtg])
+const [popupState,setPopupState] = useState<popupState>({mainCtg:"",subCtg:"",titState:false})
+useEffect(()=>setPopupState(state=>{return{...state,subCtg:""}}),[popupState.mainCtg])
 return(
 <motion.div  animate={{opacity:1}} exit={{opacity:0}} className="z-20">
 <motion.div onClick={()=>setState(state=>!state)}
@@ -29,30 +26,29 @@ className="fixed top-[5%] left-[15%] md:left-[20%] w-[70%] md:w-[60%] h-[90%] bg
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
 </svg></header>
 
-<main className="mt-5 ml-[7%]">
+<main className="mt-4 ml-[7%]">
 <form className="flex flex-col mr-[7%]">
-  <div className="border-b-2 border-gray-300 pb-3 mb-3 w-full">
+  <div className="border-b-2 border-gray-300 pb-4 mb-2 w-full">
   <input type="text" defaultValue={searchList[0].title}
   className="outline-none rounded-lg bg-slate-200 p-3 w-full shadow-md"/>
   </div>
 
 <div className="flex">
 <div className="flex flex-col w-full">
-  <div className="flex">
-  {Object.keys(ctgList).map(mainC=><input type="button" key={mainC} onClick={()=>setMainCtg(state=>{
-      if(state!==mainC){return mainC}
-      else {return ""}})} 
-    className={`text-white ${mainCtg === mainC?"bg-blue-500":"bg-blue-300"} shadow-md text-vxs sm:text-xs 
-    hover:ring hover:ring-blue-500 hover:ring-offset-4 cursor-pointer w-[80%] 
-    border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={mainC}/>)}
+  <div className="flex empty:h-14">
+  {Object.keys(ctgList).map(mainC=><input type="button" key={mainC} onClick={()=>setPopupState(state=>{
+      if(state.mainCtg!==mainC){return {...state,mainCtg:mainC}}else {return {...state,mainCtg:""}}})} 
+    className={`text-white ${popupState.mainCtg === mainC?"bg-blue-500":"bg-blue-300"} 
+    shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 hover:ring-offset-4 
+    cursor-pointer w-[80%] border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={mainC}/>)}
   </div>
 
-  <div className="flex">
-  {ctgList[mainCtg]?.map(subC=><input type="button" key={subC} onClick={()=>setSubCtg(state=>{
-      if(state!==subC){return subC}
-      else {return ""}})} 
-    className={`text-white ${subCtg === subC?"bg-blue-500":"bg-blue-300"} shadow-md text-vxs sm:text-xs 
-    hover:ring hover:ring-blue-500 hover:ring-offset-4 cursor-pointer w-[80%] 
+  <div className="flex empty:h-14">
+  {ctgList[popupState.mainCtg]?.map(subC=><input type="button" key={subC} onClick={()=>setPopupState(state=>{
+      if(state.subCtg!==subC){return  {...state,subCtg:subC}}else {return {...state,subCtg:""}}})} 
+    className={`text-white ${popupState.subCtg === subC?"bg-blue-500":"bg-blue-300"} 
+    shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 
+    hover:ring-offset-4 cursor-pointer w-[80%] 
     border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={subC}/>)}
   </div>
 
@@ -63,7 +59,7 @@ className="fixed top-[5%] left-[15%] md:left-[20%] w-[70%] md:w-[60%] h-[90%] bg
  </div>
 </div>
 
-<div className="flex mt-3">
+<div className="flex mt-2">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
 className="w-7 aspect-square">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -80,9 +76,9 @@ className="w-3 md:w-7 aspect-square">
 
 <div className="grid grid-cols-3 gap-x-5 mt-2">
   
-  {Object.keys(sample).map(item=>{return(
+  {Object.keys(popupIssueLog).map(item=>{return(
     <select key={item} className="outline-none shadow-md text-vxs sm:text-xs text-blue-500 border-2 border-blue-500 rounded-lg px-2 py-1">
-    {sample[item].map(index=> <option key={index} className="text-center">{index}</option>)}
+    {popupIssueLog[item].map(index=> <option key={index} className="text-center">{index}</option>)}
     </select>
   )})}
 </div>
@@ -118,16 +114,16 @@ className="w-7 aspect-square mt-3">
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
 </svg>
 <div className="grid grid-cols-2 gap-x-2 md:gap-x-5 mt-3 ml-2">
-{Object.keys(sample2).map(item=>{return(
+{Object.keys(popUpSetting(searchList[0].level)).map(item=>{return(
     <select key={item} className="outline-none text-blue-500 text-vxs sm:text-xs shadow-md border-2 border-blue-500 rounded-lg md:px-2 md:py-1">
-    {sample2[item].map(index=> <option key={index} className="text-center">{index}</option>)}
+    {popUpSetting(searchList[0].level)[item].map(index=> <option key={index} className="text-center">{index}</option>)}
     </select>
   )})}
 </div>
 <div className="grid grid-cols-2 place-content-center mt-3 ml-2 md:ml-4">
 <input type="checkbox" className="w-4 md:w-5 shadow-md aspect-square" 
-onClick={()=>setTitState(state=>!state)}/> 
-<span className={`${titState?"text-blue-500":"text-black"} mt-[0.1rem]`}>매일</span></div>
+onClick={()=>setPopupState(state=>{return{...state,titState:!state.titState}})}/> 
+<span className={`${popupState.titState?"text-blue-500":"text-black"} mt-[0.1rem]`}>매일</span></div>
 </div>
 
 <div className="border-2 border-blue-500 rounded-lg p-2 text-center text-blue-500 shadow-md mt-3">피드백 추가</div>

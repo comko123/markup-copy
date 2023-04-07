@@ -50,7 +50,7 @@ const Home:NextPage = () => {
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
              <motion.div layoutId={item.id}/>
              <div className=" text-[0.1em] flex font-semibold">
-               <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category}</div>
+               <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category.main}</div>
                <div className="m-1 lg:m-2">{item.date}</div>
                <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500":item.level==="Low"?"bg-yellow-400":"bg-green-500"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
                 </div>
@@ -118,7 +118,7 @@ const Home:NextPage = () => {
    <span className="ml-3">{item.content.main}</span>
    <span className="text-gray-400">&nbsp;{item.content.date}</span>
    <div className="border-2 border-gray-300 rounded-lg p-1 mt-3 ml-4 w-full">{
-   Object.keys(item.friendContent as dragListProps["item"]).map(fcl=>{
+   Object.keys(item.friendContent as dragListProps["item"]["category"]).map(fcl=>{
      return(<div key={fcl} className="my-2">
    {item.friendContent&&item.friendContent[fcl]}
    </div>)})}</div>

@@ -5,3 +5,8 @@ interface popupProps{
     keyValue:string,
     title:string
 }
+interface popupState {
+    mainCtg:string,
+    subCtg:string,
+    titState:boolean
+}

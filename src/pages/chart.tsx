@@ -93,7 +93,6 @@ options={{
     chart:{stacked: true,toolbar:{show:false}}, 
      plotOptions: {bar: {horizontal:true}},grid:{show:false},
      yaxis:{labels:{show:false}},xaxis:{labels:{show:false},axisTicks:{show:false}}
-
 }}/>
 </div>
 <button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg">전체보기</button>
