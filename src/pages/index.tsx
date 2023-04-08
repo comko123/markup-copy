@@ -9,16 +9,19 @@ import { heatmapData } from "@/sample_data_case/heatmapSample"
 import { logSample } from "@/sample_data_case/logSample"
 import {AnimatePresence , motion} from "framer-motion"
 import AddToListPopUp from "@/components/AddToListPopUp" 
+import { loginAtom } from "@/atoms/loginAtoms"
+import { useLoginCheck } from "@/hooks/useLoginCheck"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
-  const dialog = useRecoilValue(listAtom) 
+  const dialog = useRecoilValue(listAtom)
+  const {login} =  useRecoilValue(loginAtom)
   const[state,setState] = useRecoilState(logAtom)
   const [puState,setPuState] = useState(false)
-  const [mainInfo,setMainInfo] = useState<mainPageState>({itemList:"",title:"",login:true})
+  const [mainInfo,setMainInfo] = useState<mainPageState>({itemList:"",title:""})
   return (
-     <LayOut login={mainInfo.login}>
-      {mainInfo.login?
+     <LayOut >
+      {login?
        <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
 
        <section className="flex mb-2 md:mb-0" id="button_part">

@@ -1,10 +1,15 @@
+import { loginAtom } from "@/atoms/loginAtoms"
 import LayOut from "@/components/LayOut"
+import { useLoginCheck } from "@/hooks/useLoginCheck"
 import { NextPage } from "next"
 import { useState } from "react"
+import { useRecoilValue } from "recoil"
 
 const Profil:NextPage = () => {
   const [profilState,setProfilState] = useState(true)
-    return(<LayOut login={true}>
+  const {login} =  useRecoilValue(loginAtom)
+  useLoginCheck(login)
+    return(<LayOut>
       <div className="flex mx-6 md:mx-10 lg:mx-14 my-10">
        <nav className="border-r-2 border-gray-300 w-60 lg:w-80 h-[75vh]  md:pr-5">
        <div className={`bg-gray-100 w-48 lg:w-72 ${profilState?"h-[18rem] lg:h-80":"h-[21rem] lg:h-96"} rounded-xl pt-2 relative shadow-xl`}>

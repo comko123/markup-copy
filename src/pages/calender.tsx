@@ -2,17 +2,21 @@ import LayOut from "@/components/LayOut"
 import {  useEffect, useState } from "react"
 import { DragDropContext, Droppable, DropResult} from "@hello-pangea/dnd"
 import DragList from "@/components/DragList"
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 import { listAtom } from "@/atoms/listAtoms"
 import { onDragEnd } from "@/utils/onDragEnd"
 import { AnimatePresence } from "framer-motion"
 import AddToListPopUp from "@/components/AddToListPopUp"
+import { loginAtom } from "@/atoms/loginAtoms"
+import { useLoginCheck } from "@/hooks/useLoginCheck"
+
 const Calender = () => {
   const [enabled, setEnabled] = useState(false)
   const [puState,setPuState] = useState(false)
   const  [state,setState] = useRecoilState(listAtom)
-  const [calenderInfo,setCalenderInfo] = useState<mainPageState>({itemList:"",title:"",login:true})
-
+  const [calenderInfo,setCalenderInfo] = useState<mainPageState>({itemList:"",title:""})
+  const {login} =  useRecoilValue(loginAtom)
+useLoginCheck(login)
   useEffect(() => {
     const animation = requestAnimationFrame(() => setEnabled(true))
     return () => {
@@ -21,7 +25,7 @@ const Calender = () => {
   }, [])
 
 return(<>{enabled?
-  <LayOut login={calenderInfo.login}>
+  <LayOut>
     <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-md font-bold grid grid-cols-1">
     <section className="flex" id="button_part">
        <div className="border-2 p-1 px-4 rounded-lg shadow-md border-gray-300 mx-1">2022.12.19~2022.12.25</div>

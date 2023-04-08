@@ -1,10 +1,15 @@
+import { loginAtom } from "@/atoms/loginAtoms"
 import LayOut from "@/components/LayOut"
+import { useLoginCheck } from "@/hooks/useLoginCheck"
 import dynamic from "next/dynamic"
+import { useRecoilValue } from "recoil"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Chart = () => {
     const total ={total_sucess:"90%",total_delay:"10%"}
-return(<LayOut login>
+    const {login} =  useRecoilValue(loginAtom)
+    useLoginCheck(login)
+return(<LayOut>
     <main className="my-10 pt-2">
 <div className="border-2 text-center mx-auto border-amber-900 w-[80%] p-1 rounded-xl font-bold shadow-xl">
 <select className="outline-none text-sm lg:text-md">

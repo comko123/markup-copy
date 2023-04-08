@@ -1,7 +1,12 @@
+import { loginAtom } from "@/atoms/loginAtoms"
 import LayOut from "@/components/LayOut"
 import { NextPage } from "next"
+import { useRouter } from "next/router"
+import { useSetRecoilState } from "recoil"
 
 const Login:NextPage = () => {
+  const setLoginState = useSetRecoilState(loginAtom)
+  const {replace} = useRouter()
 return(<LayOut>
   <main className="flex flex-col justify-center items-center h-[80vh]">
 <div className="flex flex-col">
@@ -21,7 +26,8 @@ className="grid grid-cols-1 bg-blue-100 p-3 mt-4 w-96 h-64 border-4 border-blue-
             <input type="text" className="border-2 border-blue-500 rounded-lg h-10 outline-none p-3 text-sm"/>
             </div>)
         })}
-    <input type="submit" value="Log In" className="bg-blue-500 p-2 my-auto rounded-lg font-bold text-lg hover:text-white"/>
+    <input type="submit" value="Log In" onClick={()=>{setLoginState(state=>({login:!state.login}));replace('/')}}
+    className="bg-blue-500 p-2 my-auto rounded-lg font-bold text-lg hover:text-white"/>
 </form>
 </main>
 </LayOut>)
