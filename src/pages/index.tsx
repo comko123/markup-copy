@@ -20,7 +20,7 @@ const Home:NextPage = () => {
   const [puState,setPuState] = useState(false)
   const [mainInfo,setMainInfo] = useState<mainPageState>({itemList:"",title:""})
   return (
-     <LayOut >
+     <LayOut>
       {login?
        <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
 
