@@ -2,9 +2,10 @@ import { ctgAtom } from "@/atoms/ctgAtoms"
 import { popupList } from "@/atoms/listAtoms"
 import { popupIssueLog ,popUpSetting} from "@/sample_data_case/popUpLog"
 import { popupProps, popupState } from "@/types/addPopUpProps"
+import { popUpVariants } from "@/variants/popUpVariants"
 import { motion } from "framer-motion"
 import { NextPage } from "next"
-import {  useState } from "react"
+import { useState } from "react"
 import { useRecoilValue } from "recoil"
 
 const AddToListPopUp:NextPage<popupProps> = ({setState, keyValue , title }) => {
@@ -16,18 +17,18 @@ const [popupState,setPopupState] = useState<popupState>(
    subCtg:searchList[0].category.sub,
    titState:false})
 return(
-<motion.div  animate={{opacity:1}} exit={{opacity:0}} className="z-20">
+<motion.div variants={popUpVariants} initial="start" animate="display" exit="end" className="z-20">
 <motion.div onClick={()=>setState(state=>!state)}
 className="bg-gray-900 w-full h-full fixed top-0 left-0 opacity-50 font-bold"/>
-<motion.div // layoutId={searchList[0].id}
+<motion.div
 className="fixed top-[5%] left-[15%] md:left-[20%] w-[70%] md:w-[60%] h-[90%] bg-white rounded-xl pb-11 overflow-auto scrollbar-hide">
-<header className="bg-gray-300  h-[4em] md:h-[5em] rounded-t-xl flex justify-end px-3 pt-3 w-[60%] fixed top-0">
+<header className="bg-gray-300  h-[4em] md:h-[5em] rounded-t-xl flex justify-end px-3 pt-3 w-full">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
  className="w-6 h-6 md:w-10 md:h-10 hover:text-red-500" onClick = {()=>setState(state=>!state)}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
 </svg></header>
 
-<main className="mt-12 ml-[7%]">
+<main className="mt-5 ml-[7%]">
 <form className="flex flex-col mr-[7%]" onSubmit={e=>e.preventDefault()}>
   <div className="border-b-2 border-gray-300 pb-4 mb-2 w-full">
   <input type="text" defaultValue={searchList[0].title}
@@ -79,7 +80,7 @@ className="w-3 md:w-7 aspect-square">
   
   {Object.keys(popupIssueLog).map(item=>{return(
     <select key={item} className="outline-none shadow-md text-vxs sm:text-xs text-blue-500 border-2 border-blue-500 rounded-lg px-2 py-1">
-    {popupIssueLog[item].map(index=> <option key={index} className="text-center">{index}</option>)}
+    {popupIssueLog[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
     </select>
   )})}
 </div>
@@ -117,7 +118,7 @@ className="w-7 aspect-square mt-3">
 <div className="grid grid-cols-2 gap-x-2 md:gap-x-5 mt-3 ml-2">
 {Object.keys(popUpSetting(searchList[0].level)).map(item=>{return(
     <select key={item} className="outline-none text-blue-500 text-vxs sm:text-xs shadow-md border-2 border-blue-500 rounded-lg md:px-2 md:py-1">
-    {popUpSetting(searchList[0].level)[item].map(index=> <option key={index} className="text-center">{index}</option>)}
+    {popUpSetting(searchList[0].level)[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
     </select>
   )})}
 </div>

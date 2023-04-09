@@ -10,7 +10,6 @@ import { logSample } from "@/sample_data_case/logSample"
 import {AnimatePresence , motion} from "framer-motion"
 import AddToListPopUp from "@/components/AddToListPopUp" 
 import { loginAtom } from "@/atoms/loginAtoms"
-import { useLoginCheck } from "@/hooks/useLoginCheck"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
@@ -20,7 +19,7 @@ const Home:NextPage = () => {
   const [puState,setPuState] = useState(false)
   const [mainInfo,setMainInfo] = useState<mainPageState>({itemList:"",title:""})
   return (
-     <LayOut>
+     <LayOut login={login}>
       {login?
        <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
 
@@ -44,29 +43,26 @@ const Home:NextPage = () => {
        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
          {Object.keys(dialog).map(itemList=>{return(
 <div  key={itemList}
-   className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col ">
+   className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
 <div className="bg-blue-500 text-center py-2 text-white rounded-md">{itemList} ({dialog[itemList].length})</div>
          <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
          {dialog[itemList].map(item=>{
-           return(<div key={item.id} className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer"
+           return(<motion.div key={item.id} whileHover={{y:-3}}
+            className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer bg-white"
            onClick={()=>{setPuState(state=>!state);setMainInfo(state=>{return{...state,id:item.id,itemList,title:item.title}})}}>
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
-             <motion.div layoutId={item.id}/>
              <div className=" text-[0.1em] flex">
                <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category.main}</div>
                <div className="m-1 lg:m-2">{item.date}</div>
                <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500":item.level==="Low"?"bg-yellow-400":"bg-green-500"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
                 </div>
-                </div>)})}</div>
+                </motion.div>)})}</div>
                 <div className="bg-blue-500 cursor-pointer h-8 flex justify-center items-center w-full rounded-lg text-yellow-50 hover:text-yellow-400"
                 onClick={()=>{setPuState(state=>!state);setMainInfo(state=>{return{...state,itemList:"",title:""}})}}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
                 className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
-                </div>
-                </div>)})}
-       </section>
+</svg></div></div>)})}</section>
 
 
    <section className="border-2 border-gray-300 my-5 rounded-lg shadow-xl w-full" id="graph_part">

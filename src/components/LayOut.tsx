@@ -1,14 +1,14 @@
 import { loginAtom } from "@/atoms/loginAtoms"
 import { useRouter } from "next/router"
-import { useRecoilState } from "recoil"
-const LayOut = ({children}:layout) => {
+import { useSetRecoilState } from "recoil"
+const LayOut = ({children , login}:layout) => {
   const {push , replace , pathname} = useRouter()
-  const [loginState , setLoginState] = useRecoilState(loginAtom)
+  const  setLoginState = useSetRecoilState(loginAtom)
     return(<>
 <header className="bg-blue-500 flex justify-between p-2 lg:p-5 lg:px-24 font-bold fixed top-0 w-full z-10">
   <h3 className={`text-md lg:text-2xl hover:text-white ${pathname==='/'?"text-white":null}`} onClick={()=>push('/')}>DoneList</h3>
   <div className="flex items-center">
- {loginState.login?<>
+ {login?<>
     {["Calender","Chart","Follower","Setting","Log-Out"].map((item,index)=>{
     return(
     <span key={index} 

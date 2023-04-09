@@ -9,7 +9,7 @@ const Chart = () => {
     const total ={total_sucess:"90%",total_delay:"10%"}
     const {login} =  useRecoilValue(loginAtom)
     useLoginCheck(login)
-return(<LayOut>
+return(<LayOut login={login}>
     <main className="my-10 pt-2">
 <div className="border-2 text-center mx-auto border-amber-900 w-[80%] p-1 rounded-xl font-bold shadow-xl">
 <select className="outline-none text-sm lg:text-md">

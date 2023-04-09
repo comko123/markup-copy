@@ -1,10 +1,13 @@
+import { loginAtom } from "@/atoms/loginAtoms"
 import LayOut from "@/components/LayOut"
 import { NextPage } from "next"
 import { useRouter } from "next/router"
+import { useRecoilValue } from "recoil"
 
 const ErrorPage:NextPage = () => {
     const {replace} = useRouter()
-    return(<LayOut>
+    const {login} = useRecoilValue(loginAtom)
+    return(<LayOut login={login}>
        <main className="grid h-[90vh] grid-cols-1 place-items-center">
        <div>
         <div className=" bg-blue-100 mx-auto border-2 border-blue-500 p-5 rounded-2xl h-full w-[60%]">

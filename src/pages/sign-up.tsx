@@ -15,7 +15,7 @@ className="bg-blue-100 p-3 mt-4 w-96 h-[22.5rem] border-4 font-bold border-blue-
     {["name","e-mail","nickname","password"].map(item=>{return(
         <div key={item} className="my-2 ml-2">
         <div className="ml-1 mb-1">{item}</div>
-        <input type="text" className="outline-none w-full rounded-lg h-8 p-3"/>
+        <input type={item!=="password"?"text":"password"} className="outline-none w-full rounded-lg h-8 p-3"/>
         </div>
     )})}
     <input type="submit" value="Sign Up" className="bg-blue-500 hover:text-white p-2 rounded-lg w-[95%] mt-2 ml-3"/>

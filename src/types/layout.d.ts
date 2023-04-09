@@ -1,3 +1,4 @@
 interface layout {
-    children: React.ReactNode
+    children: React.ReactNode,
+    login?:boolean
 }

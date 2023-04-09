@@ -20,10 +20,10 @@ className="w-20 aspect-square mx-auto">
 
 <form onSubmit={e=>e.preventDefault()} 
 className="grid grid-cols-1 bg-blue-100 p-3 mt-4 w-96 h-64 border-4 border-blue-500 rounded-lg shadow-xl">
-        {["Id","PassWord"].map(item=>{
+        {["email","password"].map(item=>{
             return( <div className="font-bold flex flex-col" key={item}>
             <span className="ml-1 mb-1">{item}</span>
-            <input type="text" className="border-2 border-blue-500 rounded-lg h-10 outline-none p-3 text-sm"/>
+            <input type={item!=="password"?"email":"password"} className="border-2 border-blue-500 rounded-lg h-10 outline-none p-3 text-sm"/>
             </div>)
         })}
     <input type="submit" value="Log In" onClick={()=>{setLoginState(state=>({login:!state.login}));replace('/')}}
