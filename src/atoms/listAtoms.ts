@@ -16,7 +16,7 @@ export const popupList = selectorFamily({
     get:(key:{[key:string]:string})=>({get})=>{
         const getDate = new Date()
         const defaultDate = `${getDate.getFullYear()}.${getDate.getMonth()+1}.${getDate.getDate()}`
-        if(!key.title&&!key.keyValue) return [{category:{main: '', sub: ''},id:`${v1()}`,
+        if(!key.title||!key.itemList) return [{category:{main: '', sub: ''},id:`${v1()}`,
             date: `${defaultDate}~${defaultDate}`,level: "",title:""}]
-        else return get(listAtom)[key.keyValue].filter(item=>item.title===key.title)}
+        else return get(listAtom)[key.itemList].filter(item=>item.title===key.title)}
 })

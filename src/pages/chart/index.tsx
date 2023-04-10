@@ -3,6 +3,11 @@ import LayOut from "@/components/LayOut"
 import { useLoginCheck } from "@/hooks/useLoginCheck"
 import dynamic from "next/dynamic"
 import { useRecoilValue } from "recoil"
+import { lineOptions } from "@/graph_options/lineOptions"
+import { radialBarOptions } from "@/graph_options/radialBarOptions"
+import { donutOptions } from "@/graph_options/donutOptions"
+import { barOptions } from "@/graph_options/barOptions"
+import { rangeBarOptions } from "@/graph_options/rangeBarOptions"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Chart = () => {
@@ -22,12 +27,7 @@ return(<LayOut login={login}>
 <ApexChart type="line" height={250}
 series={[{ name: "월별 실패율",data:[10,0,5,15,40,0,0,0,5,35,0,0]},
 {name:"월별 성공률",data:[40,45,20,30,18,45,45,25,35,15,45,50]}]} 
-options={
-    {chart:{height: 50,width: 50,toolbar:{show:false},zoom:{enabled:false}},
-legend:{position:"top" as "top", horizontalAlign:"right" as "right", fontWeight: 600,} ,
-stroke: {curve:"straight" as "straight",width:3},
-grid: {show:true,xaxis:{lines:{show:false}},yaxis:{lines:{show:false}}},yaxis:{show:false}}
-}/></div>
+options={lineOptions}/></div>
 
 <div className='w-[80%] md:pr-7 xl:pr-0 mx-auto border-2 justify-between flex flex-col xl:flex-row border-gray-400 mt-5 rounded-xl shadow-xl'>
     <div className="pr-6 lg:pr-0 text-xs lg:text-[1em] my-auto">
@@ -58,13 +58,10 @@ grid: {show:true,xaxis:{lines:{show:false}},yaxis:{lines:{show:false}}},yaxis:{s
 <div className="grid grid-cols-2">
 <ApexChart type="radialBar"height={250}
 series= {[100, 80, 90]}
-options={{labels:['A', 'B', 'C', 'D', 'E'],
-plotOptions:{radialBar:{track:{margin:0},dataLabels:{total:{show:true,label:'total'}}}}}}/>
+options={{labels:['A', 'B', 'C'],...radialBarOptions}}/>
 <ApexChart type="radialBar"height={250}
 series= {[100, 80, 90]}
-options={{labels:['A', 'B', 'C', 'D', 'E'],
-plotOptions:{radialBar:{track:{margin:0},dataLabels:{total:{show:true,label:'total'}}}}}}/>
-
+options={{labels:['A', 'B', 'C'],...radialBarOptions}}/>
 </div>
 </div>
 
@@ -89,16 +86,9 @@ plotOptions:{radialBar:{track:{margin:0},dataLabels:{total:{show:true,label:'tot
 <div className="flex flex-col mt-4 lg:grid lg:grid-cols-2">
 <ApexChart type="donut" height={200}
 series={[44, 55, 41, 17, 15]}
-options={{labels:['일상','공부','운동','업무','기타'], 
-plotOptions:{pie:{donut:{size:"50%",labels:{show:true,total:{show:true,fontWeight:800}}}}},
-chart:{height:50,width:50},legend:{fontWeight: 600} }}/>
+options={{labels:['일상','공부','운동','업무','기타'],...donutOptions }}/>
 <ApexChart type= 'bar' height={200}
-series={ [{name: 'A',data: [44, 55,30,20,10]}]}
-options={{
-    chart:{stacked: true,toolbar:{show:false}}, 
-     plotOptions: {bar: {horizontal:true}},grid:{show:false},
-     yaxis:{labels:{show:false}},xaxis:{labels:{show:false},axisTicks:{show:false}}
-}}/>
+series={ [{name: 'A',data: [44, 55,30,20,10]}]} options={barOptions}/>
 </div>
 <button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg">전체보기</button>
     </div>  
@@ -124,16 +114,10 @@ options={{
 <div className="flex flex-col mt-4 lg:grid lg:grid-cols-2">
 <ApexChart type="donut" height={200}
 series={[44, 55, 41, 17, 15]}
-options={{labels:['게으름','일정 타이트','특별한 일정','우선순위 변화','기타'], 
-plotOptions:{pie:{donut:{size:"50%",labels:{show:true,total:{show:true,fontWeight:800}}}}},
-legend:{fontWeight:600},chart:{height: 50,width: 50} }}/>
+options={{labels:['게으름','일정 타이트','특별한 일정','우선순위 변화','기타'],...donutOptions }}/>
 <ApexChart type= 'bar' height={200}
-series={ [{name: 'A',data: [44, 55,30,20,10]}]}
-options={{
-    chart:{stacked: true,toolbar:{show:false}}, 
-    plotOptions: {bar: {horizontal:true}},grid:{show:false},
-    yaxis:{labels:{show:false}},xaxis:{labels:{show:false},axisTicks:{show:false}}
-}}/>
+series={[{name: 'A',data: [44, 55,30,20,10]}]}
+options={barOptions}/>
 </div>
 <button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg">전체보기</button>
     </div>    
@@ -144,11 +128,7 @@ series={ [{name:'일별 실패율',
 data: [47,55,57,56,61,58,63]},
 {name:'월별 성공률',
 data: [76,85,101,98,87,105,91]}]}
-options={{chart:{height: 50,width: 50,toolbar:{show:false},zoom:{enabled:false}},
-xaxis:{labels:{show:false},axisTicks:{show:false}},
-yaxis:{labels:{show:false}},
-legend:{position:"top" as "top", horizontalAlign:"right" as "right", fontWeight: 600},
-grid:{show:false}}} /></div></div>
+options={rangeBarOptions} /></div></div>
 </main>
 </LayOut>)
 }

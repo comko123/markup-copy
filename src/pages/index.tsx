@@ -10,6 +10,7 @@ import { logSample } from "@/sample_data_case/logSample"
 import {AnimatePresence , motion} from "framer-motion"
 import AddToListPopUp from "@/components/AddToListPopUp" 
 import { loginAtom } from "@/atoms/loginAtoms"
+import { heatmapOption } from "@/graph_options/heatmapOptions"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
@@ -17,7 +18,7 @@ const Home:NextPage = () => {
   const {login} =  useRecoilValue(loginAtom)
   const[state,setState] = useRecoilState(logAtom)
   const [puState,setPuState] = useState(false)
-  const [mainInfo,setMainInfo] = useState<mainPageState>({itemList:"",title:""})
+  const [mainInfo,setMainInfo] = useState<toDoState>({itemList:"",title:""})
   return (
      <LayOut login={login}>
       {login?
@@ -37,7 +38,7 @@ const Home:NextPage = () => {
        </section>
    
           <AnimatePresence>
-            {puState?<AddToListPopUp setState={setPuState} keyValue={mainInfo.itemList} title={mainInfo.title}/>:null}
+            {puState?<AddToListPopUp setState={setPuState} refrence={mainInfo}/>:null}
           </AnimatePresence>
 
        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
@@ -47,9 +48,9 @@ const Home:NextPage = () => {
 <div className="bg-blue-500 text-center py-2 text-white rounded-md">{itemList} ({dialog[itemList].length})</div>
          <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
          {dialog[itemList].map(item=>{
-           return(<motion.div key={item.id} whileHover={{y:-3}}
+           return(<motion.div key={item.id} whileHover={{scale:0.9,transition:{duration:0.25,type:"keyframes"}}}
             className="border-2 border-blue-500 my-2 p-2 rounded-md cursor-pointer bg-white"
-           onClick={()=>{setPuState(state=>!state);setMainInfo(state=>{return{...state,id:item.id,itemList,title:item.title}})}}>
+           onClick={()=>{setPuState(state=>!state);setMainInfo(()=>{return{itemList,title:item.title}})}}>
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
              <div className=" text-[0.1em] flex">
                <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category.main}</div>
@@ -57,8 +58,8 @@ const Home:NextPage = () => {
                <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500":item.level==="Low"?"bg-yellow-400":"bg-green-500"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
                 </div>
                 </motion.div>)})}</div>
-                <div className="bg-blue-500 cursor-pointer h-8 flex justify-center items-center w-full rounded-lg text-yellow-50 hover:text-yellow-400"
-                onClick={()=>{setPuState(state=>!state);setMainInfo(state=>{return{...state,itemList:"",title:""}})}}>
+                <div className="bg-blue-500 cursor-pointer h-8 flex justify-center items-center w-full rounded-lg text-yellow-50 hover:opacity-80"
+                onClick={()=>{setPuState(state=>!state);setMainInfo(()=>{return{itemList,title:""}})}}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
                 className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -84,24 +85,7 @@ const Home:NextPage = () => {
      <div className="lg:w-full w-[150vw]">
      <ApexChart type='heatmap' height={150}
    series={heatmapData} 
-   options={{
-      chart:{toolbar:{show:false},type:'heatmap',selection:{enabled:false}},legend:{show:false},
-      xaxis:{labels:{show:false},tooltip:{enabled:false,},axisTicks:{show:false},position:"front"},
-      yaxis:{labels:{show:false},showAlways:false,tooltip:{enabled:false}},
-      tooltip:{x:{show:false},y:{title:{formatter:(tr)=>{return `${tr}`}}}},
-      dataLabels:{enabled:false},
-      plotOptions:{heatmap:{enableShades:false,radius:5,
-       colorScale:{
-   ranges:[
-   {from:0,to:0,color:"rgb(235, 235, 235)"},
-   {from:1,to:2,color:"rgb(163, 254, 153)"},
-   {from:3,to:4,color:"rgb(130, 225, 119)"},
-   {from:5,to:6,color:"rgb(41, 179, 82)"},
-   {from:7,to:8,color:"rgb(33, 132, 62)"},
-   {from:9,to:100000000,color:"rgb(21, 83, 40)"}   
-   ]
-      }}}
-   }}/>
+   options={heatmapOption}/>
      </div>
    </div>
    </section>

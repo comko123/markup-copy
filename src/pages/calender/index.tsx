@@ -14,7 +14,7 @@ const Calender = () => {
   const [enabled, setEnabled] = useState(false)
   const [puState,setPuState] = useState(false)
   const  [state,setState] = useRecoilState(listAtom)
-  const [calenderInfo,setCalenderInfo] = useState<mainPageState>({itemList:"",title:""})
+  const [calenderInfo,setCalenderInfo] = useState<toDoState>({itemList:"",title:""})
   const {login} =  useRecoilValue(loginAtom)
 useLoginCheck(login)
   useEffect(() => {
@@ -45,25 +45,25 @@ return(<>{enabled?
         </section>
 
         <AnimatePresence>
-            {puState?<AddToListPopUp setState={setPuState} keyValue={calenderInfo.itemList} title={calenderInfo.title}/>:null}
+            {puState?<AddToListPopUp setState={setPuState} refrence={calenderInfo}/>:null}
           </AnimatePresence>
 
         <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
          <DragDropContext onDragEnd={
           ({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)}>         
-          {Object.keys(state).map(item=>{return(
-<div  key={item} className="p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
-<div className="bg-blue-500 text-center py-2 text-white rounded-md">{item} ({state[item].length})</div>
-      <Droppable droppableId={item}>
+          {Object.keys(state).map(itemList=>{return(
+<div  key={itemList} className="p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
+<div className="bg-blue-500 text-center py-2 text-white rounded-md">{itemList} ({state[itemList].length})</div>
+      <Droppable droppableId={itemList}>
         {(provider)=><div {...provider.droppableProps} ref={provider.innerRef} 
         className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
-         {state[item].map((item,index)=>{
+         {state[itemList].map((item,index)=>{
            return(<DragList item ={item} index={index} key={item.id}/>)})}
            {provider.placeholder}
            </div>}
         </Droppable>
-        <div className="bg-blue-500 cursor-pointer h-8 flex justify-center items-center w-full rounded-lg text-yellow-50 hover:text-yellow-400"
-        onClick={()=>{setPuState(state=>!state);setCalenderInfo(state=>{return{...state,itemList:"",title:""}})}}>
+        <div className="bg-blue-500 cursor-pointer h-8 flex justify-center items-center w-full rounded-lg text-yellow-50 hover:opacity-80"
+        onClick={()=>{setPuState(state=>!state);setCalenderInfo(()=>{return{itemList,title:""}})}}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
                 className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />

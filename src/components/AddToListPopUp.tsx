@@ -8,13 +8,13 @@ import { NextPage } from "next"
 import { useState } from "react"
 import { useRecoilValue } from "recoil"
 
-const AddToListPopUp:NextPage<popupProps> = ({setState, keyValue , title }) => {
-  const searchList = useRecoilValue(popupList({keyValue,title}))
+const AddToListPopUp:NextPage<popupProps> = ({setState, refrence:{itemList,title}}) => {
+  const searchList = useRecoilValue(popupList({itemList,title}))[0]
 const ctgList = useRecoilValue(ctgAtom)
-const [startDate,fineDate] = searchList[0].date.split("~")
+const [startDate,fineDate] = searchList.date.split("~")
 const [popupState,setPopupState] = useState<popupState>(
-  {mainCtg:searchList[0].category.main,
-   subCtg:searchList[0].category.sub,
+  {mainCtg:searchList.category.main,
+   subCtg:searchList.category.sub,
    titState:false})
 return(
 <motion.div variants={popUpVariants} initial="start" animate="display" exit="end" className="z-20">
@@ -31,7 +31,7 @@ className="fixed top-[5%] left-[15%] md:left-[20%] w-[70%] md:w-[60%] h-[90%] bg
 <main className="mt-5 ml-[7%]">
 <form className="flex flex-col mr-[7%]" onSubmit={e=>e.preventDefault()}>
   <div className="border-b-2 border-gray-300 pb-4 mb-2 w-full">
-  <input type="text" defaultValue={searchList[0].title}
+  <input type="text" defaultValue={searchList.title}
   className="outline-none rounded-lg bg-slate-200 p-3 w-full shadow-md"/>
   </div>
 
@@ -115,10 +115,10 @@ className="w-7 aspect-square">
 className="w-7 aspect-square mt-3">
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
 </svg>
-<div className="grid grid-cols-2 gap-x-2 md:gap-x-5 mt-3 ml-2">
-{Object.keys(popUpSetting(searchList[0].level)).map(item=>{return(
+<div className="grid grid-cols-3 gap-x-2 md:gap-x-5 mt-3 ml-2">
+{Object.keys(popUpSetting({selsect:searchList.level,itemList})).map(item=>{return(
     <select key={item} className="outline-none text-blue-500 text-vxs sm:text-xs shadow-md border-2 border-blue-500 rounded-lg md:px-2 md:py-1">
-    {popUpSetting(searchList[0].level)[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
+    {popUpSetting({selsect:searchList.level,itemList})[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
     </select>
   )})}
 </div>
