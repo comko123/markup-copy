@@ -8,11 +8,13 @@ import { radialBarOptions } from "@/graph_options/radialBarOptions"
 import { donutOptions } from "@/graph_options/donutOptions"
 import { barOptions } from "@/graph_options/barOptions"
 import { rangeBarOptions } from "@/graph_options/rangeBarOptions"
+import { useRouter } from "next/router"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Chart = () => {
     const total ={total_sucess:"90%",total_delay:"10%"}
     const {login} =  useRecoilValue(loginAtom)
+    const {push} = useRouter()
     useLoginCheck(login)
 return(<LayOut login={login}>
     <main className="my-10 pt-2">
@@ -90,7 +92,8 @@ options={{labels:['일상','공부','운동','업무','기타'],...donutOptions 
 <ApexChart type= 'bar' height={200}
 series={ [{name: 'A',data: [44, 55,30,20,10]}]} options={barOptions}/>
 </div>
-<button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg">전체보기</button>
+<button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg"
+onClick={()=>push(`/chart/list`)}>전체보기</button>
     </div>  
 </div>
 
@@ -119,7 +122,8 @@ options={{labels:['게으름','일정 타이트','특별한 일정','우선순�
 series={[{name: 'A',data: [44, 55,30,20,10]}]}
 options={barOptions}/>
 </div>
-<button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg">전체보기</button>
+<button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg"
+onClick={()=>push(`/chart/list`)}>전체보기</button>
     </div>    
 <div className="relative">
 <span className="absolute top-2 left-2 lg:left-6 text-xs lg:text-lg">일별 성공율(주간)</span>   
