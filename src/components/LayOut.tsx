@@ -28,7 +28,7 @@ const LayOut = ({children , login}:layout) => {
   <h3 className={`text-md lg:text-2xl hover:text-white ${pathname==='/'?"text-white":null}`} onClick={()=>push('/')}>DoneList</h3>
   <div className="flex items-center">
  {login?<>
-    {["Calender","Chart","Follower","Setting","Log-Out"].map((item,index)=>{
+    {["Calender","Chart","Follower","Log-Out"].map((item,index)=>{
     return(
     <span key={index} 
     className={`${pathname===`/${item.toLowerCase()}`?"text-white" :null} text-xs cursor-pointer lg:text-lg mx-1 lg:mx-3 hover:text-white`}
@@ -46,8 +46,8 @@ const LayOut = ({children , login}:layout) => {
  <AnimatePresence>
  {modalShowing?
   <motion.div variants={modalVariants} transition={modalVariants.transition} initial="start" animate="display" exit="end" 
-  className="fixed right-[2%] top-[2.2em] md:top-[3.7em] xl:top-[3.8em] origin-top w-[13rem] md:w-[16rem] aspect-square my-2 bg-pink-100 rounded-xl">
-  <div className="border-[20px] w-5 border-t-transparent border-x-transparent absolute border-b-pink-100 -top-[12.5%] right-[11%] md:right-[4%] lg:right-[38%] 2xl:right-[35%]"/>
+  className="fixed right-[2%] md:right-[1%] lg:right-[2%] top-[2.2em] md:top-[3.7em] xl:top-[3.8em] origin-top w-[13rem] md:w-[16rem] aspect-square my-2 bg-pink-100 rounded-xl">
+  <div className="border-[20px] w-5 border-t-transparent border-x-transparent absolute border-b-pink-100 -top-[12.5%] right-[0.2rem] md:right-[0.3rem] lg:right-[4.7rem]  2xl:right-[4.2rem]"/>
 <form onSubmit={e=>e.preventDefault()} className="p-2">
   <input type="text" placeholder="write to title" className="outline-none p-2 w-full rounded-lg my-2 text-vxs md:text-sm"/>
 
@@ -84,19 +84,28 @@ onClick={()=>setModalState(state=>{
 </motion.div>
   :null}
  </AnimatePresence>
+ </>:<>
+ {["Log-In","Sign-Up"].map(item=><div key={item}>
+  <div onClick={()=>replace(`/${item.toLowerCase()}`)} className={`${pathname===`/${item.toLowerCase()}`?"text-white" :null} 
+  text-xs lg:text-lg mx-1 lg:mx-3 hover:text-white cursor-pointer`}>{item}</div> 
+ </div>)}
+ </>
+ }
+</div></header>
 
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
+<main className="mt-14 md:mt-24">{children}</main>
+
+{login?<footer className="relative">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
 onClick={()=>setModalState(()=>{return{addToDoModalState:{...addToDoModalState,modalShowing:false},alertState:{alertShowing:!alertShowing}}})}
-className={`w-4 aspect-square lg:w-6 ${alertShowing?"text-white":"text-black"} z-20 hover:text-white cursor-pointer`}>
-  <path strokeLinecap="round" strokeLinejoin="round"
-   d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
+className={`w-[3rem] aspect-square lg:w-[4%] ${alertShowing?"text-white":"text-black"} fixed bottom-[12%] right-[6%] hover:text-white cursor-pointer bg-blue-500 p-1 rounded-full `}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
 </svg>
-<span className="absolute right-[3.6em] md:right-[2.08em] lg:right-[8.7em] text-vxs md:text-xs text-orange-500">{alertSample.length?alertSample.length:null}</span>
+
 <AnimatePresence>
  {alertShowing?
   <motion.div variants={modalVariants} transition={modalVariants.transition} initial="start" animate="display" exit="end"
-  className="fixed right-[1%] top-[2.2em] md:top-[3.7em] xl:top-[3.8em] p-2 origin-top w-[13rem] md:w-[16rem] aspect-square my-2 bg-pink-100 rounded-xl">
-    <div className="border-[20px] w-5 border-t-transparent border-x-transparent absolute border-b-pink-100 rounded-lg -top-[15%] md:-top-[12.8%]  right-[4%] md:right-0 lg:right-[29%] 2xl:right-[26%]"/>
+  className="fixed right-[1.5%]  bottom-[8em] xl:bottom-[23vh] p-2 origin-bottom w-[13rem] md:w-[16rem] aspect-square my-2 bg-pink-100 rounded-xl">
 {alertSample.length?<>
   <div className="text-slate-600 flex text-vxs font-bold w-full justify-end border-b-2 pb-1 border-sky-500"
 ><span onClick={()=>setAlertSample([])} className="hover:text-amber-600">모두 읽기</span></div>
@@ -122,18 +131,11 @@ className={`w-4 aspect-square lg:w-6 ${alertShowing?"text-white":"text-black"} z
 </div>)}
 </div>
 </>:<div className="flex items-center justify-center w-full h-full text-vxs md:text-sm">The notification is empty...</div>}
+<div className="border-[20px] w-5 border-b-transparent border-x-transparent absolute border-t-pink-100 rounded-lg right-[2rem] md:right-[3rem] lg:right-[3.3rem] xl:right-[4.5rem] 2xl:right-[5.5rem] bottom-[-2.2rem]"/>
 </motion.div>
   :null}
  </AnimatePresence>
+</footer>:null}
 
- </>:<>
- {["Log-In","Sign-Up"].map(item=><div key={item}>
-  <div onClick={()=>replace(`/${item.toLowerCase()}`)} className={`${pathname===`/${item.toLowerCase()}`?"text-white" :null} 
-  text-xs lg:text-lg mx-1 lg:mx-3 hover:text-white cursor-pointer`}>{item}</div> 
- </div>)}
- </>
- }
-</div></header>
-<main className="mt-14 md:mt-24">{children}</main>
 </>)}
 export default LayOut
