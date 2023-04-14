@@ -24,7 +24,7 @@ const Home:NextPage = () => {
       {login?
        <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
 
-       <section className="flex mb-2 md:mb-0 flex-wrap " id="button_part">
+       <section className="flex mb-2 md:mb-0 flex-wrap justify-center md:justify-start" id="button_part">
        <div className="border-2 p-1 px-4 rounded-lg shadow-md border-gray-300 mx-1">2022.12.19~2022.12.25</div>
          <select name ="week" className="[&>*]:font-bold border-2 rounded-lg shadow-md bg-white border-gray-300 p-1 px-2 mx-1 outline-none">
            <option value="1week">1week</option>
