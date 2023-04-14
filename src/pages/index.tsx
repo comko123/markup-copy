@@ -53,9 +53,9 @@ const Home:NextPage = () => {
            onClick={()=>{setPuState(state=>!state);setMainInfo(()=>{return{itemList,title:item.title}})}}>
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
              <div className=" text-[0.1em] flex">
-               <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg">{item.category.main}</div>
-               <div className="m-1 lg:m-2">{item.date}</div>
-               <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500":item.level==="Low"?"bg-yellow-400":"bg-green-500"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
+               <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg w-[9.5%]">{item.category.main}</div>
+               <div className="m-1 lg:m-2 w-[40%]">{item.date}</div>
+               <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500 w-[11%]":item.level==="Low"?"bg-yellow-400 w-[10%]":"bg-green-500 w-[16.5%]"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
                 </div>
                 </motion.div>)})}</div>
                 <div className="bg-blue-500 cursor-pointer h-8 flex justify-center items-center w-full rounded-lg text-yellow-50 hover:opacity-80"
