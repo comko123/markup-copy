@@ -41,7 +41,7 @@ const Home:NextPage = () => {
             {puState?<AddToListPopUp setState={setPuState} refrence={mainInfo}/>:null}
           </AnimatePresence>
 
-       <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
+       <section className="flex mt-2 lg:mt-5 flex-col w-full md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
          {Object.keys(dialog).map(itemList=>{return(
 <div  key={itemList}
    className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
