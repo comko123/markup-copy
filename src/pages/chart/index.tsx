@@ -33,10 +33,10 @@ options={lineOptions}/></div>
 
 <div className='w-[80%] md:pr-7 xl:pr-0 mx-auto border-2 justify-between flex flex-col xl:flex-row border-gray-400 mt-5 rounded-xl shadow-xl'>
     <div className="pr-6 lg:pr-0 text-xs lg:text-[1em] my-auto">
-        <div className="flex justify-between border-b-2 border-gray-300 font-bold ml-6 [&>*]:text-vsx [&>*]:md:text-sm">
-            <div className="w-56 my-2 pl-2">10월 To Do List 요약</div>
-            <div className="w-24 my-2 ml-2">전체 성공률</div>
-            <div className="w-24 my-2 ml-10">평균 지연률</div>
+        <div className="flex justify-between border-b-2 border-gray-300 font-bold ml-6 [&>*]:my-2  [&>*]:w-max [&>*]:text-vsx [&>*]:md:text-sm">
+            <div className="ml-2">10월 To Do List 요약</div>
+            <div className="">전체 성공률</div>
+            <div className="">평균 지연률</div>
             </div>
         {[{title:"10월 1주",date:"10.01~10.07",succes:"90%",delay:"10%"},
           {title:"10월 2주",date:"10.08~10.15",succes:"90%",delay:"10%"},
@@ -58,10 +58,10 @@ options={lineOptions}/></div>
             </div>
         </div>
 <div className="grid grid-cols-2">
-<ApexChart type="radialBar"height={250}
+<ApexChart type="radialBar"height={200}
 series= {[100, 80, 90]}
 options={{labels:['A', 'B', 'C'],...radialBarOptions}}/>
-<ApexChart type="radialBar"height={250}
+<ApexChart type="radialBar"height={200}
 series= {[100, 80, 90]}
 options={{labels:['A', 'B', 'C'],...radialBarOptions}}/>
 </div>
