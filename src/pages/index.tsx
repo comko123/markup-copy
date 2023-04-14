@@ -24,7 +24,7 @@ const Home:NextPage = () => {
       {login?
        <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
 
-       <section className="flex mb-2 md:mb-0" id="button_part">
+       <section className="flex mb-2 md:mb-0 " id="button_part">
        <div className="border-2 p-1 px-4 rounded-lg shadow-md border-gray-300 mx-1">2022.12.19~2022.12.25</div>
          <select name ="week" className="[&>*]:font-bold border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
            <option value="1week">1week</option>
@@ -54,7 +54,7 @@ const Home:NextPage = () => {
              <div className="ml-2 w-52 overflow-hidden text-ellipsis whitespace-nowrap mb-1">{item.title}</div>
              <div className="text-vxs md:text-[0.1em] flex w-full [&>*]:w-max">
                <div className="my-1 lg:m-1 bg-blue-500 text-white p-[0.2rem] rounded-lg ">{item.category.main}</div>
-               <div className="m-1 lg:m-2">{item.date}</div>
+               <div className="m-1 lg:m-2 flex items-center">{item.date}</div>
                <div className={`my-1 lg:m-1 ${item.level==="High"?"bg-red-500":item.level==="Low"?"bg-yellow-400":"bg-green-500"} flex items-center p-1 text-white rounded-md`}>{item.level}</div>
                 </div>
                 </motion.div>)})}</div>
