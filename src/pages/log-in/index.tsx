@@ -18,7 +18,11 @@ className="w-20 aspect-square mx-auto">
 <div className="text-center font-bold text-3xl">Sign in to DoneList</div>
 </div>
 
-<form onSubmit={e=>e.preventDefault()} 
+<form onSubmit={e=>{
+  e.preventDefault()
+  setLoginState(state=>({login:!state.login}))
+  replace('/')
+}} 
 className="grid grid-cols-1 bg-blue-100 p-3 mt-4 w-96 h-64 border-4 border-blue-500 rounded-lg shadow-xl">
         {["email","password"].map(item=>{
             return( <div className="font-bold flex flex-col" key={item}>
@@ -26,8 +30,7 @@ className="grid grid-cols-1 bg-blue-100 p-3 mt-4 w-96 h-64 border-4 border-blue-
             <input type={item!=="password"?"email":"password"} className="border-2 border-blue-500 rounded-lg h-10 outline-none p-3 text-sm"/>
             </div>)
         })}
-    <input type="submit" value="Log In" onClick={()=>{setLoginState(state=>({login:!state.login}));replace('/')}}
-    className="bg-blue-500 p-2 my-auto rounded-lg font-bold text-lg hover:text-white"/>
+    <input type="submit" value="Log In"className="bg-blue-500 p-2 my-auto rounded-lg font-bold text-lg hover:text-white"/>
 </form>
 </main>
 </LayOut>)
