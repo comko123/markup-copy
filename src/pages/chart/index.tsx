@@ -19,7 +19,7 @@ const Chart = () => {
 return(<LayOut login={login}>
     <main className="my-10 pt-2">
 <div className="border-2 text-center mx-auto border-amber-900 w-[80%] p-1 rounded-xl font-bold shadow-xl">
-<select className="outline-none text-sm lg:text-md">
+<select className="outline-none bg-white text-sm lg:text-md">
         <option>2023년 10월</option>
         <option>2023년 11월</option>
         <option>2023년 12월</option>
@@ -33,10 +33,10 @@ options={lineOptions}/></div>
 
 <div className='w-[80%] md:pr-7 xl:pr-0 mx-auto border-2 justify-between flex flex-col xl:flex-row border-gray-400 mt-5 rounded-xl shadow-xl'>
     <div className="pr-6 lg:pr-0 text-xs lg:text-[1em] my-auto">
-        <div className="flex justify-between border-b-2 border-gray-300 font-bold ml-6">
-            <div className="w-56 my-2 pl-2 text-xs md:text-sm ">10월 To Do List 요약</div>
-            <div className="w-24 my-2 ml-2 text-xs md:text-sm ">전체 성공률</div>
-            <div className="w-24 my-2 ml-10 text-xs md:text-sm ">평균 지연률</div>
+        <div className="flex justify-between border-b-2 border-gray-300 font-bold ml-6 [&>*]:text-vsx [&>*]:text-sm">
+            <div className="w-56 my-2 pl-2">10월 To Do List 요약</div>
+            <div className="w-24 my-2 ml-2">전체 성공률</div>
+            <div className="w-24 my-2 ml-10">평균 지연률</div>
             </div>
         {[{title:"10월 1주",date:"10.01~10.07",succes:"90%",delay:"10%"},
           {title:"10월 2주",date:"10.08~10.15",succes:"90%",delay:"10%"},
@@ -71,13 +71,13 @@ options={{labels:['A', 'B', 'C'],...radialBarOptions}}/>
     <div className="flex flex-col lg:flex-row lg:justify-between">
     <div className="mx-auto lg:ml-6 text-xs lg:text-lg">10월 To Do List 생성한 카테고리 비율</div>
     <div className="mt-2 lg:mt-0 mx-auto lg:mx-0">
-    <select  className="text-xs lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
+    <select className="text-xs bg-white lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
     <option value="1week">1week</option>
     <option value="2week">2week</option>
     <option value="3week">3week</option>
     <option value="4week">4week</option>
     </select>
-    <select  className="text-xs lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
+    <select  className="text-xs bg-white lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
     <option>오름차순</option>
     <option>내림차순</option>
     </select>
@@ -101,13 +101,13 @@ onClick={()=>push(`/chart/category`)}>전체보기</button>
 <div className="flex flex-col lg:flex-row justify-between font-bold">
     <div className="ml-0 lg:ml-6 text-xs lg:text-lg text-center">10월 To Do List 실제 피드백</div>
     <div className="mt-3 lg:mt-0 mx-auto lg:mx-0">
-    <select  className="text-xs lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
+    <select  className="text-xs bg-white lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
     <option value="1week">1week</option>
     <option value="2week">2week</option>
     <option value="3week">3week</option>
     <option value="4week">4week</option>
     </select>
-    <select  className="text-xs lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
+    <select  className="text-xs bg-white lg:text-md border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
     <option>오름차순</option>
     <option>내림차순</option>
     </select>
