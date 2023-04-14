@@ -128,12 +128,16 @@ onClick={()=>push(`/chart/feedback`)}>전체보기</button>
     </div>    
 <div className="relative">
 <span className="absolute top-2 left-2 lg:left-6 text-xs lg:text-lg">일별 성공율(주간)</span>   
-<ApexChart type='bar' height={250}
+<div className="overflow-auto max-w-full">
+     <div className="lg:w-full w-[150vw]">
+     <ApexChart type='bar' height={300}
 series={ [{name:'일별 실패율',
 data: [47,55,57,56,61,58,63]},
 {name:'월별 성공률',
 data: [76,85,101,98,87,105,91]}]}
-options={rangeBarOptions} /></div></div>
+options={rangeBarOptions} />        
+        </div></div>
+</div></div>
 </main>
 </LayOut>)
 }
