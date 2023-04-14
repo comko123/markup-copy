@@ -26,13 +26,13 @@ const Home:NextPage = () => {
 
        <section className="flex mb-2 md:mb-0 flex-wrap " id="button_part">
        <div className="border-2 p-1 px-4 rounded-lg shadow-md border-gray-300 mx-1">2022.12.19~2022.12.25</div>
-         <select name ="week" className="[&>*]:font-bold border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
+         <select name ="week" className="[&>*]:font-bold border-2 rounded-lg shadow-md bg-white border-gray-300 p-1 px-2 mx-1 outline-none">
            <option value="1week">1week</option>
            <option value="2week">2week</option>
            <option value="3week">3week</option>
            <option value="4week">4week</option>
          </select>
-         <select name ="category" className="rounded-lg border-gray-300 shadow-md p-1 px-2 mx-1 border-2 outline-none">
+         <select name ="category" className="rounded-lg border-gray-300 bg-white shadow-md p-1 px-2 mx-1 border-2 outline-none">
            <option value="c" className="font-bold">카테고리</option>
          </select>
        </section>
@@ -70,13 +70,13 @@ const Home:NextPage = () => {
    <div className="mx-8 border-b-2 py-3 flex flex-col  md:flex-row justify-between">
    <div className="text-md lg:text-lg flex items-center mx-auto md:mx-0">480 done in the year</div>
    <div className="flex mx-auto md:mx-0 mt-2 md:mt-0">
-   <select className="rounded-lg border-gray-300 shadow-md p-1 px-2 mx-1 border-2 lg:text-md outline-none">
+   <select className="rounded-lg border-gray-300 bg-white shadow-md p-1 px-2 mx-1 border-2 lg:text-md outline-none">
      <option>노휘래</option>
      <option>이진이</option>
      <option>최충실</option>
      <option>김민석</option>
    </select>
-   <select name ="category" className="rounded-lg border-gray-300 shadow-md p-1 overflow-hidden px-2 mx-1 border-2 lg:text-md outline-none">
+   <select name ="category" className="rounded-lg border-gray-300 bg-white shadow-md p-1 overflow-hidden px-2 mx-1 border-2 lg:text-md outline-none">
            <option value="c">카테고리</option>
          </select>
    </div>
@@ -106,8 +106,8 @@ const Home:NextPage = () => {
      <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
    </svg>} 
    <div className="mx-5 ml-2 w-full ">
-   <span className="ml-3">{item.content.main}</span>
-   <span className="text-gray-400">&nbsp;{item.content.date}</span>
+   <div className="ml-3">{item.content.main}</div>
+   <div className="text-gray-400 ml-3">{item.content.date}</div>
    <div className="border-2 border-gray-300 rounded-lg p-1 mt-3 ml-4 w-full">{
    Object.keys(item.friendContent as dragListProps["item"]["category"]).map(fcl=>{
      return(<div key={fcl} className="my-2">
