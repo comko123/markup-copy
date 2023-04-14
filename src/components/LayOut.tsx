@@ -46,7 +46,7 @@ const LayOut = ({children , login}:layout) => {
  <AnimatePresence>
  {modalShowing?
   <motion.div variants={modalVariants} transition={modalVariants.transition} initial="start" animate="display" exit="end" 
-  className="fixed right-[2%] overflow-auto scrollbar-hide md:right-[1%] lg:right-[2%] top-[2.2em] md:top-[3em] xl:top-[3.8em] origin-top w-[13rem] md:w-[16rem] aspect-square my-2 bg-pink-100 rounded-xl">
+  className="fixed right-[2%] overflow-auto scrollbar-hide md:right-[1%] lg:right-[2%] top-[2.2em] md:top-[3em] xl:top-[3.8em] origin-top w-[14rem] md:w-[16rem] aspect-square my-2 bg-pink-100 rounded-xl">
 <form onSubmit={e=>e.preventDefault()} className="p-2">
   <input type="text" placeholder="write to title" className="outline-none p-2 w-full rounded-lg my-2 text-vxs md:text-sm"/>
 
