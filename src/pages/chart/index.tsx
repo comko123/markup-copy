@@ -16,6 +16,7 @@ const Chart = () => {
     const {login} =  useRecoilValue(loginAtom)
     const {push} = useRouter()
     useLoginCheck(login)
+    // console.log(window.innerWidth)
 return(<LayOut login={login}>
     <main className="my-10 pt-2">
 <div className="border-2 text-center mx-auto border-amber-900 w-[80%] p-1 rounded-xl font-bold shadow-xl">
@@ -35,8 +36,8 @@ options={lineOptions}/></div>
     <div className="pr-6 lg:pr-0 text-xs lg:text-[1em] my-auto">
         <div className="flex justify-between border-b-2 border-gray-300 font-bold ml-6 [&>*]:my-2  [&>*]:w-max [&>*]:text-vsx [&>*]:md:text-sm">
             <div className="ml-2">10월 To Do List 요약</div>
-            <div className="">전체 성공률</div>
-            <div className="">평균 지연률</div>
+            <div className="-mr-1">전체 성공률</div>
+            <div className="mr-3">평균 지연률</div>
             </div>
         {[{title:"10월 1주",date:"10.01~10.07",succes:"90%",delay:"10%"},
           {title:"10월 2주",date:"10.08~10.15",succes:"90%",delay:"10%"},
@@ -49,7 +50,7 @@ options={lineOptions}/></div>
             <div className="w-12 mt-2">{item.delay}</div>
           </div></div>)})}
         
-            <div className="grid grid-cols-2 font-bold ml-6 pt-2 lg:py-2 border-t-2 border-gray-300">
+            <div className="grid grid-cols-2 font-bold ml-6 pt-2 pb-1 lg:py-3 border-t-2 border-gray-300">
                 <div className="w-36 lg:w-48 pl-2 text-center">총평균</div>
                 <div className="flex justify-between mx-6">
                     <div className="-ml-1">{total.total_sucess}</div>
@@ -58,10 +59,10 @@ options={lineOptions}/></div>
             </div>
         </div>
 <div className="grid grid-cols-2">
-<ApexChart type="radialBar"height={200}
+<ApexChart type="radialBar"height={220}
 series= {[100, 80, 90]}
 options={{labels:['A', 'B', 'C'],...radialBarOptions}}/>
-<ApexChart type="radialBar"height={200}
+<ApexChart type="radialBar"height={220}
 series= {[100, 80, 90]}
 options={{labels:['A', 'B', 'C'],...radialBarOptions}}/>
 </div>
