@@ -8,3 +8,6 @@
     -ms-user-select:none;
     user-select:none;
 }
+select{
+    background-color: white;
+}
