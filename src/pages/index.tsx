@@ -26,14 +26,14 @@ const Home:NextPage = () => {
 
        <section className="flex mb-2 md:mb-0" id="button_part">
        <div className="border-2 p-1 px-4 rounded-lg shadow-md border-gray-300 mx-1">2022.12.19~2022.12.25</div>
-         <select name ="week" className="border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
+         <select name ="week" className="[&>*]:font-bold border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
            <option value="1week">1week</option>
            <option value="2week">2week</option>
            <option value="3week">3week</option>
            <option value="4week">4week</option>
          </select>
          <select name ="category" className="rounded-lg border-gray-300 shadow-md p-1 px-2 mx-1 border-2 outline-none">
-           <option value="c">카테고리</option>
+           <option value="c" className="font-bold">카테고리</option>
          </select>
        </section>
    

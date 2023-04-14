@@ -93,7 +93,7 @@ options={{labels:['일상','공부','운동','업무','기타'],...donutOptions 
 series={ [{name: 'A',data: [44, 55,30,20,10]}]} options={barOptions}/>
 </div>
 <button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg"
-onClick={()=>push(`/chart/list`)}>전체보기</button>
+onClick={()=>push(`/chart/category`)}>전체보기</button>
     </div>  
 </div>
 
@@ -123,7 +123,7 @@ series={[{name: 'A',data: [44, 55,30,20,10]}]}
 options={barOptions}/>
 </div>
 <button className="mb-4 p-2 w-48 mx-auto rounded-lg border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-xs lg:text-lg"
-onClick={()=>push(`/chart/list`)}>전체보기</button>
+onClick={()=>push(`/chart/feedback`)}>전체보기</button>
     </div>    
 <div className="relative">
 <span className="absolute top-2 left-2 lg:left-6 text-xs lg:text-lg">일별 성공율(주간)</span>   
