@@ -87,7 +87,7 @@ options={{labels:['A', 'B', 'C'],...radialBarOptions}}/>
     
     <div className="flex flex-col">
 <div className="flex flex-col mt-4 lg:grid lg:grid-cols-2">
-<ApexChart type="donut" height={200}
+<ApexChart type="donut" height={230}
 series={[44, 55, 41, 17, 15]}
 options={{labels:['일상','공부','운동','업무','기타'],...donutOptions }}/>
 <ApexChart type= 'bar' height={200}
@@ -116,7 +116,7 @@ onClick={()=>push(`/chart/category`)}>전체보기</button>
     </div>
 <div className="border-b-2 border-gray-500 flex flex-col">
 <div className="flex flex-col mt-4 lg:grid lg:grid-cols-2">
-<ApexChart type="donut" height={200}
+<ApexChart type="donut" height={230}
 series={[44, 55, 41, 17, 15]}
 options={{labels:['게으름','일정 타이트','특별한 일정','우선순위 변화','기타'],...donutOptions }}/>
 <ApexChart type= 'bar' height={200}
@@ -128,7 +128,7 @@ onClick={()=>push(`/chart/feedback`)}>전체보기</button>
     </div>    
 <div className="relative">
 <span className="absolute top-2 left-2 lg:left-6 text-xs lg:text-lg">일별 성공율(주간)</span>   
-<ApexChart type='bar' height={300}
+<ApexChart type='bar' height={250}
 series={ [{name:'일별 실패율',
 data: [47,55,57,56,61,58,63]},
 {name:'월별 성공률',
