@@ -21,7 +21,7 @@ return(
 <motion.div onClick={()=>setState(state=>!state)}
 className="bg-gray-900 w-full h-full fixed top-0 left-0 opacity-50 font-bold"/>
 <motion.div
-className="fixed top-[5%] left-[15%] md:left-[20%] w-[70%] md:w-[60%] h-[90%] bg-white rounded-xl pb-11 overflow-auto scrollbar-hide">
+className="fixed top-[5%] left-[5%] md:left-[20%] w-[90%] md:w-[60%] h-[90%] bg-white rounded-xl pb-11 overflow-auto scrollbar-hide">
 <header className="bg-gray-300  h-[4em] md:h-[5em] rounded-t-xl flex justify-end px-3 pt-3 w-full">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
  className="w-6 h-6 md:w-10 md:h-10 hover:text-red-500" onClick = {()=>setState(state=>!state)}>
