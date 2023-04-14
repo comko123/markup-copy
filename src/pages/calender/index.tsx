@@ -48,7 +48,7 @@ return(<>{enabled?
             {puState?<AddToListPopUp setState={setPuState} refrence={calenderInfo}/>:null}
           </AnimatePresence>
 
-        <section className="flex mt-2 lg:mt-5 flex-col md:flex-row md:[&>*:nth-child(even)]:mx-5 md:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
+        <section className="flex mt-2 xl:mt-5 flex-col w-full xl:flex-row xl:[&>*:nth-child(even)]:mx-5 xl:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
          <DragDropContext onDragEnd={
           ({ destination, source })=>onDragEnd({ destination, source } as DropResult ,setState)}>         
           {Object.keys(state).map(itemList=>{return(
