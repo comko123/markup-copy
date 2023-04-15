@@ -8,8 +8,8 @@ const Login:NextPage = () => {
   const setLoginState = useSetRecoilState(loginAtom)
   const {replace} = useRouter()
 return(<LayOut>
-  <main className="flex flex-col justify-center items-center h-full my-10">
-<div className="flex flex-col ">
+  <main className="flex flex-col justify-center items-center h-[90vh] xl:h-[75vh] my-12 mx-10">
+<div>
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
 className="w-20 aspect-square mx-auto">
   <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
@@ -23,7 +23,7 @@ className="w-20 aspect-square mx-auto">
   setLoginState(state=>({login:!state.login}))
   replace('/')
 }} 
-className="grid grid-cols-1 bg-blue-100 p-3 mt-4 w-96 h-64 border-4 border-blue-500 rounded-lg shadow-xl">
+className="grid grid-cols-1 bg-blue-100 p-3 mt-4 w-96 xl:w-[33%] h-64 xl:h-[55%] border-4 border-blue-500 rounded-lg shadow-xl">
         {["email","password"].map(item=>{
             return( <div className="font-bold flex flex-col" key={item}>
             <span className="ml-1 mb-1">{item}</span>
