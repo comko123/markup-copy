@@ -124,9 +124,9 @@ const Home:NextPage = () => {
          </main>
       :
       
-      <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-md font-bold grid grid-cols-1">
+      <main className="mx-8 md:mx-16 lg:mx-24 mt-8 mb-20 lg:my-8 text-xs lg:text-md font-bold grid grid-cols-1">
 
-      <section className="flex mb-2 md:mb-0 -ml-6 md:ml-0" id="button_part">
+      <section className="flex mb-2 md:mb-0 -ml-1 md:ml-0" id="button_part">
       <div className="border-2 p-1 rounded-lg shadow-md border-gray-300 mx-1">
         <div className="bg-gray-300 w-36 h-5 rounded-lg animate-pulse"/>
       </div>
