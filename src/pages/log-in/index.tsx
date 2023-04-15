@@ -8,7 +8,7 @@ const Login:NextPage = () => {
   const setLoginState = useSetRecoilState(loginAtom)
   const {replace} = useRouter()
 return(<LayOut>
-  <main className="flex flex-col justify-center items-center h-[90vh] xl:h-[75vh] my-12 mx-10">
+  <main className="flex flex-col justify-center items-center h-[70vh] md:h-[90vh] xl:h-[75vh] my-12 mx-10">
 <div>
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
 className="w-20 aspect-square mx-auto">
