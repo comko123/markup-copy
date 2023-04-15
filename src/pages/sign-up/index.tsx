@@ -8,7 +8,7 @@ const SignUp:NextPage = () => {
     const setLoginState = useSetRecoilState(loginAtom)
     const {replace} = useRouter()
     return(<LayOut>
-        <main className="flex flex-col justify-center items-center h-[85vh] md:h-[125vh] lg:h-full my-8 mx-10 ">
+        <main className="flex flex-col justify-center items-center h-[75vh] md:h-[125vh] lg:h-full my-8 mx-10 ">
    <div>
    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
     strokeWidth={1.5} stroke="currentColor" 
