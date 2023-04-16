@@ -21,14 +21,14 @@ return(
 <motion.div onClick={()=>setState(state=>!state)}
 className="bg-gray-900 w-full h-full fixed top-0 left-0 opacity-50 font-bold"/>
 <motion.div
-className="fixed top-[12%] left-[5%] md:left-[12%] w-[90%] md:w-[78%] h-[75%] bg-white rounded-xl pb-5 overflow-auto scrollbar-hide">
+className="fixed top-[12%] left-[5%] xl:top-[8%] xl:left-[20%] md:left-[12%] w-[90%] md:w-[78%] xl:w-[60%] h-[75%] xl:h-[85%] bg-white rounded-xl pb-5 overflow-auto scrollbar-hide">
 <header className="bg-gray-300  h-[4em] md:h-[5em] rounded-t-xl flex justify-end px-3 pt-3 w-full">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
  className="w-6 h-6 md:w-10 md:h-10 hover:text-red-500" onClick = {()=>setState(state=>!state)}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
 </svg></header>
 
-<main className="mt-5 ml-[7%]">
+<main className="mt-5 ml-[7%] 2xl:w-[55vw]">
 <form className="flex flex-col mr-[7%]" onSubmit={e=>e.preventDefault()}>
   <div className="border-b-2 border-gray-300 pb-4 mb-2 w-full">
   <input type="text" defaultValue={searchList.title}
