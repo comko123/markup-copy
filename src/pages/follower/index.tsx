@@ -14,7 +14,7 @@ const Profil:NextPage = () => {
   const {login} =  useRecoilValue(loginAtom)
   useLoginCheck(login)
     return(<LayOut login={login}>
-      <main className="flex flex-col lg:flex-row mx-8 md:mx-10 my-10">
+      <main className="flex flex-col lg:flex-row mx-6 md:mx-10 my-10">
        <nav className="border-b-2 lg:border-r-2 lg:border-b-transparent border-gray-300 w-full lg:w-[32%] h-max lg:pr-5">
        <div className={`bg-gray-100 pt-7 lg:pt-0 w-full lg:w-[95%] ${state.profilState?"h-52 lg:h-80 ":"pt-10 h-60 lg:h-[25rem]"} flex justify-center lg:flex-col rounded-xl px-2 relative shadow-xl`}>
        <div className="h-[35%] mt-4 lg:mt-0">
@@ -117,7 +117,7 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${state
   state.follower?
   <div className="mt-5 [&>*:nth-child(even)]:my-5">
   {Array(5).fill({avatar:"",name:"follower",
-   timeLine:"Hi, i'm Devops engineer follower.",follow:true}).map((item,index)=>{return(
+   timeLine:"Hi, i'm Devops engineer follower.",follow:false}).map((item,index)=>{return(
    <div key={index} className=" lg:my-5 lg:ml-9 bg-gray-100 rounded-xl flex h-32 w-[99%] lg:w-[90%] p-4 shadow-lg">
        <div className="flex items-center justify-center">{item.avatar?
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
@@ -127,16 +127,17 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${state
      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
      className="w-16 lg:w-20 aspect-square p-1 bg-white rounded-full mr-4">
  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-</svg>
-}</div>
-<div className="border-l-4 border-gray-400 pl-5 flex w-full justify-between relative">
-<div className=" pt-3 max-w-xs w-[70%]">
+</svg>}</div>
+<div className="border-l-4 border-gray-400 pl-5 w-full justify-between overflow-x-hidden md:overflow-x-visible">
+<div className=" pt-3 w-[70%] md:w-full grid grid-cols-betch md:flex justify-between" >
+<div className="w-[40vw] lg:w-[30vw]">
 <div className="font-bold w-max lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.name}</div>
 <div className="pt-4 font-bold w-[90%] lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.timeLine}</div>
 </div>
 <input type="button" value={item.follow?"follow":"unfollow"} 
-className={`border-2 rounded-lg text-sm h-12 px-2 font-bold relative top-0 md:top-5 right-[28%] md:right-[4%] lg:right-4 bg-white cursor-pointer 
+className={`border-2 rounded-lg text-sm h-12 px-2 font-bold bg-white cursor-pointer 
 ${item.follow?"border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white":"border-red-500 text-red-500 hover:bg-red-500 hover:text-white"}`}/>
+</div>
 </div>
    </div>)})}
   </div>
@@ -153,16 +154,17 @@ ${item.follow?"border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
       className="w-16 lg:w-20 aspect-square p-1 bg-white rounded-full mr-4">
   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
- </svg>
- }</div>
- <div className="border-l-4 border-gray-400 pl-5 flex w-full justify-between relative">
- <div className=" pt-3 max-w-xs w-[70%]">
+ </svg>}</div>
+ <div className="border-l-4 border-gray-400 pl-5 w-full justify-between overflow-x-hidden md:overflow-x-visible">
+ <div className=" pt-3 w-[70%] md:w-full grid grid-cols-betch md:flex justify-between" >
+ <div className="w-[40vw] lg:w-[30vw]">
  <div className="font-bold w-max lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.name}</div>
  <div className="pt-4 font-bold w-[90%] lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.timeLine}</div>
  </div>
  <input type="button" value={item.follow?"follow":"unfollow"} 
- className={`border-2 rounded-lg text-sm h-12 px-2 font-bold relative top-0 md:top-5 right-[28%] md:right-[4%] lg:right-4 bg-white cursor-pointer 
+ className={`border-2 rounded-lg text-sm h-12 px-2 font-bold bg-white cursor-pointer 
  ${item.follow?"border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white":"border-red-500 text-red-500 hover:bg-red-500 hover:text-white"}`}/>
+ </div>
  </div>
     </div>)})}
   </div>
