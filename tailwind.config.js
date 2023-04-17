@@ -5,7 +5,7 @@ module.exports = {
     extend: {fontSize:{vxs:["8px"]},
     gridTemplateColumns:
       {
-        'betch': '100% 40%',
+        'betch': '95% 45%',
       }
   }
   },
