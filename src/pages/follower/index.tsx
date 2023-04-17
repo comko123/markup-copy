@@ -135,7 +135,7 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${state
 <div className="pt-4 font-bold w-[90%] lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.timeLine}</div>
 </div>
 <input type="button" value={item.follow?"follow":"unfollow"} 
-className={`border-2 rounded-lg text-sm h-12 px-2 font-bold relative top-0 md:top-5 right-[20%] md:right-[4%] lg:right-4 bg-white cursor-pointer 
+className={`border-2 rounded-lg text-sm h-12 px-2 font-bold relative top-0 md:top-5 right-[25%] md:right-[4%] lg:right-4 bg-white cursor-pointer 
 ${item.follow?"border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white":"border-red-500 text-red-500 hover:bg-red-500 hover:text-white"}`}/>
 </div>
    </div>)})}
