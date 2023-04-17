@@ -14,9 +14,9 @@ const Profil:NextPage = () => {
   const {login} =  useRecoilValue(loginAtom)
   useLoginCheck(login)
     return(<LayOut login={login}>
-      <main className="flex flex-col lg:flex-row mx-14 my-10">
+      <main className="flex flex-col lg:flex-row mx-8 md:mx-10 my-10">
        <nav className="border-b-2 lg:border-r-2 lg:border-b-transparent border-gray-300 w-full lg:w-[32%] h-max pr-5">
-       <div className={`bg-gray-200 pt-7 lg:pt-0 w-[110%] md:w-full lg:w-[95%] ${state.profilState?"h-52 lg:h-80 ":"pt-10 h-60 lg:h-[25rem]"} flex justify-center lg:flex-col rounded-xl px-2 relative shadow-xl`}>
+       <div className={`bg-gray-200 pt-7 lg:pt-0 w-[120%] md:w-full lg:w-[95%] ${state.profilState?"h-52 lg:h-80 ":"pt-10 h-60 lg:h-[25rem]"} flex justify-center lg:flex-col rounded-xl px-2 relative shadow-xl`}>
        <div className="h-[35%] mt-4 lg:mt-0">
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
         strokeWidth={1.5} stroke="currentColor" 
