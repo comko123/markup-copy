@@ -132,7 +132,7 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${state
 <div className="border-l-4 border-gray-400 pl-5 flex w-full justify-between relative">
 <div className=" pt-3 max-w-xs w-[70%]">
 <div className="font-bold w-max lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.name}</div>
-<div className="pt-4 font-bold w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.timeLine}</div>
+<div className="pt-4 font-bold w-[90%] lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.timeLine}</div>
 </div>
 <input type="button" value={item.follow?"follow":"unfollow"} 
 className={`border-2 rounded-lg text-sm h-12 px-2 font-bold relative top-5 right-[6%] md:right-[4%] lg:right-4 bg-white cursor-pointer 
