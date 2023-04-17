@@ -105,7 +105,7 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${state
         </div>
         </div>
     <form onSubmit={e=>e.preventDefault()} className="relative">
-        <input type="text" className="w-[90%] shadow-lg p-2 font-bold bg-gray-100 mt-5 lg:ml-9 rounded-lg outline-none"/>
+        <input type="text" className="w-full lg:w-[90%] shadow-lg p-2 font-bold bg-gray-100 mt-5 lg:ml-9 rounded-lg outline-none"/>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} 
         stroke="currentColor" className="w-6 h-6 absolute top-6 right-[8%] mt-1">
   <path strokeLinecap="round" strokeLinejoin="round" 
