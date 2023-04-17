@@ -16,7 +16,7 @@ const Profil:NextPage = () => {
     return(<LayOut login={login}>
       <main className="flex flex-col lg:flex-row mx-8 md:mx-10 my-10">
        <nav className="border-b-2 lg:border-r-2 lg:border-b-transparent border-gray-300 w-full lg:w-[32%] h-max lg:pr-5">
-       <div className={`bg-gray-200 pt-7 lg:pt-0 w-full lg:w-[95%] ${state.profilState?"h-52 lg:h-80 ":"pt-10 h-60 lg:h-[25rem]"} flex justify-center lg:flex-col rounded-xl px-2 relative shadow-xl`}>
+       <div className={`bg-gray-100 pt-7 lg:pt-0 w-full lg:w-[95%] ${state.profilState?"h-52 lg:h-80 ":"pt-10 h-60 lg:h-[25rem]"} flex justify-center lg:flex-col rounded-xl px-2 relative shadow-xl`}>
        <div className="h-[35%] mt-4 lg:mt-0">
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
         strokeWidth={1.5} stroke="currentColor" 
@@ -107,7 +107,7 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${state
     <form onSubmit={e=>e.preventDefault()} className="relative">
         <input type="text" className="w-full lg:w-[90%] shadow-lg p-2 font-bold bg-gray-100 mt-5 lg:ml-9 rounded-lg outline-none"/>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} 
-        stroke="currentColor" className="w-6 h-6 absolute top-6 right-[8%] mt-1">
+        stroke="currentColor" className="w-6 h-6 absolute top-6 right-[3%] lg:right-[8%] mt-1">
   <path strokeLinecap="round" strokeLinejoin="round" 
   d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
 </svg>
@@ -115,10 +115,10 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${state
    
 {
   state.follower?
-  <div className="max-h-[60vh] overflow-auto mt-5 scrollbar-hide">
+  <div className="lg:max-h-[60vh] overflow-auto mt-5 scrollbar-hide [&>*:nth-child(even)]:my-5">
   {Array(5).fill({avatar:"",name:"follower",
    timeLine:"Hi, i'm Devops engineer follower.",follow:true}).map((item,index)=>{return(
-   <div key={index} className="my-5 lg:ml-9 bg-gray-100 rounded-xl flex h-32 w-[99%] lg:w-[90%] p-4 shadow-lg">
+   <div key={index} className=" lg:my-5 lg:ml-9 bg-gray-100 rounded-xl flex h-32 w-[99%] lg:w-[90%] p-4 shadow-lg">
        <div className="flex items-center justify-center">{item.avatar?
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
        className="w-16 lg:w-20 aspect-square p-1 bg-white rounded-full mr-4">
@@ -130,12 +130,12 @@ className={`w-6 h-6 bg-white border-2 border-black rounded-full absolute ${state
 </svg>
 }</div>
 <div className="border-l-4 border-gray-400 pl-5 flex w-full justify-between relative">
-<div className=" pt-3 max-w-xs">
-<div className="font-bold w-[70%] lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.name}</div>
-<div className="pt-4 font-bold w-[70%] lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.timeLine}</div>
+<div className=" pt-3 max-w-xs w-[70%]">
+<div className="font-bold w-max lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.name}</div>
+<div className="pt-4 font-bold w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.timeLine}</div>
 </div>
 <input type="button" value={item.follow?"follow":"unfollow"} 
-className={`border-2 rounded-lg text-sm h-12 px-2 font-bold relative top-5 right-4 bg-white cursor-pointer 
+className={`border-2 rounded-lg text-sm h-12 px-2 font-bold relative top-5 right-[6%] md:right-[4%] lg:right-4 bg-white cursor-pointer 
 ${item.follow?"border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white":"border-red-500 text-red-500 hover:bg-red-500 hover:text-white"}`}/>
 </div>
    </div>)})}
