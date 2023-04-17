@@ -8,8 +8,8 @@ const ErrorPage:NextPage = () => {
     const {replace} = useRouter()
     const {login} = useRecoilValue(loginAtom)
     return(<LayOut login={login}>
-<div className="w-full h-full flex">
-<main className=" bg-blue-100 mx-auto border-2 border-blue-500 p-5 rounded-2xl h-full w-[80%] lg:w-[40%] my-10 flex flex-col">
+<main className="w-full h-full flex">
+<div className=" bg-blue-100 mx-auto border-2 border-blue-500 p-5 rounded-2xl h-full w-[80%] lg:w-[40%] my-10 flex flex-col">
             <div className="text-[2rem] text-red-600 font-bold text-center">&#8251;ERROR&#8251;</div>
             <div className="grid gap-16">
             <div className="grid grid-cols-1 gap-10">
@@ -25,9 +25,9 @@ const ErrorPage:NextPage = () => {
             <button onClick={()=>replace('/')}
             className="bg-blue-500 p-2 rounded-lg text-white font-bold hover:bg-blue-400">home</button>
             </div>
-            </main>
+            </div>
 
-</div>
+</main>
     </LayOut>)
 }
 export default ErrorPage

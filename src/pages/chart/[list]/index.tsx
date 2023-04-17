@@ -52,7 +52,7 @@ return<LayOut login={login}>
         <section>
 
         {Object.keys(value).map(item => {return(
-          <motion.details key={item} initial={{scaleY:0}} animate={{scaleY:1}} transition={{duration:0.3}}
+          <motion.details key={item} initial={{scaleY:0}} animate={{scaleY:1}} transition={{duration:0.5}}
        className="bg-blue-100 w-full my-6 py-3 px-5 open:bg-red-100 outline-none rounded-xl shadow-lg ease-in-out">
             <summary className="p-3 flex justify-between outline-none">
           <div>{item}</div>
