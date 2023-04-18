@@ -16,7 +16,7 @@ const Follower = (item:{[key:string]:string}) => {
           <div className="pt-4 font-bold w-[90%] lg:w-full overflow-hidden text-ellipsis whitespace-nowrap">{item?.timeLine}</div>
         </div>
         <input type="button" value={item?.follow ? "follow" : "unfollow"}
-          className={`border-2 rounded-lg text-xs lg:text-sm h-12 px-2 font-bold bg-white cursor-pointer 
+          className={`border-2 rounded-lg text-xs lg:text-sm h-12 px-2 font-bold bg-white cursor-pointer my-auto
 ${item?.follow ? "border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white" : "border-red-500 text-red-500 hover:bg-red-500 hover:text-white"}`} />
       </div>
     </div>

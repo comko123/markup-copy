@@ -130,8 +130,6 @@ const Profil: NextPage = () => {
                 return (<Follower {...item} key={index}/>)
               })}
             </div>
-
-
         }
       </aside>
     </main>
