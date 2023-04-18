@@ -1,4 +1,4 @@
-const Follower = (item:{[key:string]:string}) => {
+const Follower = (item:sampleCase["issuLog"]) => {
     return( <div className=" lg:my-5 lg:ml-9 bg-gray-100 rounded-xl flex h-32 w-[99%] lg:w-[90%] p-4 shadow-lg">
     <div className="flex items-center justify-center">{item?.avatar ?
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
