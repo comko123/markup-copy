@@ -1,6 +1,5 @@
 import { Draggable } from "@hello-pangea/dnd"
 import { memo } from "react"
-
 const DragList = ({item,index}:dragListProps) => {
 
 return(<Draggable draggableId={item.id} index={index}>

@@ -43,7 +43,7 @@ const Home:NextPage = () => {
 
        <section className="flex mt-2 xl:mt-5 flex-col w-full xl:flex-row xl:[&>*:nth-child(even)]:mx-5 xl:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
          {Object.keys(dialog).map(itemList=>{return(
-<div  key={itemList}
+<div key={itemList}
    className=" p-3 shadow-xl border-2 border-gray-300 rounded-lg w-full flex flex-col">
 <div className="bg-blue-500 text-center py-2 text-white rounded-md">{itemList} ({dialog[itemList].length})</div>
          <div className="scrollbar-hide my-2 lg:my-0 overflow-auto h-[30vh] md:h-[45vh] max-h-[48vh]">
