@@ -11,7 +11,6 @@ import { useRecoilValue } from "recoil"
 const AddToListPopUp:NextPage<popupProps> = ({setState, refrence:{itemList,title}}) => {
   const searchList = useRecoilValue(popupList({itemList,title}))
   const ctgList = useRecoilValue(ctgAtom)
-  // console.log({searchList})
 const [startDate,fineDate] = searchList.date.split("~")
 const [popupState,setPopupState] = useState<popupState>(
   {mainCtg:searchList.category.main,
