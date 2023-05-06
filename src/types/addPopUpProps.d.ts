@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 
 interface popupProps{
     setState : Dispatch<SetStateAction<boolean>>,
-    refrence:toDoState
+    refrence:Record<keyof toDoState,string>
 }
 interface popupState {
     mainCtg:string,

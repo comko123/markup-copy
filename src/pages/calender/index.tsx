@@ -14,7 +14,7 @@ const Calender = () => {
   const [enabled, setEnabled] = useState(false)
   const [puState,setPuState] = useState(false)
   const  [state,setState] = useRecoilState(listAtom)
-  const [calenderInfo,setCalenderInfo] = useState<toDoState>({itemList:"",title:""})
+  const [calenderInfo,setCalenderInfo] = useState<Record<keyof toDoState,string>>({itemList:"",title:""})
   const {login} =  useRecoilValue(loginAtom)
 useLoginCheck(login)
   useEffect(() => {

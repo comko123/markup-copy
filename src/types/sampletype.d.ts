@@ -1,3 +1,3 @@
 interface sampleCase {
-    issuLog:{[key:string]:string[]} 
+    issuLog:Record<string,string[]>
 }

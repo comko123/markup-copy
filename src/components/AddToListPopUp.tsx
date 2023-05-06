@@ -1,6 +1,6 @@
 import { ctgAtom } from "@/atoms/ctgAtoms"
 import { popupList } from "@/atoms/listAtoms"
-import { popupIssueLog ,popUpSetting} from "@/sample_data_case/popUpLog"
+import { popUpSetting ,rangeCycle} from "@/sample_data_case/popUpLog"
 import { popupProps, popupState } from "@/types/addPopUpProps"
 import { popUpVariants } from "@/variants/popUpVariants"
 import { motion } from "framer-motion"
@@ -9,8 +9,9 @@ import { useState } from "react"
 import { useRecoilValue } from "recoil"
 
 const AddToListPopUp:NextPage<popupProps> = ({setState, refrence:{itemList,title}}) => {
-  const searchList = useRecoilValue(popupList({itemList,title}))[0]
-const ctgList = useRecoilValue(ctgAtom)
+  const searchList = useRecoilValue(popupList({itemList,title}))
+  const ctgList = useRecoilValue(ctgAtom)
+  // console.log({searchList})
 const [startDate,fineDate] = searchList.date.split("~")
 const [popupState,setPopupState] = useState<popupState>(
   {mainCtg:searchList.category.main,
@@ -59,7 +60,8 @@ className="fixed top-[12%] left-[5%] xl:top-[8%] xl:left-[20%] md:left-[12%] w-[
  <input type="button" value="&#43;"
     className="text-lg md:text-2xl text-center w-7 md:w-14 rounded-xl box-border shadow-md bg-blue-500 pb-1 text-white cursor-pointer hover:opacity-80"/>
  </div>
-</div>
+</div> 
+{/* po 필요 */}
 
 <div className="flex mt-2">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
@@ -76,13 +78,23 @@ className="w-3 md:w-7 aspect-square">
 <div className="ml-2 md:ml-5 border-2 border-blue-500 text-vxs sm:text-xs shadow-md flex items-center px-2 md:px-8 rounded-lg text-blue-500 min-w-max">{fineDate}</div>
 </div>
 
-<div className="grid grid-cols-3 gap-x-5 mt-2">
-  
-  {Object.keys(popupIssueLog).map(item=>{return(
-    <select key={item} className="outline-none shadow-md text-vxs sm:text-xs text-blue-500 border-2 border-blue-500 rounded-lg px-2 py-1">
-    {popupIssueLog[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
+<div className="flex mt-2 w-full">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
+className="w-7 aspect-square">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+</svg>
+
+ <div className="flex w-full [&>*]:w-[50%] [&>*]:mx-auto [&>*]:ml-2">
+ {Object.keys(rangeCycle({range:searchList.range ,cycle:searchList.cycle} satisfies Record<string,string|undefined>)).map(item=>{
+  return(
+    <select key={item} className="outline-none shadow-md text-vxs sm:text-xs text-blue-500 border-2 border-blue-500 rounded-xl px-2 py-1">
+    {rangeCycle({range:searchList.range,cycle:searchList.cycle})[item].map((index:any)=> <option key={index} 
+    className="text-center font-bold">{index}</option>)}
     </select>
   )})}
+ </div>
+
+
 </div>
 
 <div className="mt-3 flex">
@@ -112,13 +124,13 @@ className="w-7 aspect-square">
 
 <div className="flex">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
-className="w-7 aspect-square mt-3">
+className="w-6 lg:w-7 aspect-square mt-3">
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
 </svg>
 <div className="grid grid-cols-3 gap-x-2 md:gap-x-5 mt-3 ml-2">
-{Object.keys(popUpSetting({selsect:searchList.level,itemList})).map(item=>{return(
+{Object.keys(popUpSetting({selsect:searchList.level,itemList,reason:searchList.reason})).map(item=>{return(
     <select key={item} className="outline-none text-blue-500 text-vxs sm:text-xs shadow-md border-2 border-blue-500 rounded-lg md:px-2 md:py-1">
-    {popUpSetting({selsect:searchList.level,itemList})[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
+    {popUpSetting({selsect:searchList.level,itemList,reason:searchList.reason})[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
     </select>
   )})}
 </div>

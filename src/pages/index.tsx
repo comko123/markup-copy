@@ -19,7 +19,7 @@ const Home:NextPage = () => {
   const {login} =  useRecoilValue(loginAtom)
   const[state,setState] = useRecoilState(logAtom)
   const [puState,setPuState] = useState(false)
-  const [mainInfo,setMainInfo] = useState<toDoState>({itemList:"",title:""})
+  const [mainInfo,setMainInfo] = useState<Record<keyof toDoState,string>>({itemList:"",title:""})
   return (
      <LayOut login={login}>
       {login?

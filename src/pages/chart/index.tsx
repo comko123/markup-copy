@@ -16,7 +16,6 @@ const Chart = () => {
     const {login} =  useRecoilValue(loginAtom)
     const {push} = useRouter()
     useLoginCheck(login)
-    // console.log(window.innerWidth)
 return(<LayOut login={login}>
     <main className="my-10 pt-2">
 <div className="border-2 text-center mx-auto border-amber-900 w-[80%] p-1 rounded-xl font-bold shadow-xl">
@@ -32,7 +31,7 @@ series={[{ name: "월별 실패율",data:[10,0,5,15,40,0,0,0,5,35,0,0]},
 {name:"월별 성공률",data:[40,45,20,30,18,45,45,25,35,15,45,50]}]} 
 options={lineOptions}/></div>
 
-<div className='w-[80%] md:pr-7 xl:pr-0 mx-auto border-2 justify-between flex flex-col xl:flex-row border-gray-400 mt-5 rounded-xl shadow-xl'>
+<div className='w-[80%] md:pr-7 xl:pr-0 mx-auto border-2 2xl:justify-center justify-between flex flex-col xl:flex-row border-gray-400 mt-5 rounded-xl shadow-xl'>
     <div className="pr-6 lg:pr-0 text-xs lg:text-[1em] my-auto">
         <div className="flex justify-between border-b-2 border-gray-300 font-bold ml-6 [&>*]:my-2  [&>*]:w-max [&>*]:text-vsx [&>*]:md:text-sm">
             <div className="ml-2">10월 To Do List 요약</div>
@@ -128,7 +127,7 @@ onClick={()=>push(`/chart/feedback`)}>전체보기</button>
     </div>    
 <div className="relative">
 <span className="absolute top-2 left-2 lg:left-6 text-xs lg:text-lg">일별 성공율(주간)</span>   
-<div className="overflow-auto max-w-full">
+<div className="overflow-auto lg:overflow-hidden max-w-full">
      <div className="lg:w-full w-[150vw]">
      <ApexChart type='bar' height={300}
 series={ [{name:'일별 실패율',
