@@ -28,3 +28,4 @@ export const popupList = selectorFamily({
         }
     }
 })
+export type odd = ReturnType<typeof popupList>
