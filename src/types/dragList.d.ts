@@ -19,7 +19,11 @@ interface dragListProps {
         level:string,
         id:string,
         level:string,
-        date:string
+        date:string,
+        cycle?:string,
+        range?:string,
+        reason?:string,
+        // every?:boolean
     },
     index:number,
 }

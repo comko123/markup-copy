@@ -1,22 +1,18 @@
 import { ctgAtom } from "@/atoms/ctgAtoms"
 import { popupList } from "@/atoms/listAtoms"
 import { popUpSetting ,rangeCycle} from "@/sample_data_case/popUpLog"
-import { popupProps, popupState } from "@/types/addPopUpProps"
+import { popupProps } from "@/types/addPopUpProps"
 import { popUpVariants } from "@/variants/popUpVariants"
 import { motion } from "framer-motion"
 import { NextPage } from "next"
 import { useState } from "react"
 import { useRecoilValue } from "recoil"
+import PopUpCtg from "./PopUpCtg"
 
 const AddToListPopUp:NextPage<popupProps> = ({setState, refrence:{itemList,title}}) => {
   const searchList = useRecoilValue(popupList({itemList,title}))
-  const ctgList = useRecoilValue(ctgAtom)
-  // console.log({searchList})
 const [startDate,fineDate] = searchList.date.split("~")
-const [popupState,setPopupState] = useState<popupState>(
-  {mainCtg:searchList.category.main,
-   subCtg:searchList.category.sub,
-   titState:false})
+const [popupState,setPopupState] = useState(false)
 return(
 <motion.div variants={popUpVariants} initial="start" animate="display" exit="end" className="z-20">
 <motion.div onClick={()=>setState(state=>!state)}
@@ -36,32 +32,7 @@ className="fixed top-[12%] left-[5%] xl:top-[8%] xl:left-[20%] md:left-[12%] w-[
   className="outline-none rounded-lg bg-slate-200 p-3 w-full shadow-md"/>
   </div>
 
-<div className="flex">
-<div className="flex flex-col w-full">
-  <div className="flex empty:h-14 justify-center items-center">
-  {Object.keys(ctgList).map(mainC=><input type="button" key={mainC} onClick={()=>setPopupState(state=>{
-      if(state.mainCtg!==mainC){return {...state,mainCtg:mainC,subCtg:""}}else {return {...state,mainCtg:""}}})} 
-    className={`text-white ${popupState.mainCtg === mainC?"bg-blue-500":"bg-blue-300"} 
-    shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 hover:ring-offset-4 
-    cursor-pointer w-[20%] border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={mainC}/>)}
-  </div>
-
-  <div className="flex empty:h-14 justify-center items-center">
-  {ctgList[popupState.mainCtg]?.map(subC=><input type="button" key={subC} onClick={()=>setPopupState(state=>{
-      if(state.subCtg!==subC){return  {...state,subCtg:subC}}else {return {...state,subCtg:""}}})} 
-    className={`text-white ${popupState.subCtg === subC?"bg-blue-500":"bg-blue-300"} 
-    shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 
-    hover:ring-offset-4 cursor-pointer w-[20%] 
-    border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={subC}/>)}
-  </div>
-
- </div> 
- <div className="my-auto">
- <input type="button" value="&#43;"
-    className="text-lg md:text-2xl text-center w-7 md:w-14 rounded-xl box-border shadow-md bg-blue-500 pb-1 text-white cursor-pointer hover:opacity-80"/>
- </div>
-</div> 
-{/* po 필요 */}
+<PopUpCtg {...searchList}/>
 
 <div className="flex mt-2">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
@@ -130,14 +101,14 @@ className="w-6 lg:w-7 aspect-square mt-3">
 <div className="grid grid-cols-3 gap-x-2 md:gap-x-5 mt-3 ml-2">
 {Object.keys(popUpSetting({selsect:searchList.level,itemList,reason:searchList.reason})).map(item=>{return(
     <select key={item} className="outline-none text-blue-500 text-vxs sm:text-xs shadow-md border-2 border-blue-500 rounded-lg md:px-2 md:py-1">
-    {popUpSetting({selsect:searchList.level,itemList,reason:searchList.reason})[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
+    {popUpSetting({selsect:searchList.level ,itemList,reason:searchList.reason})[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
     </select>
   )})}
 </div>
 <div className="grid grid-cols-2 place-content-center mt-3 ml-2 md:ml-4">
 <input type="checkbox" className="w-4 md:w-5 shadow-md aspect-square" 
-onClick={()=>setPopupState(state=>{return{...state,titState:!state.titState}})}/> 
-<span className={`${popupState.titState?"text-blue-500":"text-black"} mt-[0.1rem]`}>매일</span></div>
+onClick={()=>setPopupState(state=>!state)}/> 
+<span className={`${popupState?"text-blue-500":"text-black"} mt-[0.1rem]`}>매일</span></div>
 </div>
 
 <div className="border-2 border-blue-500 rounded-lg p-2 text-center text-blue-500 shadow-md mt-3">피드백 추가</div>
