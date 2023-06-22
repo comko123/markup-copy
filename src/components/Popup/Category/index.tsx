@@ -1,7 +1,7 @@
 import { ctgAtom } from "@/atoms/ctgAtoms"
 import { memo, useState } from "react"
 import { useRecoilValue } from "recoil"
-const PopUpCtg = (searchList:any) => {
+const Category = (searchList:any) => {
     const ctgList = useRecoilValue(ctgAtom)
     const [popUpCtgState,setPopUpCtgState] = useState<Record<string,string>>(
         {mainCtg:searchList.category.main,
@@ -34,4 +34,4 @@ const PopUpCtg = (searchList:any) => {
 </div> 
     </>)
 }
-export default memo(PopUpCtg)
+export default memo(Category)

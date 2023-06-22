@@ -7,11 +7,11 @@ import { logAtom } from "@/atoms/logAtoms"
 import { heatmapData } from "@/sample_data_case/heatmapSample"
 import { logSample } from "@/sample_data_case/logSample"
 import {AnimatePresence , motion} from "framer-motion"
-import AddToListPopUp from "@/components/AddToListPopUp" 
 import { loginAtom } from "@/atoms/loginAtoms"
 import { heatmapOption } from "@/graph_options/heatmapOptions"
 import UnLoginMain from "@/components/UnLoginMain"
 import { mainInfoAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
+import Popup from "@/components/Popup/Main"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
@@ -39,7 +39,7 @@ const Home:NextPage = () => {
        </section>
    
           <AnimatePresence>
-            {puState?<AddToListPopUp/>:null}
+            {puState?<Popup/>:null}
           </AnimatePresence>
 
        <section className="flex mt-2 xl:mt-5 flex-col w-full xl:flex-row xl:[&>*:nth-child(even)]:mx-5 xl:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
