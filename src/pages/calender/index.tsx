@@ -2,19 +2,20 @@ import LayOut from "@/components/LayOut"
 import {  useEffect, useState } from "react"
 import { DragDropContext, Droppable, DropResult} from "@hello-pangea/dnd"
 import DragList from "@/components/DragList"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { listAtom } from "@/atoms/listAtoms"
 import { onDragEnd } from "@/utils/onDragEnd"
 import { AnimatePresence } from "framer-motion"
 import AddToListPopUp from "@/components/AddToListPopUp"
 import { loginAtom } from "@/atoms/loginAtoms"
 import { useLoginCheck } from "@/hooks/useLoginCheck"
+import { mainInfoAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
 
 const Calender = () => {
   const [enabled, setEnabled] = useState(false)
-  const [puState,setPuState] = useState(false)
+  const [puState,setPuState] = useRecoilState(openPopUpAtoms)
   const  [state,setState] = useRecoilState(listAtom)
-  const [calenderInfo,setCalenderInfo] = useState<Record<keyof toDoState,string>>({itemList:"",title:""})
+  const setCalenderInfo = useSetRecoilState(mainInfoAtoms)
   const {login} =  useRecoilValue(loginAtom)
 useLoginCheck(login)
   useEffect(() => {
@@ -45,7 +46,7 @@ return(<>{enabled?
         </section>
 
         <AnimatePresence>
-            {puState?<AddToListPopUp setState={setPuState} refrence={calenderInfo}/>:null}
+            {puState?<AddToListPopUp/>:null}
           </AnimatePresence>
 
         <section className="flex mt-2 xl:mt-5 flex-col w-full xl:flex-row xl:[&>*:nth-child(even)]:mx-5 xl:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">

@@ -12,7 +12,7 @@ import { useEffect, useState } from "react"
 const AddToListPopUp:NextPage = () => {
 const [{itemList,title},setMainInfo] = useRecoilState(mainInfoAtoms)
 const searchList = useRecoilValue(popupList({itemList,title}))
-console.log({searchList})
+console.log(searchList)
 const popUpValue = popUpSetting({select:searchList.level,itemList,reason:searchList.reason})
 const setRecoilState = useSetRecoilState(listAtom)
 const closePopUp = useSetRecoilState(openPopUpAtoms)
@@ -40,7 +40,7 @@ useEffect(()=>{
 },[process])
 
 useEffect(()=>{
-if(popUpModify){
+if(popUpModify && searchList.title){
   setRecoilState(state=>{
     const index = state[itemList].findIndex(item=>item===searchList)
     const copy = [...state[itemList]]
@@ -141,7 +141,6 @@ className="w-6 lg:w-7 aspect-square mt-3">
     <select key={item} onChange={e=>{
      if(item==="progress") {
       setProcess(e.target.value)
-      // setPopUpModify({...searchList})
     }
       else if(item==="level"){ 
         setPopUpModify((state:any)=>{return{...state,level:e.target.value}})}
