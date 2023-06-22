@@ -1,5 +1,5 @@
 interface state {[key:string]:{
-    category:{[key:string]:string},
+    category:{[key:string]:string|undefined},
     title:string,
     level:string,
     id:string,
@@ -8,7 +8,10 @@ interface state {[key:string]:{
     cycle?:string,
     range?:string,
     reason?:string,
-    // every?:boolean
+    friends?:string[],
+    location?:string[]
+    feedback?:string[]
+    note?:string[]
 }[]}
 
 
@@ -23,7 +26,10 @@ interface dragListProps {
         cycle?:string,
         range?:string,
         reason?:string,
-        // every?:boolean
+        friends?:string[],
+        location?:string[]
+        feedback?:string[]
+        note?:string[]
     },
     index:number,
 }

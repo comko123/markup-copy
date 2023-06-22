@@ -1,12 +1,9 @@
 import { ctgAtom } from "@/atoms/ctgAtoms"
 import { memo, useState } from "react"
 import { useRecoilValue } from "recoil"
-//dragListProps["item"]
 const PopUpCtg = (searchList:any) => {
-    // console.log({searchList:searchList.category.main})
     const ctgList = useRecoilValue(ctgAtom)
     const [popUpCtgState,setPopUpCtgState] = useState<Record<string,string>>(
-        //Record<string,string|undefind>
         {mainCtg:searchList.category.main,
          subCtg:searchList.category.sub})
     return(<>
@@ -22,7 +19,7 @@ const PopUpCtg = (searchList:any) => {
 
   <div className="flex empty:h-14 justify-center items-center">
   {ctgList[popUpCtgState.mainCtg]?.map(subC=><input type="button" key={subC} onClick={()=>setPopUpCtgState(state=>{
-      if(state.subCtg!==subC){return  {...state,subCtg:subC}}else {return {...state,subCtg:""}}})} 
+      if(state.subCtg!==subC){return {...state,subCtg:subC}}else {return {...state,subCtg:""}}})} 
     className={`text-white ${popUpCtgState.subCtg === subC?"bg-blue-500":"bg-blue-300"} 
     shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 
     hover:ring-offset-4 cursor-pointer w-[20%] 

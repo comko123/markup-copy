@@ -1,8 +1,7 @@
 import LayOut from "@/components/LayOut"
 import dynamic from "next/dynamic"
-import { useState } from "react"
 import { NextPage } from "next"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { listAtom } from "@/atoms/listAtoms"
 import { logAtom } from "@/atoms/logAtoms"
 import { heatmapData } from "@/sample_data_case/heatmapSample"
@@ -12,14 +11,15 @@ import AddToListPopUp from "@/components/AddToListPopUp"
 import { loginAtom } from "@/atoms/loginAtoms"
 import { heatmapOption } from "@/graph_options/heatmapOptions"
 import UnLoginMain from "@/components/UnLoginMain"
+import { mainInfoAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
   const dialog = useRecoilValue(listAtom)
   const {login} =  useRecoilValue(loginAtom)
   const[state,setState] = useRecoilState(logAtom)
-  const [puState,setPuState] = useState(false)
-  const [mainInfo,setMainInfo] = useState<Record<keyof toDoState,string>>({itemList:"",title:""})
+  const [puState,setPuState] = useRecoilState(openPopUpAtoms)
+  const setMainInfo = useSetRecoilState(mainInfoAtoms)
   return (
      <LayOut login={login}>
       {login?
@@ -39,7 +39,7 @@ const Home:NextPage = () => {
        </section>
    
           <AnimatePresence>
-            {puState?<AddToListPopUp setState={setPuState} refrence={mainInfo}/>:null}
+            {puState?<AddToListPopUp/>:null}
           </AnimatePresence>
 
        <section className="flex mt-2 xl:mt-5 flex-col w-full xl:flex-row xl:[&>*:nth-child(even)]:mx-5 xl:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">

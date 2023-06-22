@@ -1,27 +1,65 @@
-import { ctgAtom } from "@/atoms/ctgAtoms"
-import { popupList } from "@/atoms/listAtoms"
+/*eslint-disable*/
+import { listAtom, popupList } from "@/atoms/listAtoms"
 import { popUpSetting ,rangeCycle} from "@/sample_data_case/popUpLog"
-import { popupProps } from "@/types/addPopUpProps"
 import { popUpVariants } from "@/variants/popUpVariants"
 import { motion } from "framer-motion"
 import { NextPage } from "next"
-import { useState } from "react"
-import { useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import PopUpCtg from "./PopUpCtg"
+import { mainInfoAtoms, modifyAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
+import { useEffect, useState } from "react"
 
-const AddToListPopUp:NextPage<popupProps> = ({setState, refrence:{itemList,title}}) => {
-  const searchList = useRecoilValue(popupList({itemList,title}))
+const AddToListPopUp:NextPage = () => {
+const [{itemList,title},setMainInfo] = useRecoilState(mainInfoAtoms)
+const searchList = useRecoilValue(popupList({itemList,title}))
+console.log({searchList})
+const popUpValue = popUpSetting({select:searchList.level,itemList,reason:searchList.reason})
+const setRecoilState = useSetRecoilState(listAtom)
+const closePopUp = useSetRecoilState(openPopUpAtoms)
+const [popUpModify,setPopUpModify] = useRecoilState(modifyAtoms)
 const [startDate,fineDate] = searchList.date.split("~")
-const [popupState,setPopupState] = useState(false)
+const [process,setProcess] = useState("")
+useEffect(()=>{
+  setPopUpModify({...searchList})
+  return()=>{setPopUpModify(null)}
+},[])
+
+useEffect(()=>{
+ if(popUpModify && process){
+  if(process!==itemList){
+    setRecoilState(state=>{
+      const index = state[itemList].findIndex(item=>item===searchList)
+      const del = [...state[itemList]],add=[...state[process]]
+      del.splice(index,1)
+      add.splice(0,0,popUpModify)
+      return {...state,[itemList]:del,[process]:add}
+    })
+    setMainInfo(state=>{return{...state,itemList:process}})
+  }
+ }
+},[process])
+
+useEffect(()=>{
+if(popUpModify){
+  setRecoilState(state=>{
+    const index = state[itemList].findIndex(item=>item===searchList)
+    const copy = [...state[itemList]]
+    copy.splice(index,1)
+    copy.splice(index,0,popUpModify)
+    return {...state,[itemList]:copy}
+  })
+}
+},[popUpModify])
+
 return(
 <motion.div variants={popUpVariants} initial="start" animate="display" exit="end" className="z-20">
-<motion.div onClick={()=>setState(state=>!state)}
+<motion.div onClick={()=>closePopUp(state=>!state)}
 className="bg-gray-900 w-full h-full fixed top-0 left-0 opacity-50 font-bold"/>
 <motion.div
 className="fixed top-[12%] left-[5%] xl:top-[8%] xl:left-[20%] md:left-[12%] w-[90%] md:w-[78%] xl:w-[60%] h-[75%] xl:h-[85%] bg-white rounded-xl pb-5 overflow-auto scrollbar-hide">
 <header className="bg-gray-300  h-[4em] md:h-[5em] rounded-t-xl flex justify-end px-3 pt-3 w-full">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
- className="w-6 h-6 md:w-10 md:h-10 hover:text-red-500" onClick = {()=>setState(state=>!state)}>
+ className="w-6 h-6 md:w-10 md:h-10 hover:text-red-500" onClick = {()=>closePopUp(state=>!state)}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
 </svg></header>
 
@@ -39,14 +77,14 @@ className="fixed top-[12%] left-[5%] xl:top-[8%] xl:left-[20%] md:left-[12%] w-[
 className="w-7 aspect-square">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>
-<div className="ml-2 md:ml-5 border-2 border-blue-500 text-vxs sm:text-xs shadow-md flex items-center px-2 md:px-8 rounded-lg text-blue-500 min-w-max">{startDate}</div>
+<div className="ml-2 border-2 border-blue-500 text-vxs sm:text-xs shadow-md flex items-center px-2 md:px-8 rounded-xl text-blue-500 min-w-max">{startDate}</div>
 <span className="ml-3 flex items-center">
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 
 className="w-3 md:w-7 aspect-square">
   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
 </svg>
 </span>
-<div className="ml-2 md:ml-5 border-2 border-blue-500 text-vxs sm:text-xs shadow-md flex items-center px-2 md:px-8 rounded-lg text-blue-500 min-w-max">{fineDate}</div>
+<div className="ml-2 md:ml-5 border-2 border-blue-500 text-vxs sm:text-xs shadow-md flex items-center px-2 md:px-8 rounded-xl text-blue-500 min-w-max">{fineDate}</div>
 </div>
 
 <div className="flex mt-2 w-full">
@@ -99,16 +137,22 @@ className="w-6 lg:w-7 aspect-square mt-3">
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
 </svg>
 <div className="grid grid-cols-3 gap-x-2 md:gap-x-5 mt-3 ml-2">
-{Object.keys(popUpSetting({selsect:searchList.level,itemList,reason:searchList.reason})).map(item=>{return(
-    <select key={item} className="outline-none text-blue-500 text-vxs sm:text-xs shadow-md border-2 border-blue-500 rounded-lg md:px-2 md:py-1">
-    {popUpSetting({selsect:searchList.level ,itemList,reason:searchList.reason})[item].map(index=> <option key={index} className="text-center font-bold">{index}</option>)}
+{Object.keys(popUpValue).map(item=>{return(
+    <select key={item} onChange={e=>{
+     if(item==="progress") {
+      setProcess(e.target.value)
+      // setPopUpModify({...searchList})
+    }
+      else if(item==="level"){ 
+        setPopUpModify((state:any)=>{return{...state,level:e.target.value}})}
+      else {
+        setPopUpModify((state:any)=>{return{...state,reason:e.target.value}})}
+    }}
+     className="outline-none text-blue-500 text-vxs sm:text-xs shadow-md border-2 border-blue-500 rounded-lg md:px-2 md:py-1">
+    {popUpValue[item].map(index=><option key={index} className="text-center font-bold">{index}</option>)}
     </select>
   )})}
 </div>
-<div className="grid grid-cols-2 place-content-center mt-3 ml-2 md:ml-4">
-<input type="checkbox" className="w-4 md:w-5 shadow-md aspect-square" 
-onClick={()=>setPopupState(state=>!state)}/> 
-<span className={`${popupState?"text-blue-500":"text-black"} mt-[0.1rem]`}>매일</span></div>
 </div>
 
 <div className="border-2 border-blue-500 rounded-lg p-2 text-center text-blue-500 shadow-md mt-3">피드백 추가</div>
@@ -118,3 +162,5 @@ onClick={()=>setPopupState(state=>!state)}/>
 </motion.div>)
 }
 export default AddToListPopUp
+
+//중복 key문제 해결하기
