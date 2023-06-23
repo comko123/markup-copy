@@ -1,5 +1,4 @@
 import { loginAtom } from "@/atoms/loginAtoms"
-import LayOut from "@/components/LayOut"
 import { useLoginCheck } from "@/hooks/useLoginCheck"
 import dynamic from "next/dynamic"
 import { useRecoilValue } from "recoil"
@@ -9,6 +8,7 @@ import { donutOptions } from "@/graph_options/donutOptions"
 import { barOptions } from "@/graph_options/barOptions"
 import { rangeBarOptions } from "@/graph_options/rangeBarOptions"
 import { useRouter } from "next/router"
+import Layout from "@/components/Layout/Main"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Chart = () => {
@@ -16,7 +16,7 @@ const Chart = () => {
     const {login} =  useRecoilValue(loginAtom)
     const {push} = useRouter()
     useLoginCheck(login)
-return(<LayOut login={login}>
+return(<Layout login={login}>
     <main className="my-10 pt-2">
 <div className="border-2 text-center mx-auto border-amber-900 w-[80%] p-1 rounded-xl font-bold shadow-xl">
 <select className="outline-none bg-white text-sm lg:text-md">
@@ -138,6 +138,6 @@ options={rangeBarOptions} />
         </div></div>
 </div></div>
 </main>
-</LayOut>)
+</Layout>)
 }
 export default Chart

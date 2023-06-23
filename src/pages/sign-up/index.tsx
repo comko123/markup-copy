@@ -1,5 +1,5 @@
 import { loginAtom } from "@/atoms/loginAtoms";
-import LayOut from "@/components/LayOut";
+import Layout from "@/components/Layout/Main";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 const SignUp:NextPage = () => {
     const setLoginState = useSetRecoilState(loginAtom)
     const {replace} = useRouter()
-    return(<LayOut>
+    return(<Layout>
         <main className="flex flex-col justify-center items-center h-[75vh] md:h-[125vh] lg:h-full my-8 mx-10 ">
    <div>
    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
@@ -31,6 +31,6 @@ className="bg-blue-100 p-3 mt-4 w-96 xl:w-[32%] h-[24rem] xl:h-[85%] border-4 fo
     )})}
     <input type="submit" value="Sign Up" className="bg-blue-500 text-white hover:opacity-70 p-2 rounded-lg w-[95%] mt-2 ml-3"/>
 </form>
-    </main></LayOut>)
+    </main></Layout>)
 }
 export default SignUp 

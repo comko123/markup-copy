@@ -1,29 +1,28 @@
 import { ctgAtom } from "@/atoms/ctgAtoms"
+import { modifyAtoms } from "@/atoms/modifyAtoms"
 import { memo, useState } from "react"
 import { useRecoilValue } from "recoil"
-//dragListProps["item"]
-const PopUpCtg = (searchList:any) => {
-    // console.log({searchList:searchList.category.main})
+const Category = () => {
     const ctgList = useRecoilValue(ctgAtom)
-    const [popUpCtgState,setPopUpCtgState] = useState<Record<string,string>>(
-        //Record<string,string|undefind>
-        {mainCtg:searchList.category.main,
-         subCtg:searchList.category.sub})
+    const defaultCtg = useRecoilValue(modifyAtoms)
+    const [popupCtgState,setPopupCtgState] = useState<Record<string,string>>(
+        {mainCtg:defaultCtg.category.main,
+         subCtg:defaultCtg.category.sub})
     return(<>
     <div className="flex">
 <div className="flex flex-col w-full">
   <div className="flex empty:h-14 justify-center items-center">
-  {Object.keys(ctgList).map(mainC=><input type="button" key={mainC} onClick={()=>setPopUpCtgState(state=>{
+  {Object.keys(ctgList).map(mainC=><input type="button" key={mainC} onClick={()=>setPopupCtgState(state=>{
       if(state.mainCtg!==mainC){return {...state,mainCtg:mainC,subCtg:""}}else {return {...state,mainCtg:""}}})} 
-    className={`text-white ${popUpCtgState.mainCtg === mainC?"bg-blue-500":"bg-blue-300"} 
+    className={`text-white ${popupCtgState.mainCtg === mainC?"bg-blue-500":"bg-blue-300"} 
     shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 hover:ring-offset-4 
     cursor-pointer w-[20%] border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={mainC}/>)}
   </div>
 
   <div className="flex empty:h-14 justify-center items-center">
-  {ctgList[popUpCtgState.mainCtg]?.map(subC=><input type="button" key={subC} onClick={()=>setPopUpCtgState(state=>{
-      if(state.subCtg!==subC){return  {...state,subCtg:subC}}else {return {...state,subCtg:""}}})} 
-    className={`text-white ${popUpCtgState.subCtg === subC?"bg-blue-500":"bg-blue-300"} 
+  {ctgList[popupCtgState.mainCtg]?.map(subC=><input type="button" key={subC} onClick={()=>setPopupCtgState(state=>{
+      if(state.subCtg!==subC){return {...state,subCtg:subC}}else {return {...state,subCtg:""}}})} 
+    className={`text-white ${popupCtgState.subCtg === subC?"bg-blue-500":"bg-blue-300"} 
     shadow-md text-vxs sm:text-xs hover:ring hover:ring-blue-500 
     hover:ring-offset-4 cursor-pointer w-[20%] 
     border-2 border-blue-500 py-1 md:p-2 rounded-xl m-2`} value={subC}/>)}
@@ -37,4 +36,4 @@ const PopUpCtg = (searchList:any) => {
 </div> 
     </>)
 }
-export default memo(PopUpCtg)
+export default memo(Category)

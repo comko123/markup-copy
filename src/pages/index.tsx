@@ -1,27 +1,27 @@
-import LayOut from "@/components/LayOut"
 import dynamic from "next/dynamic"
-import { useState } from "react"
 import { NextPage } from "next"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { listAtom } from "@/atoms/listAtoms"
 import { logAtom } from "@/atoms/logAtoms"
 import { heatmapData } from "@/sample_data_case/heatmapSample"
 import { logSample } from "@/sample_data_case/logSample"
 import {AnimatePresence , motion} from "framer-motion"
-import AddToListPopUp from "@/components/AddToListPopUp" 
 import { loginAtom } from "@/atoms/loginAtoms"
 import { heatmapOption } from "@/graph_options/heatmapOptions"
 import UnLoginMain from "@/components/UnLoginMain"
+import { mainInfoAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
+import Popup from "@/components/Popup/Main"
+import Layout from "@/components/Layout/Main"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
   const dialog = useRecoilValue(listAtom)
   const {login} =  useRecoilValue(loginAtom)
   const[state,setState] = useRecoilState(logAtom)
-  const [puState,setPuState] = useState(false)
-  const [mainInfo,setMainInfo] = useState<Record<keyof toDoState,string>>({itemList:"",title:""})
+  const [puState,setPuState] = useRecoilState(openPopUpAtoms)
+  const setMainInfo = useSetRecoilState(mainInfoAtoms)
   return (
-     <LayOut login={login}>
+     <Layout login={login}>
       {login?
        <main className="mx-8 md:mx-16 lg:mx-24 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
 
@@ -39,7 +39,7 @@ const Home:NextPage = () => {
        </section>
    
           <AnimatePresence>
-            {puState?<AddToListPopUp setState={setPuState} refrence={mainInfo}/>:null}
+            {puState?<Popup/>:null}
           </AnimatePresence>
 
        <section className="flex mt-2 xl:mt-5 flex-col w-full xl:flex-row xl:[&>*:nth-child(even)]:mx-5 xl:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
@@ -126,6 +126,6 @@ const Home:NextPage = () => {
       :
       <UnLoginMain/>
       }
-     </LayOut>
+     </Layout>
       )}
 export default Home

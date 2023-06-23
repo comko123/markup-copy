@@ -1,5 +1,5 @@
 import { loginAtom } from "@/atoms/loginAtoms"
-import LayOut from "@/components/LayOut"
+import Layout from "@/components/Layout/Main"
 import { NextPage } from "next"
 import { useRouter } from "next/router"
 import { useRecoilValue } from "recoil"
@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil"
 const ErrorPage:NextPage = () => {
     const {replace} = useRouter()
     const {login} = useRecoilValue(loginAtom)
-    return(<LayOut login={login}>
+    return(<Layout login={login}>
 <main className="w-full h-full flex">
 <div className=" bg-blue-100 mx-auto border-2 border-blue-500 p-5 rounded-2xl h-full w-[80%] lg:w-[40%] my-10 flex flex-col">
             <div className="text-[2rem] text-red-600 font-bold text-center">&#8251;ERROR&#8251;</div>
@@ -28,6 +28,6 @@ const ErrorPage:NextPage = () => {
             </div>
 
 </main>
-    </LayOut>)
+    </Layout>)
 }
 export default ErrorPage

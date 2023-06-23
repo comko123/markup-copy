@@ -1,20 +1,21 @@
-import LayOut from "@/components/LayOut"
 import {  useEffect, useState } from "react"
 import { DragDropContext, Droppable, DropResult} from "@hello-pangea/dnd"
 import DragList from "@/components/DragList"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { listAtom } from "@/atoms/listAtoms"
 import { onDragEnd } from "@/utils/onDragEnd"
 import { AnimatePresence } from "framer-motion"
-import AddToListPopUp from "@/components/AddToListPopUp"
 import { loginAtom } from "@/atoms/loginAtoms"
 import { useLoginCheck } from "@/hooks/useLoginCheck"
+import { mainInfoAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
+import Popup from "@/components/Popup/Main"
+import Layout from "@/components/Layout/Main"
 
 const Calender = () => {
   const [enabled, setEnabled] = useState(false)
-  const [puState,setPuState] = useState(false)
+  const [puState,setPuState] = useRecoilState(openPopUpAtoms)
   const  [state,setState] = useRecoilState(listAtom)
-  const [calenderInfo,setCalenderInfo] = useState<Record<keyof toDoState,string>>({itemList:"",title:""})
+  const setCalenderInfo = useSetRecoilState(mainInfoAtoms)
   const {login} =  useRecoilValue(loginAtom)
 useLoginCheck(login)
   useEffect(() => {
@@ -25,7 +26,7 @@ useLoginCheck(login)
   }, [])
 
 return(<>{enabled?
-  <LayOut login={login}>
+  <Layout login={login}>
     <main className="mx-8 md:mx-16 lg:mx-24 mt-8 mb-20 lg:my-8 text-xs lg:text-md font-bold grid grid-cols-1">
     <section className="flex -ml-1 md:ml-0" id="button_part">
        <div className="border-2 p-1 px-4 rounded-lg shadow-md border-gray-300 mx-1">2022.12.19~2022.12.25</div>
@@ -45,7 +46,7 @@ return(<>{enabled?
         </section>
 
         <AnimatePresence>
-            {puState?<AddToListPopUp setState={setPuState} refrence={calenderInfo}/>:null}
+            {puState?<Popup/>:null}
           </AnimatePresence>
 
         <section className="flex mt-2 xl:mt-5 flex-col w-full xl:flex-row xl:[&>*:nth-child(even)]:mx-5 xl:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
@@ -73,7 +74,7 @@ return(<>{enabled?
        </section>
 
     </main>
-</LayOut>
+</Layout>
   :null}</>)
 }
 export default Calender
