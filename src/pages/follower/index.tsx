@@ -1,9 +1,9 @@
 import { loginAtom } from "@/atoms/loginAtoms"
 import Follower from "@/components/Follower"
-import LayOut from "@/components/LayOut"
-import ProfilButton from "@/components/ProfilButton"
-import ProfilIntroduction from "@/components/ProfilIntroduction"
-import ProfilPhoto from "@/components/ProfilPhoto"
+import Layout from "@/components/Layout/Main"
+import Button from "@/components/Profil/Button"
+import Introduction from "@/components/Profil/Introduction"
+import Photo from "@/components/Profil/Photo"
 import { useLoginCheck } from "@/hooks/useLoginCheck"
 import { userPhoto } from "@/sample_data_case/svgIcons"
 import { NextPage } from "next"
@@ -18,7 +18,7 @@ const Profil: NextPage = () => {
   const[profilState,setProfilState] = useState(true)
   const { login } = useRecoilValue(loginAtom)
   useLoginCheck(login)
-  return (<LayOut login={login}>
+  return (<Layout login={login}>
     <main className="flex flex-col lg:flex-row mx-6 md:mx-10 my-10">
       <nav className="border-b-2 lg:border-r-2 lg:border-b-transparent border-gray-300 w-full lg:w-[32%] h-max lg:pr-5">
         <div className={`bg-gray-100 pt-7 lg:pt-0 w-full lg:w-[95%] ${profilState ? "h-52 lg:h-80 " : "pt-10 h-60 lg:h-[25rem]"} flex justify-center lg:flex-col rounded-xl px-2 relative shadow-xl`}>
@@ -32,7 +32,7 @@ const Profil: NextPage = () => {
             { outside:userPhoto.fire.outside,
               inside:userPhoto.fire.inside,
               position:"w-6 relative left-[0.1rem] lg:left-[30%] -top-[3.48rem] border-2 border-black"}].map(item=>{return(
-              <ProfilPhoto key={item.position} {...item}/>
+              <Photo key={item.position} {...item}/>
               )})}
           </div>
 
@@ -41,7 +41,7 @@ const Profil: NextPage = () => {
               {profilState,icons:"check",text:"Hi, i'm Devops engineer"},
               {profilState,icons:"hart",text:"Hanshin Univ"},
               {profilState,icons:"port",text:"leejinlee.kr@gmail.com"}].map((item)=>{return(
-              <ProfilIntroduction key={item.text} {...item}/>)})}
+              <Introduction key={item.text} {...item}/>)})}
 
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" onClick={() => setProfilState(state => { return !state })}
               viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
@@ -61,7 +61,7 @@ const Profil: NextPage = () => {
         <div className="flex font-bold justify-between px-8 w-full text-lg lg:ml-9 border-b-2 border-gray-300 pb-3">
           {[{click:"Follower",expert:"Request",state,setState},
           {click:"Request",expert:"Follower",state,setState}].map(item=>{return(
-          <ProfilButton key={item.click} {...item}/>
+          <Button key={item.click} {...item}/>
           )})}
         </div>
         <form onSubmit={e => e.preventDefault()} className="relative">
@@ -92,6 +92,6 @@ const Profil: NextPage = () => {
         }
       </aside>
     </main>
-  </LayOut>)
+  </Layout>)
 }
 export default Profil

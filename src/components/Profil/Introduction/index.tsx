@@ -1,6 +1,6 @@
 import { profilIcons } from "@/sample_data_case/svgIcons"
 
-const ProfilIntroduction = ({profilState,icons,text}:profilIntroductionProps) => {
+const Introduction = ({profilState,icons,text}:profilIntroductionProps) => {
 return (<>
             {profilState ?
               <div className="flex mt-3 font-semibold ml-8 text-sm max-w-xl">
@@ -15,4 +15,4 @@ return (<>
 </>)
 }
 
-export default ProfilIntroduction
+export default Introduction

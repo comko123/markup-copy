@@ -3,7 +3,7 @@ import { popupList } from "@/atoms/listAtoms"
 import { rangeCycle} from "@/sample_data_case/popUpLog"
 import { popUpVariants } from "@/variants/popUpVariants"
 import { motion } from "framer-motion"
-import { useRecoilValue, useSetRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { mainInfoAtoms, modifyAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
 import { useEffect } from "react"
 import Category from "../Category"
@@ -13,12 +13,12 @@ const Popup = () => {
 const {itemList,title} = useRecoilValue(mainInfoAtoms)
 const searchList = useRecoilValue(popupList({itemList,title}))
 const closePopUp = useSetRecoilState(openPopUpAtoms)
-const setPopUpModify = useSetRecoilState(modifyAtoms)
+const [popupModify,setPopupModify] = useRecoilState(modifyAtoms)
 const [startDate,fineDate] = searchList.date.split("~")
 
 useEffect(()=>{
-  setPopUpModify({...searchList})
-  return()=>{setPopUpModify(null)}
+  setPopupModify({...searchList})
+  return()=>{setPopupModify(null)}
 },[])
 
 return(
@@ -40,7 +40,7 @@ className="fixed top-[12%] left-[5%] xl:top-[8%] xl:left-[20%] md:left-[12%] w-[
   className="outline-none rounded-lg bg-slate-200 p-3 w-full shadow-md"/>
   </div>
 
-<Category {...searchList}/>
+{popupModify?<Category />:null}
 
 <div className="flex mt-2">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" 

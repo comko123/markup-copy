@@ -1,14 +1,14 @@
 import { loginAtom } from "@/atoms/loginAtoms"
-import LayOut from "@/components/LayOut"
 import { useRecoilValue } from "recoil"
 import { motion } from "framer-motion"
 import { chartAtom } from "@/atoms/ctgAtoms"
+import Layout from "@/components/Layout/Main"
 
 const ChartList = () => {
     const {login} =  useRecoilValue(loginAtom)
     const value = useRecoilValue(chartAtom)
 
-return<LayOut login={login}>
+return<Layout login={login}>
         <main className="mx-16 lg:mx-28 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
         <section className="flex mb-2 md:mb-0" id="button_part">
         <select name ="week" className="[&>*]:font-bold border-2 rounded-lg shadow-md border-gray-300 p-1 px-2 mx-1 outline-none">
@@ -86,6 +86,6 @@ return<LayOut login={login}>
 
         </main>
         
-    </LayOut>
+    </Layout>
 }
 export default ChartList

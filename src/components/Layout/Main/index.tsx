@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { motion ,AnimatePresence} from "framer-motion"
 import { modalVariants } from "@/variants/modalVariants"
-const LayOut = ({children , login}:layout) => {
+const Layout = ({children , login}:layout) => {
   const {push , replace , pathname} = useRouter()
   const  setLoginState = useSetRecoilState(loginAtom)
   const [modalState,setModalState] = useState({
@@ -136,4 +136,4 @@ className={`w-[2.5rem] aspect-square lg:w-[4%] ${alertShowing?"text-white":"text
 </footer>:null}
 
 </>)}
-export default LayOut
+export default Layout

@@ -1,4 +1,3 @@
-import LayOut from "@/components/LayOut"
 import dynamic from "next/dynamic"
 import { NextPage } from "next"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
@@ -12,6 +11,7 @@ import { heatmapOption } from "@/graph_options/heatmapOptions"
 import UnLoginMain from "@/components/UnLoginMain"
 import { mainInfoAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
 import Popup from "@/components/Popup/Main"
+import Layout from "@/components/Layout/Main"
 const ApexChart = dynamic(() => import("react-apexcharts"),{ssr:false})
 
 const Home:NextPage = () => {
@@ -21,7 +21,7 @@ const Home:NextPage = () => {
   const [puState,setPuState] = useRecoilState(openPopUpAtoms)
   const setMainInfo = useSetRecoilState(mainInfoAtoms)
   return (
-     <LayOut login={login}>
+     <Layout login={login}>
       {login?
        <main className="mx-8 md:mx-16 lg:mx-24 mt-8 mb-20 lg:my-8 text-xs lg:text-xs font-bold grid grid-cols-1">
 
@@ -126,6 +126,6 @@ const Home:NextPage = () => {
       :
       <UnLoginMain/>
       }
-     </LayOut>
+     </Layout>
       )}
 export default Home
