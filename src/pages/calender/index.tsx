@@ -7,13 +7,13 @@ import { onDragEnd } from "@/utils/onDragEnd"
 import { AnimatePresence } from "framer-motion"
 import { loginAtom } from "@/atoms/loginAtoms"
 import { useLoginCheck } from "@/hooks/useLoginCheck"
-import { mainInfoAtoms, openPopUpAtoms } from "@/atoms/modifyAtoms"
+import { mainInfoAtoms } from "@/atoms/modifyAtoms"
 import Popup from "@/components/Popup/Main"
 import Layout from "@/components/Layout/Main"
 
 const Calender = () => {
   const [enabled, setEnabled] = useState(false)
-  const [puState,setPuState] = useRecoilState(openPopUpAtoms)
+  const [puState,setPuState] = useState(false)
   const  [state,setState] = useRecoilState(listAtom)
   const setCalenderInfo = useSetRecoilState(mainInfoAtoms)
   const {login} =  useRecoilValue(loginAtom)
@@ -46,7 +46,7 @@ return(<>{enabled?
         </section>
 
         <AnimatePresence>
-            {puState?<Popup/>:null}
+            {puState?<Popup setPuState={setPuState}/>:null}
           </AnimatePresence>
 
         <section className="flex mt-2 xl:mt-5 flex-col w-full xl:flex-row xl:[&>*:nth-child(even)]:mx-5 xl:[&>*:nth-child(even)]:my-0 [&>*:nth-child(even)]:my-5" id="list_prat">
