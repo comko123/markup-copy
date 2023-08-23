@@ -1,9 +1,15 @@
 import { ctgAtom } from "@/atoms/ctgAtoms"
 import { modifyAtoms } from "@/atoms/modifyAtoms"
-import { Dispatch, SetStateAction, memo, useState } from "react"
+import { Dispatch, RefObject, SetStateAction, memo, useState } from "react"
 import { useRecoilValue } from "recoil"
 import { motion } from "framer-motion"
-const Category = ({ setCtgModify }: { setCtgModify: Dispatch<SetStateAction<boolean>> }) => {
+const Category = ({
+  setCtgModify,
+  reft
+}: {
+  setCtgModify: Dispatch<SetStateAction<number>>
+  reft: RefObject<HTMLElement>
+}) => {
   const ctgList = useRecoilValue(ctgAtom)
   const defaultCtg = useRecoilValue(modifyAtoms)
   const [popupCtgState, setPopupCtgState] = useState<Record<string, string>>({
@@ -66,14 +72,18 @@ const Category = ({ setCtgModify }: { setCtgModify: Dispatch<SetStateAction<bool
         <form className="my-auto">
           <button
             type="submit"
-            onClick={() => setCtgModify(state => !state)}
+            onClick={() => {
+              setCtgModify(state => state + 100)
+              if (!reft.current) return
+              reft.current.style.transform = `translate(-58.5vw)`
+            }}
             className="text-lg md:text-2xl flex justify-center w-7 md:w-14 rounded-xl box-border shadow-md bg-blue-500 py-2 text-white cursor-pointer hover:opacity-80"
           >
             <motion.svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 outline-none"
+              className="w-6 h-6 outline-none inline"
               whileHover={{ rotate: 180 }}
             >
               <path
