@@ -10,5 +10,8 @@ export const popUpVariants ={
     },
     end:{
         opacity:0,
+        transition:{
+            duration:0.5
+        }
     }
 } 

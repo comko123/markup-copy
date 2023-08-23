@@ -10,8 +10,3 @@ export const mainInfoAtoms = atom<Record<keyof toDoState,string>>({
     key:`mainInfo${v1()}`,
     default:{itemList:"",title:""}
 })
-
-export const openPopUpAtoms = atom<boolean>({
-    key:`openPopUpAtoms${v1()}`,
-    default:false
-}) 
