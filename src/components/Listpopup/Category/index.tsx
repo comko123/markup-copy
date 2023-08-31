@@ -1,13 +1,13 @@
 import { ctgAtom } from "@/atoms/ctgAtoms"
 import { modifyAtoms } from "@/atoms/modifyAtoms"
-import { Dispatch, RefObject, SetStateAction, memo, useState } from "react"
+import { RefObject, memo, useState } from "react"
 import { useRecoilValue } from "recoil"
 import { motion } from "framer-motion"
 const Category = ({
-  setCtgModify,
+  // setCtgModify,
   reft
 }: {
-  setCtgModify: Dispatch<SetStateAction<number>>
+  // setCtgModify: Dispatch<SetStateAction<number>>
   reft: RefObject<HTMLElement>
 }) => {
   const ctgList = useRecoilValue(ctgAtom)
@@ -73,7 +73,6 @@ const Category = ({
           <button
             type="submit"
             onClick={() => {
-              setCtgModify(state => state + 100)
               if (!reft.current) return
               reft.current.style.transform = `translate(-58.5vw)`
             }}

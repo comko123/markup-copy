@@ -7,6 +7,7 @@ module.exports = {
       gridTemplateColumns:
       {
         'betch': '95% 45%',
+        'remix': '30% 70%'
       }
     }
   },
