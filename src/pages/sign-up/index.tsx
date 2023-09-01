@@ -1,5 +1,5 @@
 import { loginAtom } from "@/atoms/loginAtoms"
-import Layout from "@/components/Layout/Main"
+import Layout from "@/components/Layout/Page/Main"
 import { useNotReload } from "@/hooks/useNotReload"
 import { NextPage } from "next"
 import { useRouter } from "next/router"
