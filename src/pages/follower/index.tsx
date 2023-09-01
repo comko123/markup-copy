@@ -1,28 +1,30 @@
+import { followerAtoms } from "@/atoms/followerAtoms"
 import { loginAtom } from "@/atoms/loginAtoms"
 import Follower from "@/components/Follower"
 import UserParts from "@/components/Follower/Userparts"
 import Layout from "@/components/Layout/Page/Main"
+import Popuplayout from "@/components/Layout/Popup"
 import Button from "@/components/Profil/Button"
 import { useLoginCheck } from "@/hooks/useLoginCheck"
+import { useNotReload } from "@/hooks/useNotReload"
 import { AnimatePresence, motion } from "framer-motion"
 import { NextPage } from "next"
 import { useId, useState } from "react"
-import { useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 
 const Profil: NextPage = () => {
   const [state, setState] = useState({
     Follower: true,
     Request: false
   })
-  const { login } = useRecoilValue(loginAtom)
   const id = useId()
+  const { login } = useRecoilValue(loginAtom)
+  const [popup, setPopup] = useRecoilState(followerAtoms)
   useLoginCheck(login)
   // 반응형 및 레이아웃 수정 필요
-  // 프로필 수정상태일 때만 새로고침 문구 보여주기 구현
-  // 팝업 해결하기
   return (
     <Layout login={login}>
-      <main className="grid grid-cols-1 lg:grid-cols-remix mx-6 md:mx-10 my-10 w-[95%] h-max">
+      <main className={`grid grid-cols-1 lg:grid-cols-remix mx-6  md:mx-10 my-10 w-[95%] h-max`}>
         <UserParts />
 
         <aside className=" pt-3 w-full h-max">
@@ -84,6 +86,7 @@ const Profil: NextPage = () => {
             )}
           </AnimatePresence>
         </aside>
+        {popup ? null : <Popuplayout setPuState={setPopup}>123</Popuplayout>}
       </main>
     </Layout>
   )

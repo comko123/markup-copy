@@ -10,6 +10,7 @@ const Popuplayout = ({
   setPuState: Dispatch<SetStateAction<boolean>>
 }) => {
   useNotReload()
+  //팝업 열려있을때만 새로고침시 comfirm하는걸로 구현 (팝업열었다가 닫아도 comfirn발생)
   return (
     <>
       <motion.div
