@@ -3,12 +3,11 @@ import Introduction from "@/components/Profil/Introduction"
 import { useSetRecoilState } from "recoil"
 import { followerAtoms } from "@/atoms/followerAtoms"
 const UserParts = () => {
-  //반응형및 레이아웃 수정 필요
   const [profilState, setProfilState] = useState(false)
   const setPopup = useSetRecoilState(followerAtoms)
   return (
     <>
-      <nav className="sticky top-24 border-b-2 lg:border-r-2 lg:border-b-transparent border-gray-300 w-full h-[100vh] lg:pr-5">
+      <nav className="lg:sticky lg:top-24 border-b-2 lg:border-r-2 lg:border-b-transparent border-gray-300 w-full h-72 lg:h-[100vh] lg:pr-5">
         <div
           className={`bg-gray-100 pt-7 lg:pt-0 w-full lg:w-[95%] h-52 lg:h-96 flex justify-center lg:flex-col rounded-xl px-2 relative shadow-xl`}
         >
@@ -116,7 +115,7 @@ const UserParts = () => {
           </div>
         </div>
 
-        <div className="font-bold text-center w-full  my-7">
+        <div className="font-bold text-center w-full my-4 lg:my-7">
           <button className="shadow-lg border-2 border-blue-500 text-blue-500 p-2 rounded-xl hover:bg-blue-500 hover:text-white">
             회원 탈퇴
           </button>

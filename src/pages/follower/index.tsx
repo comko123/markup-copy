@@ -21,10 +21,9 @@ const Profil: NextPage = () => {
   const { login } = useRecoilValue(loginAtom)
   const [popup, setPopup] = useRecoilState(followerAtoms)
   useLoginCheck(login)
-  // 반응형 및 레이아웃 수정 필요
   return (
     <Layout login={login}>
-      <main className={`grid grid-cols-1 lg:grid-cols-remix mx-6  md:mx-10 my-10 w-[95%] h-max`}>
+      <main className="grid grid-cols-1 lg:grid-cols-remix mx-auto md:mx-5 my-10 w-[95%] h-max">
         <UserParts />
 
         <aside className=" pt-3 w-full h-max">
